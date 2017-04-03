@@ -1,19 +1,22 @@
 
 import {bootstrap} from '@angular/platform-browser-dynamic';
 import {Component} from '@angular/core';
+import * as fs from 'fs';
 
 import {remote, ipcRenderer} from 'electron';
 
 let {dialog} = remote;
 
 @Component({
-    selector: 'myapp',
-    template: '<h1>Angular 2 app inside a desktop app</h1>'
+    selector: 'my-app',
+    templateUrl: './app.html',
+    styleUrls: ['./app.css']
 })
 
 export class AppComponent {
-    
+    //https://github.com/rajayogan/angular2-desktop
     constructor() {
+
         var menu = remote.Menu.buildFromTemplate([{
             label: 'Raja',
             submenu: [
