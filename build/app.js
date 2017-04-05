@@ -16,6 +16,8 @@ webpackJsonp([1,2],[
 	var core_1 = __webpack_require__(284);
 	var docwriter_service_1 = __webpack_require__(585);
 	var config_bar_component_1 = __webpack_require__(721);
+	var format_bar_component_1 = __webpack_require__(724);
+	var content_enter_component_1 = __webpack_require__(725);
 	var electron_1 = __webpack_require__(720);
 	var dialog = electron_1.remote.dialog;
 	var AppComponent = (function () {
@@ -2064,7 +2066,7 @@ webpackJsonp([1,2],[
 	            templateUrl: './app.html',
 	            styleUrls: ['./app.css'],
 	            providers: [docwriter_service_1.DocwriterService],
-	            directives: [config_bar_component_1.ConfigBar]
+	            directives: [config_bar_component_1.ConfigBar, format_bar_component_1.FormatBar, content_enter_component_1.ContentEnter]
 	        }), 
 	        __metadata('design:paramtypes', [docwriter_service_1.DocwriterService])
 	    ], AppComponent);
@@ -66624,6 +66626,2550 @@ webpackJsonp([1,2],[
 	    return FontsService;
 	}());
 	exports.FontsService = FontsService;
+
+
+/***/ },
+/* 724 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(284);
+	var fonts_service_1 = __webpack_require__(723);
+	var FormatBar = (function () {
+	    function FormatBar(fontsService) {
+	        this.fontsService = fontsService;
+	        this.bold = false;
+	        this.italic = false;
+	        this.underline = false;
+	    }
+	    FormatBar.prototype.setBold = function () {
+	        this.bold = !this.bold;
+	    };
+	    FormatBar.prototype.setItalic = function () {
+	        this.italic = !this.italic;
+	    };
+	    FormatBar.prototype.setUnderline = function () {
+	        this.underline = !this.underline;
+	    };
+	    FormatBar.prototype.isBold = function () {
+	    };
+	    FormatBar.prototype.isItalic = function () {
+	    };
+	    FormatBar.prototype.isUnderlined = function () {
+	    };
+	    FormatBar = __decorate([
+	        core_1.Component({
+	            selector: 'format-bar',
+	            providers: [fonts_service_1.FontsService],
+	            templateUrl: './format-bar/format-bar.component.html',
+	            styleUrls: ['./format-bar/format-bar.component.css']
+	        }), 
+	        __metadata('design:paramtypes', [fonts_service_1.FontsService])
+	    ], FormatBar);
+	    return FormatBar;
+	}());
+	exports.FormatBar = FormatBar;
+
+
+/***/ },
+/* 725 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(284);
+	var write_button_component_1 = __webpack_require__(726);
+	var ContentEnter = (function () {
+	    function ContentEnter() {
+	        this.titleFieldObj = {
+	            name: "",
+	            value: ""
+	        };
+	        this.formatSectionObj = {
+	            bold: false,
+	            underline: false,
+	            italicize: false,
+	            fontSize: 12,
+	            font: "Times New Roman",
+	            content: ""
+	        };
+	        this.paragraphObj = {
+	            alignment: "left",
+	            spacing: 2,
+	            topIndent: 1,
+	            bottomIndent: 0,
+	            formatSections: []
+	        };
+	        this.sectionObj = {
+	            sectionLevel: 1,
+	            onOwnPage: false,
+	            includeLabel: true,
+	            label: {
+	                labelText: "",
+	                font: "Times New Roman",
+	                fontSize: 12,
+	                bold: true,
+	                underline: false,
+	                italicize: false
+	            },
+	            paragraphs: []
+	        };
+	        this.referenceFieldObj = {
+	            name: "",
+	            value: "",
+	            bold: false,
+	            underline: false,
+	            italicize: false,
+	            inQuotes: false,
+	            inParens: false
+	        };
+	        this.quotationObj = {
+	            content: "",
+	            block: false
+	        };
+	        this.referenceObj = {
+	            keyData: "Title",
+	            fields: [],
+	            inText: "",
+	            quotations: []
+	        };
+	        this.contentObj = {
+	            titleFields: [],
+	            summaryLabel: {
+	                labelText: "",
+	                font: "Times New Roman",
+	                fontSize: 12,
+	                bold: true,
+	                underline: false,
+	                italicize: false
+	            },
+	            summaryParagraphs: [],
+	            bodySections: [],
+	            conclusionLabel: {
+	                labelText: "",
+	                font: "Times New Roman",
+	                fontSize: 12,
+	                bold: true,
+	                underline: false,
+	                italicize: false
+	            },
+	            conclusionParagraphs: [],
+	            references: []
+	        };
+	    }
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], ContentEnter.prototype, "configOptions", void 0);
+	    ContentEnter = __decorate([
+	        core_1.Component({
+	            selector: 'content-enter',
+	            templateUrl: './content-enter/content-enter.component.html',
+	            styleUrls: ['./content-enter/content-enter.component.css'],
+	            directives: [write_button_component_1.WriteButton]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], ContentEnter);
+	    return ContentEnter;
+	}());
+	exports.ContentEnter = ContentEnter;
+
+
+/***/ },
+/* 726 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(284);
+	var docwriter_service_1 = __webpack_require__(585);
+	var WriteButton = (function () {
+	    function WriteButton(docwriterService) {
+	        this.docwriterService = docwriterService;
+	        this.optionsOpen = false;
+	        this.headerObj = {
+	            applyTo: "",
+	            leftType: "",
+	            rightType: "",
+	            left: "",
+	            right: ""
+	        };
+	        this.titleFieldObj = {
+	            name: "",
+	            value: ""
+	        };
+	        this.paraObj = {
+	            alignment: "",
+	            spacing: 0,
+	            topIndent: 0,
+	            bottomIndent: 0,
+	            formatSections: []
+	        };
+	        this.formatSectObj = {
+	            bold: false,
+	            underline: false,
+	            italicize: false,
+	            fontSize: 12,
+	            font: "Times New Roman",
+	            content: ""
+	        };
+	        this.sectionObj = {
+	            sectionLevel: 0,
+	            onOwnPage: false,
+	            includeLabel: false,
+	            label: {
+	                labelText: "",
+	                font: "Times New Roman",
+	                fontSize: 12,
+	                bold: false,
+	                underline: false,
+	                italicize: false,
+	                alignment: "",
+	                position: ""
+	            },
+	            paragraphs: []
+	        };
+	        this.citationObj = {
+	            keyData: "",
+	            fields: [],
+	            inText: "",
+	            quotations: []
+	        };
+	        this.citationFieldObj = {
+	            name: "",
+	            value: "",
+	            bold: false,
+	            underline: false,
+	            italicize: false,
+	            inQuotes: false,
+	            inParens: false
+	        };
+	        this.quotationObj = {
+	            content: "",
+	            block: false
+	        };
+	        this.paperObj = {
+	            title: "",
+	            author: "",
+	            headers: {
+	                includeHeaders: false,
+	                diffFirstPage: false,
+	                font: "Times New Roman",
+	                fontSize: 12,
+	                headers: []
+	            },
+	            titleInfo: {
+	                onOwnPage: false,
+	                alignment: "",
+	                font: "Times New Roman",
+	                fontSize: 12,
+	                bold: false,
+	                underline: false,
+	                italicize: false,
+	                fields: []
+	            },
+	            summaryAbstract: {
+	                onOwnPage: false,
+	                includeLabel: false,
+	                label: {
+	                    labelText: "",
+	                    font: "Times New Roman",
+	                    fontSize: 12,
+	                    bold: false,
+	                    underline: false,
+	                    italicize: false,
+	                    alignment: "",
+	                    position: ""
+	                },
+	                paragraphs: []
+	            },
+	            body: {
+	                sections: []
+	            },
+	            conclusion: {
+	                onOwnPage: false,
+	                includeLabel: false,
+	                label: {
+	                    labelText: "",
+	                    font: "Times New Roman",
+	                    fontSize: 12,
+	                    bold: false,
+	                    underline: false,
+	                    italicize: false,
+	                    alignment: "",
+	                    position: ""
+	                },
+	                paragraphs: []
+	            },
+	            references: {
+	                onOwnPage: false,
+	                includeLabel: false,
+	                alignment: "",
+	                topIndent: 0,
+	                bottomIndent: 0,
+	                fontSize: 12,
+	                font: "Times New Roman",
+	                spacing: 0,
+	                label: {
+	                    labelText: "",
+	                    font: "Times New Roman",
+	                    fontSize: 12,
+	                    bold: false,
+	                    underline: false,
+	                    italicize: false,
+	                    alignment: "",
+	                    position: ""
+	                },
+	                citations: []
+	            }
+	        };
+	        this.samplePaperObj = {
+	            title: "My Paper",
+	            author: "Jared Beagley",
+	            headers: {
+	                includeHeaders: true,
+	                diffFirstPage: true,
+	                font: "Times New Roman",
+	                fontSize: 12,
+	                headers: [
+	                    {
+	                        applyTo: "firstPage",
+	                        leftType: "text",
+	                        rightType: "pageNumber",
+	                        left: "Running head: MY PAPER"
+	                    },
+	                    {
+	                        applyTo: "default",
+	                        leftType: "text",
+	                        rightType: "pageNumber",
+	                        left: "MY PAPER"
+	                    }
+	                ]
+	            },
+	            titleInfo: {
+	                onOwnPage: true,
+	                alignment: "center",
+	                font: "Times New Roman",
+	                fontSize: 12,
+	                bold: false,
+	                underline: false,
+	                italicize: false,
+	                fields: [
+	                    {
+	                        name: "Title",
+	                        value: "My Paper"
+	                    },
+	                    {
+	                        name: "Author",
+	                        value: "Jared Beagley"
+	                    },
+	                    {
+	                        name: "Course",
+	                        value: "CS 124"
+	                    }
+	                ]
+	            },
+	            summaryAbstract: {
+	                onOwnPage: true,
+	                includeLabel: true,
+	                label: {
+	                    labelText: "Summary",
+	                    font: "Times New Roman",
+	                    fontSize: 12,
+	                    bold: true,
+	                    underline: false,
+	                    italicize: false,
+	                    alignment: "center",
+	                    position: "lineBefore"
+	                },
+	                paragraphs: [
+	                    {
+	                        alignment: "left",
+	                        spacing: 2,
+	                        topIndent: 1,
+	                        bottomIndent: 0,
+	                        formatSections: [
+	                            {
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                fontSize: 12,
+	                                font: "Times New Roman",
+	                                content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                            },
+	                            {
+	                                bold: true,
+	                                underline: false,
+	                                italicize: false,
+	                                fontSize: 12,
+	                                font: "Times New Roman",
+	                                content: "do not like teaching"
+	                            },
+	                            {
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                fontSize: 12,
+	                                font: "Times New Roman",
+	                                content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        alignment: "left",
+	                        spacing: 2,
+	                        topIndent: 1,
+	                        bottomIndent: 0,
+	                        formatSections: [
+	                            {
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                fontSize: 12,
+	                                font: "Times New Roman",
+	                                content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                            }
+	                        ]
+	                    }
+	                ]
+	            },
+	            body: {
+	                sections: [
+	                    {
+	                        sectionLevel: 1,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Section 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "center",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: true,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "center",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: true,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 2,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "right",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: true,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 2,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsection 2",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 2",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 1,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Section 2",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "center",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 2,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 2,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsection 2",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 2",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 1,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Section 3",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "center",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 2,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 2,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsection 2",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "lineBefore"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 1",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        sectionLevel: 3,
+	                        onOwnPage: false,
+	                        includeLabel: true,
+	                        label: {
+	                            labelText: "Subsubsection 2",
+	                            font: "Times New Roman",
+	                            fontSize: 12,
+	                            bold: true,
+	                            underline: false,
+	                            italicize: false,
+	                            alignment: "left",
+	                            position: "inline"
+	                        },
+	                        paragraphs: [
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                alignment: "left",
+	                                spacing: 2,
+	                                topIndent: 1,
+	                                bottomIndent: 0,
+	                                formatSections: [
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: "do not like teaching"
+	                                    },
+	                                    {
+	                                        bold: false,
+	                                        underline: false,
+	                                        italicize: false,
+	                                        fontSize: 12,
+	                                        font: "Times New Roman",
+	                                        content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    }
+	                ]
+	            },
+	            conclusion: {
+	                onOwnPage: true,
+	                includeLabel: true,
+	                label: {
+	                    labelText: "Conclusion",
+	                    font: "Times New Roman",
+	                    fontSize: 12,
+	                    bold: true,
+	                    underline: false,
+	                    italicize: false,
+	                    alignment: "center",
+	                    position: "lineBefore"
+	                },
+	                paragraphs: [
+	                    {
+	                        alignment: "left",
+	                        spacing: 2,
+	                        topIndent: 1,
+	                        bottomIndent: 0,
+	                        formatSections: [
+	                            {
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                fontSize: 12,
+	                                font: "Times New Roman",
+	                                content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally "
+	                            },
+	                            {
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                fontSize: 12,
+	                                font: "Times New Roman",
+	                                content: "do not like teaching"
+	                            },
+	                            {
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                fontSize: 12,
+	                                font: "Times New Roman",
+	                                content: " or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        alignment: "left",
+	                        spacing: 2,
+	                        topIndent: 1,
+	                        bottomIndent: 0,
+	                        formatSections: [
+	                            {
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                fontSize: 12,
+	                                font: "Times New Roman",
+	                                content: "I do not plan on getting a Ph.D. at any point.  In the reading it says, 'Do not even think of applying for a Ph.D. if you have not tried research and/or teaching and found that you like at least one of those' (Harchol-Balter, 2014).  I personally do not like teaching or research and research is not exciting to me at all.  What I want to do to continue my education and training is to keep myself up to date on the latest technology through self-training and going to conferences whenever the opportunity arises.  In that sense, I will keep up to scratch with the people coming straight out of college with the new techniques and still gain experience in the work force.  If my company offers to send me to a graduate school, I might consider it, but I will be perfectly happy doing the work that my bachelor's degree will get me"
+	                            }
+	                        ]
+	                    }
+	                ]
+	            },
+	            references: {
+	                onOwnPage: true,
+	                includeLabel: true,
+	                alignment: "left",
+	                topIndent: 0,
+	                bottomIndent: 1,
+	                fontSize: 12,
+	                font: "Times New Roman",
+	                spacing: 2,
+	                label: {
+	                    labelText: "References",
+	                    font: "Times New Roman",
+	                    fontSize: 12,
+	                    bold: true,
+	                    underline: false,
+	                    italicize: false,
+	                    alignment: "center"
+	                },
+	                citations: [
+	                    {
+	                        keyData: "Title",
+	                        fields: [
+	                            {
+	                                name: "Author",
+	                                value: "Beagley, J. A.",
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                inQuotes: false,
+	                                inParens: false
+	                            },
+	                            {
+	                                name: "Title",
+	                                value: "My Awesome Book",
+	                                underline: false,
+	                                italicize: false,
+	                                inQuotes: true,
+	                                inParens: false
+	                            },
+	                            {
+	                                name: "Publication Date",
+	                                value: "2017",
+	                                underline: false,
+	                                italicize: false,
+	                                inQuotes: false,
+	                                inParens: true
+	                            }
+	                        ],
+	                        inText: "(Beagley, 2017)",
+	                        quotations: [
+	                            {
+	                                content: "I am awesome",
+	                                block: false
+	                            },
+	                            {
+	                                content: "I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome I am awesome",
+	                                block: true
+	                            }
+	                        ]
+	                    },
+	                    {
+	                        keyData: "Title",
+	                        fields: [
+	                            {
+	                                name: "Author",
+	                                value: "Beagley, N. P.",
+	                                bold: false,
+	                                underline: false,
+	                                italicize: false,
+	                                inQuotes: false,
+	                                inParens: false
+	                            },
+	                            {
+	                                name: "Title",
+	                                value: "My Awesomer Book",
+	                                underline: false,
+	                                italicize: false,
+	                                inQuotes: true,
+	                                inParens: false
+	                            },
+	                            {
+	                                name: "Publication Date",
+	                                value: "2018",
+	                                underline: false,
+	                                italicize: false,
+	                                inQuotes: false,
+	                                inParens: true
+	                            }
+	                        ],
+	                        inText: "(Beagley, 2018)",
+	                        quotations: [
+	                            {
+	                                content: "I am awesomest",
+	                                block: false
+	                            },
+	                            {
+	                                content: "I am awesome I am awesomest I am awesome I am awesome I am awesome I am awesome I am awesome I am awesomest I am awesome I am awesome I am awesome I am awesome I am awesome I am awesomest",
+	                                block: true
+	                            }
+	                        ]
+	                    }
+	                ]
+	            }
+	        };
+	    }
+	    WriteButton.prototype.showOptions = function () {
+	        this.optionsOpen = !this.optionsOpen;
+	    };
+	    WriteButton.prototype.hideOptions = function () {
+	        this.optionsOpen = false;
+	    };
+	    WriteButton.prototype.addSection = function () {
+	        this.optionsOpen = false;
+	    };
+	    WriteButton.prototype.addSubsection = function () {
+	        this.optionsOpen = false;
+	    };
+	    WriteButton.prototype.addSubsubsection = function () {
+	        this.optionsOpen = false;
+	    };
+	    WriteButton.prototype.writeIt = function () {
+	        this.optionsOpen = false;
+	        this.parseConfig();
+	        this.parseContent();
+	        this.docwriterService.writeDocument(this.samplePaperObj);
+	    };
+	    WriteButton.prototype.parseConfig = function () {
+	        this.paperObj.title = this.configOptions.paperTitle;
+	        this.paperObj.headers.includeHeaders = this.configOptions.includeHeader;
+	        if (this.configOptions.includeHeader) {
+	            this.paperObj.headers.diffFirstPage = this.configOptions.headerDifferentFirstPage;
+	            this.paperObj.headers.font = this.configOptions.headerFont;
+	            this.paperObj.headers.fontSize = this.configOptions.headerFontSize;
+	            if (this.configOptions.headerDifferentFirstPage) {
+	                var headerFirst = JSON.parse(JSON.stringify(this.headerObj));
+	                if (this.configOptions.headerMoreDifferent) {
+	                    if (this.configOptions.headerFirstLeft == 'headerFirstLeftPaperTitle' || this.configOptions.headerFirstLeft == 'headerFirstLeftOtherText') {
+	                        headerFirst.applyTo = 'firstPage';
+	                        headerFirst.leftType = 'text';
+	                        headerFirst.left = this.configOptions.headerUseRunningHead
+	                            ? 'Running head: ' + this.configOptions.headerFirstLeftInput
+	                            : this.configOptions.headerFirstLeftInput;
+	                    }
+	                    else if (this.configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') {
+	                        headerFirst.applyTo = 'firstPage';
+	                        headerFirst.leftType = 'pageNumber';
+	                    }
+	                    else {
+	                        headerFirst.applyTo = 'firstPage';
+	                        headerFirst.leftType = 'none';
+	                    }
+	                    if (this.configOptions.headerFirstRight == 'headerFirstRightPaperTitle' || this.configOptions.headerFirstRight == 'headerFirstRightOtherText') {
+	                        headerFirst.rightType = 'text';
+	                        headerFirst.right = this.configOptions.headerFirstRightInput;
+	                    }
+	                    else if (this.configOptions.headerFirstRight == 'headerFirstRightPageNumber') {
+	                        headerFirst.rightType = 'pageNumber';
+	                    }
+	                    else {
+	                        headerFirst.rightType = 'none';
+	                    }
+	                }
+	                else {
+	                    if (this.configOptions.headerLeft == 'headerLeftPaperTitle' || this.configOptions.headerLeft == 'headerLeftOtherText') {
+	                        headerFirst.applyTo = 'firstPage';
+	                        headerFirst.leftType = 'text';
+	                        headerFirst.left = this.configOptions.headerUseRunningHead
+	                            ? 'Running head: ' + this.configOptions.headerLeftInput
+	                            : this.configOptions.headerLeftInput;
+	                    }
+	                    else if (this.configOptions.headerLeft == 'headerLeftPageNumber') {
+	                        headerFirst.applyTo = 'firstPage';
+	                        headerFirst.leftType = 'pageNumber';
+	                    }
+	                    else {
+	                        headerFirst.applyTo = 'firstPage';
+	                        headerFirst.leftType = 'none';
+	                    }
+	                    if (this.configOptions.headerRight == 'headerRightPaperTitle' || this.configOptions.headerRight == 'headerRightOtherText') {
+	                        headerFirst.rightType = 'text';
+	                        headerFirst.right = this.configOptions.headerRightInput;
+	                    }
+	                    else if (this.configOptions.headerRight == 'headerRightPageNumber') {
+	                        headerFirst.rightType = 'pageNumber';
+	                    }
+	                    else {
+	                        headerFirst.rightType = 'none';
+	                    }
+	                }
+	                this.paperObj.headers.headers.push(headerFirst);
+	            }
+	            var headerMain = JSON.parse(JSON.stringify(this.headerObj));
+	            ;
+	            if (this.configOptions.headerLeft == 'headerLeftPaperTitle' || this.configOptions.headerLeft == 'headerLeftOtherText') {
+	                headerMain.applyTo = 'default';
+	                headerMain.leftType = 'text';
+	                headerMain.left = this.configOptions.headerLeftInput;
+	            }
+	            else if (this.configOptions.headerLeft == 'headerLeftPageNumber') {
+	                headerMain.applyTo = 'default';
+	                headerMain.leftType = 'pageNumber';
+	            }
+	            else {
+	                headerMain.applyTo = 'default';
+	                headerMain.leftType = 'none';
+	            }
+	            if (this.configOptions.headerRight == 'headerRightPaperTitle' || this.configOptions.headerRight == 'headerRightOtherText') {
+	                headerMain.rightType = 'text';
+	                headerMain.right = this.configOptions.headerRightInput;
+	            }
+	            else if (this.configOptions.headerRight == 'headerRightPageNumber') {
+	                headerMain.rightType = 'pageNumber';
+	            }
+	            else {
+	                headerMain.rightType = 'none';
+	            }
+	            this.paperObj.headers.headers.push(headerMain);
+	        }
+	        if (this.configOptions.includeTitle) {
+	            this.paperObj.titleInfo.onOwnPage = this.configOptions.titleInfoPos == 'titleInfoSeparatePage';
+	            var titleAlign = '';
+	            if (this.configOptions.titleInfoAlign == 'titleInfoAlignLeft') {
+	                titleAlign = 'left';
+	            }
+	            else if (this.configOptions.titleInfoAlign == 'titleInfoAlignCenter') {
+	                titleAlign = 'center';
+	            }
+	            else if (this.configOptions.titleInfoAlign == 'titleInfoAlignRight') {
+	                titleAlign = 'right';
+	            }
+	            this.paperObj.titleInfo.alignment = titleAlign;
+	            this.paperObj.titleInfo.font = this.configOptions.titleInfoFont;
+	            this.paperObj.titleInfo.fontSize = this.configOptions.titleInfoFontSize;
+	        }
+	        if (this.configOptions.includeSummaryAbstract) {
+	            this.paperObj.summaryAbstract.onOwnPage = this.configOptions.summaryOwnPage;
+	            if (this.configOptions.summaryIncludeSectionLabel) {
+	                this.paperObj.summaryAbstract.includeLabel = true;
+	            }
+	        }
+	        if (this.configOptions.includeConclusion) {
+	            this.paperObj.conclusion.onOwnPage = this.configOptions.conclusionOwnPage;
+	            if (this.configOptions.conclusionIncludeLabel) {
+	                this.paperObj.conclusion.includeLabel = true;
+	            }
+	        }
+	        if (this.configOptions.includeReferencesWorksCited) {
+	            this.paperObj.references.onOwnPage = this.configOptions.referencesOwnPage;
+	            this.paperObj.references.font = this.configOptions.referencesFont;
+	            this.paperObj.references.fontSize = this.configOptions.referencesFontSize;
+	            var spacing = 2;
+	            if (this.configOptions.spacing == 'singleSpace') {
+	                spacing = 1;
+	            }
+	            else if (this.configOptions.spacing == 'oneAndHalfSpace') {
+	                spacing = 1.5;
+	            }
+	            else if (this.configOptions.spacing == 'doubleSpace') {
+	                spacing = 2;
+	            }
+	            this.paperObj.references.spacing = spacing;
+	            if (this.configOptions.referencesIncludeLabel) {
+	                this.paperObj.references.includeLabel = true;
+	                this.paperObj.references.label.labelText = this.configOptions.referencesLabelInput;
+	                this.paperObj.references.label.font = this.configOptions.referencesFont;
+	                this.paperObj.references.label.fontSize = this.configOptions.referencesFontSize;
+	                var align = "";
+	                if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignLeft') {
+	                    align = "left";
+	                }
+	                else if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignCenter') {
+	                    align = "center";
+	                }
+	                else if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignRight') {
+	                    align = "right";
+	                }
+	                this.paperObj.references.label.alignment = align;
+	            }
+	        }
+	    };
+	    WriteButton.prototype.parseContent = function () {
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], WriteButton.prototype, "configOptions", void 0);
+	    WriteButton = __decorate([
+	        core_1.Component({
+	            selector: 'write-button',
+	            providers: [docwriter_service_1.DocwriterService],
+	            templateUrl: './write-button/write-button.component.html',
+	            styleUrls: ['./write-button/write-button.component.css']
+	        }), 
+	        __metadata('design:paramtypes', [docwriter_service_1.DocwriterService])
+	    ], WriteButton);
+	    return WriteButton;
+	}());
+	exports.WriteButton = WriteButton;
 
 
 /***/ }

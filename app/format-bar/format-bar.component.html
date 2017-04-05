@@ -1,0 +1,27 @@
+<div class="topBar opened"></div>
+<div class="topBarOuter opened">
+    <!--<i class="material-icons">save</i>
+    <i class="material-icons">folder_open</i>
+    <i class="material-icons">settings</i>-->
+    <div class="formatButtons">
+        <i class="material-icons formatButton" [ngClass]="{'selected': bold}" (click)="setBold()">format_bold</i>
+        <i class="material-icons formatButton" [ngClass]="{'selected': italic}" (click)="setItalic()">format_italic</i>
+        <i class="material-icons formatButton" [ngClass]="{'selected': underline}" (click)="setUnderline()">format_underlined</i>
+    </div>
+    <div class="fontOptions">
+        <select class="fontSelect">
+            <option *ngFor="let option of fontsService.options">{{option}}</option>
+        </select>
+         <select class="fontSelect">
+            <option *ngFor="let size of fontsService.sizes">{{size}}</option>
+        </select>
+    </div>
+    <div class="moreFormatButtons">
+        <i class="material-icons formatButton">format_indent_increase</i>
+        <i class="material-icons formatButton">format_indent_decrease</i>        
+    </div>
+    <div class="quoteButton">
+        <i class="material-icons firstQuote">format_quote</i>
+        <i class="material-icons">format_quote</i>
+    </div>
+</div>

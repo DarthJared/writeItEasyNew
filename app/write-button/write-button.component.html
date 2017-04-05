@@ -1,0 +1,29 @@
+<div class="writeButton" (click)="showOptions()">
+    <i class="material-icons writeIcon">mode_edit</i>
+</div>
+<div class="writeShadow">
+</div>
+<div class="writeOptions" *ngIf="optionsOpen">
+    <div class="optionShadow" (click)="addSection()">
+        <div class="option">
+            Add Section
+        </div>
+    </div>
+    <div class="optionShadow" (click)="addSubsection()">
+        <div class="option">
+            Add Subsection
+        </div>
+    </div>
+    <div class="optionShadow" (click)="addSubsubsection()">
+        <div class="option">
+            Add Subsubsection
+        </div>
+    </div>
+    <div class="optionShadow" (click)="writeIt()">
+        <div class="option">
+            Generate Paper!
+        </div>
+    </div>
+</div>
+<div class="clickBackground" *ngIf="optionsOpen" (click)="hideOptions()">
+</div>
