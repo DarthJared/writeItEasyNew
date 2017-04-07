@@ -2,10 +2,11 @@
     <div class="innerWrap">
         <!--Title Page-->
         <div *ngIf="configOptions.includeTitle && configOptions.titleInfoPos === 'titleInfoSeparatePage'" class="paperBack">
-            <div [style.padding-left]="configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? 'calc(50% - 100px)' : configOptions.titleInfoAlign === 'titleInfoAlignLeft' ? null : 'calc(100% - 220px)'" class="titlePageWrap">
+            <div [style.padding-left]="configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? 'calc(50% - 100px)' : '10px'" class="titlePageWrap">
+                <!--configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? 'calc(50% - 100px)' : configOptions.titleInfoAlign === 'titleInfoAlignLeft' ? null : 'calc(100% - 220px)'-->
                 <ng-container *ngFor="let index of [0, 1, 2, 3, 4, 5]; let i = index">
                     <div *ngIf="configOptions.titleInfoIncludeClassIndex === i && configOptions.titleInfoIncludeClass" >
-                        <div class="titleLabelLabel">
+                        <div [style.padding-left]="configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? '100px' : '10px'" class="titleLabelLabel">
                             Class
                         </div>
                         <div class="titleInfoWrap">

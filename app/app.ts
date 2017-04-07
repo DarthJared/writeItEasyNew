@@ -4,6 +4,7 @@ import { DocwriterService } from "./services/docwriter.service";
 import { ConfigBar } from './config-bar/config-bar.component';
 import { FormatBar } from './format-bar/format-bar.component';
 import { ContentEnter } from './content-enter/content-enter.component';
+import { WriteButton } from './write-button/write-button.component';
 // import { AppModule } from './app.module';
 import * as fs from 'fs';
 
@@ -14,9 +15,18 @@ let {dialog} = remote;
 @Component({
     selector: 'my-app',
     templateUrl: './app.html',
-    styleUrls: ['./app.css'],
-    providers: [ DocwriterService ],
-    directives: [ ConfigBar, FormatBar, ContentEnter ]
+    styleUrls: [
+        './app.css'
+    ],
+    providers: [ 
+        DocwriterService 
+    ],
+    directives: [ 
+        ConfigBar, 
+        FormatBar, 
+        ContentEnter, 
+        WriteButton 
+    ]
 })
 
 export class AppComponent {
