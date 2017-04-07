@@ -66783,6 +66783,8 @@ webpackJsonp([1,2],[
 	            conclusionParagraphs: [],
 	            references: []
 	        };
+	        var starterObj = JSON.parse(JSON.stringify(this.sectionObj));
+	        this.contentObj.bodySections.push(starterObj);
 	    }
 	    ContentEnter.prototype.getOffset = function (property, value1, result1, value2, result2, value3, result3) {
 	        if (property === value1)

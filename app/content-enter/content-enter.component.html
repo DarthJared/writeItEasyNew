@@ -5,7 +5,7 @@
             <div [ngClass]="{'alignCenter': configOptions.titleInfoAlign === 'titleInfoAlignCenter', 'alignRight': configOptions.titleInfoAlign === 'titleInfoAlignRight'}" class="titlePageWrap">
                 <ng-container *ngFor="let index of [0, 1, 2, 3, 4, 5]; let i = index">
                     <div *ngIf="configOptions.titleInfoIncludeClassIndex === i && configOptions.titleInfoIncludeClass" >
-                        <div [style.padding-left]="configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? '100px' : '10px'" class="titleLabelLabel">
+                        <div class="titleLabelLabel">
                             Class
                         </div>
                         <div class="titleInfoWrap">
@@ -172,8 +172,31 @@
                     <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
                 </div>
             </ng-container>
+            <!--Body Sections-->
             <ng-container *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.summaryOwnPage">
-                <!--TODO: Add body sections-->
+                <ng-container *ngFor="let section of contentObj.bodySections; let index = index;">
+                    <div class="topLabelWrap">             
+                        <div class="labelLabel" *ngIf="configOptions.bodyIncludeSectionLabels">
+                            Section Label
+                        </div>
+                        <div class="firstLabelWrap" *ngIf="configOptions.bodyIncludeSectionLabels">
+                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div class="labelOptions">
+                                ...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contentLabel">
+                        Section
+                    </div>
+                    <div class="contentOptions" style="margin-right: -66px;">
+                        ...
+                    </div>
+                    <div class="contentEnterWrap">
+                        <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                    </div>
+                </ng-container>
+                <!--Conclusion-->
                 <ng-container *ngIf="configOptions.includeConclusion && !configOptions.conclusionOwnPage">
                     <div class="topLabelWrap">
                         <div class="labelLabel" *ngIf="configOptions.conclusionIncludeLabel">
@@ -200,11 +223,128 @@
         </div>
         <!--Body Pages-->
         <ng-container *ngIf="configOptions.bodyBetweenSections === 'bodyEachSectionOwnPage' && (!configOptions.includeTitle || configOptions.titleInfoPos === 'titleInfoSeparatePage' || configOptions.includeAbstractSummary)">
-            <!--TODO: Add page for each body section with possible title at beginning of first page-->            
+            <!--TODO: Add page for each body section with possible title at beginning of first page-->        
+            <div *ngFor="let section of contentObj.bodySections; let index = index;" class="paperBack">  
+                <ng-container *ngIf="configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage' && !configOptions.includeAbstractSummary && index === 0">
+                    <div [ngClass]="{'alignCenter': configOptions.titleInfoAlign === 'titleInfoAlignCenter', 'alignRight': configOptions.titleInfoAlign === 'titleInfoAlignRight'}" class="titlePageTopWrap">
+                        <ng-container *ngFor="let index of [0, 1, 2, 3, 4, 5]; let i = index">
+                            <div *ngIf="configOptions.titleInfoIncludeClassIndex === i && configOptions.titleInfoIncludeClass" >
+                                <div class="titleLabelLabel">
+                                    Class
+                                </div>
+                                <div class="titleInfoTopWrap">
+                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div class="labelOptions">
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="configOptions.titleInfoIncludeNameIndex === i  && configOptions.titleInfoIncludeName" >
+                                <div class="titleLabelLabel">
+                                    Name
+                                </div>
+                                <div class="titleInfoTopWrap">
+                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div class="labelOptions">
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="configOptions.titleInfoIncludeOtherTextIndex === i && configOptions.titleInfoIncludeOtherText" >
+                                <div class="titleLabelLabel">
+                                    Other
+                                </div>
+                                <div class="titleInfoTopWrap">
+                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div class="labelOptions">
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="configOptions.titleInfoIncludeProfessorIndex === i && configOptions.titleInfoIncludeProfessor" >
+                                <div class="titleLabelLabel">
+                                    Professor
+                                </div>
+                                <div class="titleInfoTopWrap">
+                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div class="labelOptions">
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="configOptions.titleInfoIncludeSchoolIndex === i && configOptions.titleInfoIncludeSchool" >
+                                <div class="titleLabelLabel">
+                                    School
+                                </div>
+                                <div class="titleInfoTopWrap">
+                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div class="labelOptions">
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="configOptions.titleInfoIncludeTitleIndex === i && configOptions.titleInfoIncludeTitle" >
+                                <div class="titleLabelLabel">
+                                    Title
+                                </div>
+                                <div class="titleInfoTopWrap">
+                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div class="labelOptions">
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>     
+                    <br />
+                    <br />           
+                </ng-container>
+                <div class="topLabelWrap">             
+                    <div class="labelLabel" *ngIf="configOptions.bodyIncludeSectionLabels">
+                        Section Label
+                    </div>
+                    <div class="firstLabelWrap" *ngIf="configOptions.bodyIncludeSectionLabels">
+                        <div contenteditable="true" class="labelEnter" id="editting"></div>
+                        <div class="labelOptions">
+                            ...
+                        </div>
+                    </div>
+                </div>
+                <div class="contentLabel">
+                    Section
+                </div>
+                <div class="contentOptions" style="margin-right: -66px;">
+                    ...
+                </div>
+                <div class="contentEnterWrap">
+                    <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                </div>
+            </div>
         </ng-container>
         <!--Body Page && Body and Conclusion Page-->
         <div *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && ((!configOptions.includeAbstractSummary && (!configOptions.includeTitle || configOptions.titleInfoPos === 'titleInfoSeparatePage')) || (configOptions.includeAbstractSummary && configOptions.summaryOwnPage))" class="paperBack">
-            <!--TODO: Add body sections-->
+            <ng-container *ngFor="let section of contentObj.bodySections; let index = index;">
+                <div class="topLabelWrap">             
+                    <div class="labelLabel" *ngIf="configOptions.bodyIncludeSectionLabels">
+                        Section Label
+                    </div>
+                    <div class="firstLabelWrap" *ngIf="configOptions.bodyIncludeSectionLabels">
+                        <div contenteditable="true" class="labelEnter" id="editting"></div>
+                        <div class="labelOptions">
+                            ...
+                        </div>
+                    </div>
+                </div>
+                <div class="contentLabel">
+                    Section
+                </div>
+                <div class="contentOptions" style="margin-right: -66px;">
+                    ...
+                </div>
+                <div class="contentEnterWrap">
+                    <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                </div>
+            </ng-container>
             <ng-container *ngIf="configOptions.includeConclusion && !configOptions.conclusionOwnPage">
                 <div class="topLabelWrap">
                     <div class="labelLabel" *ngIf="configOptions.conclusionIncludeLabel">
@@ -229,7 +369,7 @@
             </ng-container>
         </div>
         <!--Conclusion Page-->
-        <div *ngIf="configOptions.includeConclusion && configOptions.conclusionOwnPage" class="paperBack">
+        <div *ngIf="configOptions.includeConclusion && (configOptions.conclusionOwnPage || configOptions.bodyBetweenSections === 'bodyEachSectionOwnPage')" class="paperBack">
             <div class="labelLabel" *ngIf="configOptions.conclusionIncludeLabel">
                 Conclusion Label
             </div>

@@ -9,7 +9,11 @@ import { WriteButton } from "../write-button/write-button.component";
 })
 
 export class ContentEnter {
-  constructor() { }  
+  constructor() { 
+    let starterObj = JSON.parse(JSON.stringify(this.sectionObj));    
+    this.contentObj.bodySections.push(starterObj);
+    
+  }  
 
   @Input() configOptions;
   
