@@ -66489,10 +66489,126 @@ webpackJsonp([1,2],[
 	                            ]
 	                        },
 	                        {
-	                            name: 'bodyIncludeSectionLabels',
-	                            displayName: 'Section Labels',
-	                            optionName: 'Include Section Labels',
-	                            inputType: 'toggle'
+	                            name: 'bodyLabels',
+	                            displayName: 'Include Labels',
+	                            inputType: 'checkbox',
+	                            reorderable: false,
+	                            options: [
+	                                {
+	                                    name: 'bodyIncludeSectionLabels',
+	                                    title: 'Include Section Labels'
+	                                },
+	                                {
+	                                    name: 'bodyIncludeSubsectionLabels',
+	                                    title: 'Include Subsection Labels'
+	                                },
+	                                {
+	                                    name: 'bodyIncludeSubsubsectionLabels',
+	                                    title: 'Include Subsubsection Labels'
+	                                }
+	                            ]
+	                        },
+	                        {
+	                            name: 'bodySectionLabelPos',
+	                            displayName: 'Section Label Position',
+	                            inputType: 'radio',
+	                            options: [
+	                                {
+	                                    name: 'bodySectionLabelInline',
+	                                    title: 'Inline with the First Paragraph'
+	                                },
+	                                {
+	                                    name: 'bodySectionLabelOwnLine',
+	                                    title: 'On Line Before First Paragraph'
+	                                }
+	                            ]
+	                        },
+	                        {
+	                            name: 'bodySubsectionLabelPos',
+	                            displayName: 'Subsection Label Position',
+	                            inputType: 'radio',
+	                            options: [
+	                                {
+	                                    name: 'bodySubsectionLabelInline',
+	                                    title: 'Inline with the First Paragraph'
+	                                },
+	                                {
+	                                    name: 'bodySubsectionLabelOwnLine',
+	                                    title: 'On Line Before First Paragraph'
+	                                }
+	                            ]
+	                        },
+	                        {
+	                            name: 'bodySubsubsectionLabelPos',
+	                            displayName: 'Subsubsection Label Position',
+	                            inputType: 'radio',
+	                            options: [
+	                                {
+	                                    name: 'bodySubsubsectionLabelInline',
+	                                    title: 'Inline with the First Paragraph'
+	                                },
+	                                {
+	                                    name: 'bodySubsubsectionLabelOwnLine',
+	                                    title: 'On Line Before First Paragraph'
+	                                }
+	                            ]
+	                        },
+	                        {
+	                            name: 'bodySectionLabelAlign',
+	                            displayName: 'Section Label Align',
+	                            inputType: 'radio',
+	                            options: [
+	                                {
+	                                    name: 'bodySectionLabelLeft',
+	                                    title: 'Left'
+	                                },
+	                                {
+	                                    name: 'bodySectionLabelCenter',
+	                                    title: 'Center'
+	                                },
+	                                {
+	                                    name: 'bodySectionLabelRight',
+	                                    title: 'Right'
+	                                }
+	                            ]
+	                        },
+	                        {
+	                            name: 'bodySubsectionLabelAlign',
+	                            displayName: 'Subsection Label Align',
+	                            inputType: 'radio',
+	                            options: [
+	                                {
+	                                    name: 'bodySubsectionLabelLeft',
+	                                    title: 'Left'
+	                                },
+	                                {
+	                                    name: 'bodySubsectionLabelCenter',
+	                                    title: 'Center'
+	                                },
+	                                {
+	                                    name: 'bodySubsectionLabelRight',
+	                                    title: 'Right'
+	                                }
+	                            ]
+	                        },
+	                        {
+	                            name: 'bodySubsubsectionLabelAlign',
+	                            displayName: 'Subsubsection Label Align',
+	                            inputType: 'radio',
+	                            options: [
+	                                {
+	                                    name: 'bodySubsubsectionLabelLeft',
+	                                    title: 'Left'
+	                                },
+	                                {
+	                                    name: 'bodySubsubsectionLabelCenter',
+	                                    title: 'Center'
+	                                },
+	                                {
+	                                    name: 'bodySubsubsectionLabelRight',
+	                                    title: 'Right'
+	                                }
+	                            ]
 	                        }
 	                    ]
 	                },
@@ -66786,6 +66902,21 @@ webpackJsonp([1,2],[
 	        var starterObj = JSON.parse(JSON.stringify(this.sectionObj));
 	        this.contentObj.bodySections.push(starterObj);
 	    }
+	    ContentEnter.prototype.addSection = function (msg) {
+	        var newSection = JSON.parse(JSON.stringify(this.sectionObj));
+	        newSection.sectionLevel = 1;
+	        this.contentObj.bodySections.push(newSection);
+	    };
+	    ContentEnter.prototype.addSubsection = function (msg) {
+	        var newSection = JSON.parse(JSON.stringify(this.sectionObj));
+	        newSection.sectionLevel = 2;
+	        this.contentObj.bodySections.push(newSection);
+	    };
+	    ContentEnter.prototype.addSubsubsection = function (msg) {
+	        var newSection = JSON.parse(JSON.stringify(this.sectionObj));
+	        newSection.sectionLevel = 3;
+	        this.contentObj.bodySections.push(newSection);
+	    };
 	    ContentEnter.prototype.getOffset = function (property, value1, result1, value2, result2, value3, result3) {
 	        if (property === value1)
 	            return result1;
@@ -66968,6 +67099,9 @@ webpackJsonp([1,2],[
 	                citations: []
 	            }
 	        };
+	        this.sectionAdded = new core_1.EventEmitter();
+	        this.subsectionAdded = new core_1.EventEmitter();
+	        this.subsubsectionAdded = new core_1.EventEmitter();
 	        this.samplePaperObj = {
 	            title: "My Paper",
 	            author: "Jared Beagley",
@@ -69005,12 +69139,15 @@ webpackJsonp([1,2],[
 	    };
 	    WriteButton.prototype.addSection = function () {
 	        this.optionsOpen = false;
+	        this.sectionAdded.emit('added');
 	    };
 	    WriteButton.prototype.addSubsection = function () {
 	        this.optionsOpen = false;
+	        this.subsectionAdded.emit('added');
 	    };
 	    WriteButton.prototype.addSubsubsection = function () {
 	        this.optionsOpen = false;
+	        this.subsubsectionAdded.emit('added');
 	    };
 	    WriteButton.prototype.writeIt = function () {
 	        this.optionsOpen = false;
@@ -69178,6 +69315,18 @@ webpackJsonp([1,2],[
 	        core_1.Input(), 
 	        __metadata('design:type', Object)
 	    ], WriteButton.prototype, "configOptions", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], WriteButton.prototype, "sectionAdded", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], WriteButton.prototype, "subsectionAdded", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], WriteButton.prototype, "subsubsectionAdded", void 0);
 	    WriteButton = __decorate([
 	        core_1.Component({
 	            selector: 'write-button',

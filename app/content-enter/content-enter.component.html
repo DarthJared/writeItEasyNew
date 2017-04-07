@@ -176,10 +176,10 @@
             <ng-container *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && (!configOptions.summaryOwnPage || !configOptions.includeAbstractSummary)">
                 <ng-container *ngFor="let section of contentObj.bodySections; let index = index;">
                     <div class="topLabelWrap">             
-                        <div class="labelLabel" *ngIf="configOptions.bodyIncludeSectionLabels">
-                            Section Label
+                        <div class="labelLabel" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
+                            S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection Label
                         </div>
-                        <div class="firstLabelWrap" *ngIf="configOptions.bodyIncludeSectionLabels">
+                        <div class="firstLabelWrap" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
                             <div contenteditable="true" class="labelEnter" id="editting"></div>
                             <div class="labelOptions">
                                 ...
@@ -187,9 +187,9 @@
                         </div>
                     </div>
                     <div class="contentLabel">
-                        Section
+                        S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection
                     </div>
-                    <div class="contentOptions" style="margin-right: -66px;">
+                    <div class="contentOptions" [style.margin-right]="section.sectionLevel === 1 ? '-66px' : section.sectionLevel === 2 ? '-80px' : section.sectionLevel === 3 ? '-100px' : null">
                         ...
                     </div>
                     <div class="contentEnterWrap">
@@ -300,10 +300,10 @@
                     <br />           
                 </ng-container>
                 <div class="topLabelWrap">             
-                    <div class="labelLabel" *ngIf="configOptions.bodyIncludeSectionLabels">
-                        Section Label
+                    <div class="labelLabel" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
+                        S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection Label
                     </div>
-                    <div class="firstLabelWrap" *ngIf="configOptions.bodyIncludeSectionLabels">
+                    <div class="firstLabelWrap" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
                         <div contenteditable="true" class="labelEnter" id="editting"></div>
                         <div class="labelOptions">
                             ...
@@ -311,9 +311,9 @@
                     </div>
                 </div>
                 <div class="contentLabel">
-                    Section
+                    S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection
                 </div>
-                <div class="contentOptions" style="margin-right: -66px;">
+                <div class="contentOptions" [style.margin-right]="section.sectionLevel === 1 ? '-66px' : section.sectionLevel === 2 ? '-80px' : section.sectionLevel === 3 ? '-100px' : null">
                     ...
                 </div>
                 <div class="contentEnterWrap">
@@ -325,10 +325,10 @@
         <div *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && ((!configOptions.includeAbstractSummary && (!configOptions.includeTitle || configOptions.titleInfoPos === 'titleInfoSeparatePage')) || (configOptions.includeAbstractSummary && configOptions.summaryOwnPage))" class="paperBack">
             <ng-container *ngFor="let section of contentObj.bodySections; let index = index;">
                 <div class="topLabelWrap">             
-                    <div class="labelLabel" *ngIf="configOptions.bodyIncludeSectionLabels">
-                        Section Label
+                    <div class="labelLabel" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
+                        S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection Label
                     </div>
-                    <div class="firstLabelWrap" *ngIf="configOptions.bodyIncludeSectionLabels">
+                    <div class="firstLabelWrap" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
                         <div contenteditable="true" class="labelEnter" id="editting"></div>
                         <div class="labelOptions">
                             ...
@@ -336,9 +336,9 @@
                     </div>
                 </div>
                 <div class="contentLabel">
-                    Section
+                    S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection
                 </div>
-                <div class="contentOptions" style="margin-right: -66px;">
+                <div class="contentOptions" [style.margin-right]="section.sectionLevel === 1 ? '-66px' : section.sectionLevel === 2 ? '-80px' : section.sectionLevel === 3 ? '-100px' : null">
                     ...
                 </div>
                 <div class="contentEnterWrap">

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { DocwriterService } from "./../services/docwriter.service";
 
 @Component({
@@ -149,6 +149,10 @@ export class WriteButton {
       citations: []
     }
   };
+
+  @Output() sectionAdded = new EventEmitter();
+  @Output() subsectionAdded = new EventEmitter();
+  @Output() subsubsectionAdded = new EventEmitter();
   
   showOptions() {
     this.optionsOpen = !this.optionsOpen;
@@ -160,14 +164,17 @@ export class WriteButton {
 
   addSection() {
     this.optionsOpen = false;
+    this.sectionAdded.emit('added');
   }
 
   addSubsection() {
     this.optionsOpen = false;
+    this.subsectionAdded.emit('added');
   }
 
   addSubsubsection() {
     this.optionsOpen = false;
+    this.subsubsectionAdded.emit('added');
   }
 
   writeIt() {

@@ -12,8 +12,26 @@ export class ContentEnter {
   constructor() { 
     let starterObj = JSON.parse(JSON.stringify(this.sectionObj));    
     this.contentObj.bodySections.push(starterObj);
-    
+
   }  
+
+  addSection(msg) {
+    let newSection = JSON.parse(JSON.stringify(this.sectionObj));
+    newSection.sectionLevel = 1;
+    this.contentObj.bodySections.push(newSection);
+  }
+
+  addSubsection(msg) {
+    let newSection = JSON.parse(JSON.stringify(this.sectionObj));
+    newSection.sectionLevel = 2;
+    this.contentObj.bodySections.push(newSection);
+  }
+
+  addSubsubsection(msg) {
+    let newSection = JSON.parse(JSON.stringify(this.sectionObj));
+    newSection.sectionLevel = 3;
+    this.contentObj.bodySections.push(newSection);
+  }
 
   @Input() configOptions;
   

@@ -412,10 +412,126 @@ export class ConfigOptionService {
                         ]
                     },
                     {
-                        name: 'bodyIncludeSectionLabels',
-                        displayName: 'Section Labels',
-                        optionName: 'Include Section Labels',
-                        inputType: 'toggle'
+                        name: 'bodyLabels',
+                        displayName: 'Include Labels',
+                        inputType: 'checkbox',
+                        reorderable: false,
+                        options: [
+                            {
+                                name: 'bodyIncludeSectionLabels',
+                                title: 'Include Section Labels'
+                            },
+                            {
+                                name: 'bodyIncludeSubsectionLabels',
+                                title: 'Include Subsection Labels'
+                            },
+                            {
+                                name: 'bodyIncludeSubsubsectionLabels',
+                                title: 'Include Subsubsection Labels'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'bodySectionLabelPos',
+                        displayName: 'Section Label Position',
+                        inputType: 'radio',
+                        options: [
+                            {
+                                name: 'bodySectionLabelInline',
+                                title: 'Inline with the First Paragraph'
+                            },
+                            {
+                                name: 'bodySectionLabelOwnLine',
+                                title: 'On Line Before First Paragraph'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'bodySubsectionLabelPos',
+                        displayName: 'Subsection Label Position',
+                        inputType: 'radio',
+                        options: [
+                            {
+                                name: 'bodySubsectionLabelInline',
+                                title: 'Inline with the First Paragraph'
+                            },
+                            {
+                                name: 'bodySubsectionLabelOwnLine',
+                                title: 'On Line Before First Paragraph'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'bodySubsubsectionLabelPos',
+                        displayName: 'Subsubsection Label Position',
+                        inputType: 'radio',
+                        options: [
+                            {
+                                name: 'bodySubsubsectionLabelInline',
+                                title: 'Inline with the First Paragraph'
+                            },
+                            {
+                                name: 'bodySubsubsectionLabelOwnLine',
+                                title: 'On Line Before First Paragraph'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'bodySectionLabelAlign',
+                        displayName: 'Section Label Align',
+                        inputType: 'radio',
+                        options: [
+                            {
+                                name: 'bodySectionLabelLeft',
+                                title: 'Left'
+                            },
+                            {
+                                name: 'bodySectionLabelCenter',
+                                title: 'Center'
+                            },
+                            {
+                                name: 'bodySectionLabelRight',
+                                title: 'Right'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'bodySubsectionLabelAlign',
+                        displayName: 'Subsection Label Align',
+                        inputType: 'radio',
+                        options: [
+                            {
+                                name: 'bodySubsectionLabelLeft',
+                                title: 'Left'
+                            },
+                            {
+                                name: 'bodySubsectionLabelCenter',
+                                title: 'Center'
+                            },
+                            {
+                                name: 'bodySubsectionLabelRight',
+                                title: 'Right'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'bodySubsubsectionLabelAlign',
+                        displayName: 'Subsubsection Label Align',
+                        inputType: 'radio',
+                        options: [
+                            {
+                                name: 'bodySubsubsectionLabelLeft',
+                                title: 'Left'
+                            },
+                            {
+                                name: 'bodySubsubsectionLabelCenter',
+                                title: 'Center'
+                            },
+                            {
+                                name: 'bodySubsubsectionLabelRight',
+                                title: 'Right'
+                            }
+                        ]
                     }
                 ]
             },
