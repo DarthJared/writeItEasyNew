@@ -74,7 +74,7 @@
             </div>
         </div>
         <!--Summary Page && Title and Summary Page && Summary and Body Page && Title, Summary, and Body Page && Summary, Body, and Conclusion Page && Title, Summary, Body, and Conclusion Page && Title and Body Page && Title, Body, and Conclusion Page-->
-        <div class="paperBack" *ngIf="(configOptions.includeAbstractSummary) || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage' && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.summaryOwnPage)">
+        <div class="paperBack" *ngIf="(configOptions.includeAbstractSummary) || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage' && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage')">
             <ng-container *ngIf="configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage'">
                 <div [ngClass]="{'alignCenter': configOptions.titleInfoAlign === 'titleInfoAlignCenter', 'alignRight': configOptions.titleInfoAlign === 'titleInfoAlignRight'}" class="titlePageTopWrap">
                     <ng-container *ngFor="let index of [0, 1, 2, 3, 4, 5]; let i = index">
@@ -173,7 +173,7 @@
                 </div>
             </ng-container>
             <!--Body Sections-->
-            <ng-container *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.summaryOwnPage">
+            <ng-container *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && (!configOptions.summaryOwnPage || !configOptions.includeAbstractSummary)">
                 <ng-container *ngFor="let section of contentObj.bodySections; let index = index;">
                     <div class="topLabelWrap">             
                         <div class="labelLabel" *ngIf="configOptions.bodyIncludeSectionLabels">
@@ -222,7 +222,7 @@
             </ng-container>            
         </div>
         <!--Body Pages-->
-        <ng-container *ngIf="configOptions.bodyBetweenSections === 'bodyEachSectionOwnPage' && (!configOptions.includeTitle || configOptions.titleInfoPos === 'titleInfoSeparatePage' || configOptions.includeAbstractSummary)">
+        <ng-container *ngIf="configOptions.bodyBetweenSections === 'bodyEachSectionOwnPage'">
             <!--TODO: Add page for each body section with possible title at beginning of first page-->        
             <div *ngFor="let section of contentObj.bodySections; let index = index;" class="paperBack">  
                 <ng-container *ngIf="configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage' && !configOptions.includeAbstractSummary && index === 0">
