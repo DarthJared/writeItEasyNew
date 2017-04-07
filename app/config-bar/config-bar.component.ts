@@ -1,6 +1,6 @@
-import {Component, OnChanges, Output, EventEmitter} from "@angular/core";
-import {ConfigOptionService} from "./../services/config-options.service";
-import {FontsService} from "./../services/fonts.service";
+import { Component, OnChanges, Output, EventEmitter } from "@angular/core";
+import { ConfigOptionService } from "./../services/config-options.service";
+import { FontsService } from "./../services/fonts.service";
 
 @Component({
    selector: 'config-bar',

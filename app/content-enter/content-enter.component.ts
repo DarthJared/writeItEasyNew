@@ -11,6 +11,8 @@ import { WriteButton } from "../write-button/write-button.component";
 export class ContentEnter {
   constructor() { }  
 
+  @Input() configOptions;
+  
   getOffset(property: string, value1: string, result1: string, value2: string, result2: string, value3: string, result3: string) {
     if (property === value1)
       return result1;
@@ -19,8 +21,6 @@ export class ContentEnter {
     if (property === value3)
       return result3;
   }
-
-  @Input() configOptions;
 
   titleFieldObj = {
     name: "",
