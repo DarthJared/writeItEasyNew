@@ -2,8 +2,8 @@
     <div class="innerWrap">
         <!--Title Page-->
         <div *ngIf="configOptions.includeTitle && configOptions.titleInfoPos === 'titleInfoSeparatePage'" class="paperBack">
-            <div [style.padding-left]="configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? 'calc(50% - 100px)' : '10px'" class="titlePageWrap">
-                <!--configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? 'calc(50% - 100px)' : configOptions.titleInfoAlign === 'titleInfoAlignLeft' ? null : 'calc(100% - 220px)'-->
+            <!---->
+            <div [ngClass]="{'alignCenter': configOptions.titleInfoAlign === 'titleInfoAlignCenter', 'alignRight': configOptions.titleInfoAlign === 'titleInfoAlignRight'}" class="titlePageWrap">
                 <ng-container *ngFor="let index of [0, 1, 2, 3, 4, 5]; let i = index">
                     <div *ngIf="configOptions.titleInfoIncludeClassIndex === i && configOptions.titleInfoIncludeClass" >
                         <div [style.padding-left]="configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? '100px' : '10px'" class="titleLabelLabel">
@@ -77,7 +77,7 @@
         <!--Summary Page && Title and Summary Page && Summary and Body Page && Title, Summary, and Body Page && Summary, Body, and Conclusion Page && Title, Summary, Body, and Conclusion Page && Title and Body Page && Title, Body, and Conclusion Page-->
         <div class="paperBack" *ngIf="(configOptions.includeAbstractSummary) || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage' && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.summaryOwnPage)">
             <ng-container *ngIf="configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage'">
-                <div [style.padding-left]="configOptions.titleInfoAlign === 'titleInfoAlignCenter' ? 'calc(50% - 100px)' : configOptions.titleInfoAlign === 'titleInfoAlignLeft' ? null : 'calc(100% - 220px)'" class="titlePageTopWrap">
+                <div [ngClass]="{'alignCenter': configOptions.titleInfoAlign === 'titleInfoAlignCenter', 'alignRight': configOptions.titleInfoAlign === 'titleInfoAlignRight'}" class="titlePageTopWrap">
                     <ng-container *ngFor="let index of [0, 1, 2, 3, 4, 5]; let i = index">
                         <div *ngIf="configOptions.titleInfoIncludeClassIndex === i && configOptions.titleInfoIncludeClass" >
                             <div class="titleLabelLabel">

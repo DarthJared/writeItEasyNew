@@ -175,6 +175,14 @@
     padding-top: 0px;
 }
 
+.alignCenter {
+    padding-left: calc(50% - 100px);
+}
+
+.alignRight {
+    padding-left: calc(100% - 220px);
+}
+
 .labelLabelConc {
     float: left; 
     font-size: 12px;      

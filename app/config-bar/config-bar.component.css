@@ -11,6 +11,11 @@
     z-index: 998;
     font-family: "OpenSans", Helvetica, Arial, sans-serif;
 }
+
+td {
+    font-size: 12px;
+}
+
 .innerWrapper {
     position: absolute;
     width: calc(100% - 3px);
@@ -87,6 +92,7 @@
 .radioTable {
     width: 100%;
     margin: 0px;
+    font-size: 12px !important;
 }
 
 .option {
