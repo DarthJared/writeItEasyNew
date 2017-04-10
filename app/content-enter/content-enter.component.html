@@ -175,7 +175,7 @@
             <!--Body Sections-->
             <ng-container *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && (!configOptions.summaryOwnPage || !configOptions.includeAbstractSummary)">
                 <ng-container *ngFor="let section of contentObj.bodySections; let index = index;">
-                    <div class="topLabelWrap">             
+                    <div class="topLabelWrap" [ngClass]="{'alignCenter': (configOptions.bodySectionLabelAlign === 'bodySectionLabelCenter' && section.sectionLevel === 1) || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelCenter' && section.sectionLevel === 2) || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelCenter' && section.sectionLevel === 3), 'alignRight': (configOptions.bodySectionLabelAlign === 'bodySectionLabelRight' && section.sectionLevel === 1) || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelRight' && section.sectionLevel === 2) || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelRight' && section.sectionLevel === 3)}">             
                         <div class="labelLabel" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
                             S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection Label
                         </div>
