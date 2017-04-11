@@ -75,6 +75,19 @@
         </div>
         <!--Summary Page && Title and Summary Page && Summary and Body Page && Title, Summary, and Body Page && Summary, Body, and Conclusion Page && Title, Summary, Body, and Conclusion Page && Title and Body Page && Title, Body, and Conclusion Page-->
         <div class="paperBack" *ngIf="(configOptions.includeAbstractSummary) || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage' && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage')">
+            <ng-container *ngIf="configOptions.includeHeader">
+                <div>
+                    <div class="titleLabelLabel">
+                        Header
+                    </div>
+                    <div class="titleInfoTopWrap">
+                        <div contenteditable="true" class="labelEnter" id="editting" style="width: calc(100% - 24px);"></div>
+                        <div class="labelOptions">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
             <ng-container *ngIf="configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage'">
                 <div [ngClass]="{'alignCenter': configOptions.titleInfoAlign === 'titleInfoAlignCenter', 'alignRight': configOptions.titleInfoAlign === 'titleInfoAlignRight'}" class="titlePageTopWrap">
                     <ng-container *ngFor="let index of [0, 1, 2, 3, 4, 5]; let i = index">
@@ -151,11 +164,11 @@
             </ng-container>
             <!--Summary Page-->
             <ng-container *ngIf="configOptions.includeAbstractSummary">   
-                <div class="topLabelWrap">             
-                    <div class="labelLabel" *ngIf="configOptions.summaryIncludeSectionLabel">
+                <div class="topLabelWrap" [ngClass]="{'alignCenter': configOptions.summarySectionLabelAlign === 'summarySectionLabelCenter', 'alignRight': configOptions.summarySectionLabelAlign === 'summarySectionLabelRight'}" *ngIf="configOptions.summaryIncludeSectionLabel">             
+                    <div class="labelLabel">
                         Abstract / Summary Label
                     </div>
-                    <div class="firstLabelWrap" *ngIf="configOptions.summaryIncludeSectionLabel">
+                    <div class="firstLabelWrap">
                         <div contenteditable="true" class="labelEnter" id="editting"></div>
                         <div class="labelOptions">
                             ...
@@ -175,8 +188,8 @@
             <!--Body Sections-->
             <ng-container *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && (!configOptions.summaryOwnPage || !configOptions.includeAbstractSummary)">
                 <ng-container *ngFor="let section of contentObj.bodySections; let index = index;">
-                    <div class="topLabelWrap" [ngClass]="{'alignCenter': (configOptions.bodySectionLabelAlign === 'bodySectionLabelCenter' && section.sectionLevel === 1) || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelCenter' && section.sectionLevel === 2) || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelCenter' && section.sectionLevel === 3), 'alignRight': (configOptions.bodySectionLabelAlign === 'bodySectionLabelRight' && section.sectionLevel === 1) || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelRight' && section.sectionLevel === 2) || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelRight' && section.sectionLevel === 3)}">             
-                        <div class="labelLabel" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
+                    <div class="topLabelWrap" [ngClass]="{'alignCenter': (configOptions.bodySectionLabelAlign === 'bodySectionLabelCenter' && section.sectionLevel === 1) || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelCenter' && section.sectionLevel === 2) || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelCenter' && section.sectionLevel === 3), 'alignRight': (configOptions.bodySectionLabelAlign === 'bodySectionLabelRight' && section.sectionLevel === 1) || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelRight' && section.sectionLevel === 2) || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelRight' && section.sectionLevel === 3)}" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">             
+                        <div class="labelLabel">
                             S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection Label
                         </div>
                         <div class="firstLabelWrap" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
@@ -198,11 +211,11 @@
                 </ng-container>
                 <!--Conclusion-->
                 <ng-container *ngIf="configOptions.includeConclusion && !configOptions.conclusionOwnPage">
-                    <div class="topLabelWrap">
-                        <div class="labelLabel" *ngIf="configOptions.conclusionIncludeLabel">
+                    <div class="topLabelWrap" [ngClass]="{'alignCenter': configOptions.conclusionSectionLabelAlign === 'conclusionSectionLabelCenter', 'alignRight': configOptions.conclusionSectionLabelAlign === 'conclusionSectionLabelRight'}" *ngIf="configOptions.conclusionIncludeLabel">
+                        <div class="labelLabel">
                             Conclusion Label
                         </div>
-                        <div class="firstLabelWrap" *ngIf="configOptions.conclusionIncludeLabel">
+                        <div class="firstLabelWrap">
                             <div contenteditable="true" class="labelEnter" id="editting"></div>
                             <div class="labelOptions">
                                 ...
@@ -299,11 +312,11 @@
                     <br />
                     <br />           
                 </ng-container>
-                <div class="topLabelWrap">             
-                    <div class="labelLabel" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
+                <div class="topLabelWrap" [ngClass]="{'alignCenter': (configOptions.bodySectionLabelAlign === 'bodySectionLabelCenter' && section.sectionLevel === 1 && configOptions.bodySectionLabelPos !== 'bodySectionLabelInline')  || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelCenter' && section.sectionLevel === 2 && configOptions.bodySubsectionLabelPos !== 'bodySubsectionLabelInline') || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelCenter' && section.sectionLevel === 3 && configOptions.bodySubsubsectionLabelPos !== 'bodySubsubsectionLabelInline'), 'alignRight': (configOptions.bodySectionLabelAlign === 'bodySectionLabelRight' && section.sectionLevel === 1 && configOptions.bodySectionLabelPos !== 'bodySectionLabelInline') || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelRight' && section.sectionLevel === 2 && configOptions.bodySubsectionLabelPos !== 'bodySubsectionLabelInline') || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelRight' && section.sectionLevel === 3 && configOptions.bodySubsubsectionLabelPos !== 'bodySubsubsectionLabelInline')}" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">             
+                    <div class="labelLabel">
                         S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection Label
                     </div>
-                    <div class="firstLabelWrap" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
+                    <div class="firstLabelWrap">
                         <div contenteditable="true" class="labelEnter" id="editting"></div>
                         <div class="labelOptions">
                             ...
@@ -324,11 +337,11 @@
         <!--Body Page && Body and Conclusion Page-->
         <div *ngIf="configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && ((!configOptions.includeAbstractSummary && (!configOptions.includeTitle || configOptions.titleInfoPos === 'titleInfoSeparatePage')) || (configOptions.includeAbstractSummary && configOptions.summaryOwnPage))" class="paperBack">
             <ng-container *ngFor="let section of contentObj.bodySections; let index = index;">
-                <div class="topLabelWrap">             
-                    <div class="labelLabel" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
+                <div class="topLabelWrap" [ngClass]="{'alignCenter': (configOptions.bodySectionLabelAlign === 'bodySectionLabelCenter' && section.sectionLevel === 1 && configOptions.bodySectionLabelPos !== 'bodySectionLabelInline')  || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelCenter' && section.sectionLevel === 2 && configOptions.bodySubsectionLabelPos !== 'bodySubsectionLabelInline') || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelCenter' && section.sectionLevel === 3 && configOptions.bodySubsubsectionLabelPos !== 'bodySubsubsectionLabelInline'), 'alignRight': (configOptions.bodySectionLabelAlign === 'bodySectionLabelRight' && section.sectionLevel === 1 && configOptions.bodySectionLabelPos !== 'bodySectionLabelInline') || (configOptions.bodySubsectionLabelAlign === 'bodySubsectionLabelRight' && section.sectionLevel === 2 && configOptions.bodySubsectionLabelPos !== 'bodySubsectionLabelInline') || (configOptions.bodySubsubsectionLabelAlign === 'bodySubsubsectionLabelRight' && section.sectionLevel === 3 && configOptions.bodySubsubsectionLabelPos !== 'bodySubsubsectionLabelInline')}" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">             
+                    <div class="labelLabel">
                         S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection Label
                     </div>
-                    <div class="firstLabelWrap" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
+                    <div class="firstLabelWrap">
                         <div contenteditable="true" class="labelEnter" id="editting"></div>
                         <div class="labelOptions">
                             ...
@@ -346,11 +359,11 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="configOptions.includeConclusion && !configOptions.conclusionOwnPage">
-                <div class="topLabelWrap">
-                    <div class="labelLabel" *ngIf="configOptions.conclusionIncludeLabel">
+                <div class="topLabelWrap" [ngClass]="{'alignCenter': configOptions.conclusionSectionLabelAlign === 'conclusionSectionLabelCenter', 'alignRight': configOptions.conclusionSectionLabelAlign === 'conclusionSectionLabelRight'}" *ngIf="configOptions.conclusionIncludeLabel">
+                    <div class="labelLabel">
                         Conclusion Label
                     </div>
-                    <div class="firstLabelWrap" *ngIf="configOptions.conclusionIncludeLabel">
+                    <div class="firstLabelWrap">
                         <div contenteditable="true" class="labelEnter" id="editting"></div>
                         <div class="labelOptions">
                             ...
@@ -370,13 +383,15 @@
         </div>
         <!--Conclusion Page-->
         <div *ngIf="configOptions.includeConclusion && (configOptions.conclusionOwnPage || configOptions.bodyBetweenSections === 'bodyEachSectionOwnPage')" class="paperBack">
-            <div class="labelLabel" *ngIf="configOptions.conclusionIncludeLabel">
-                Conclusion Label
-            </div>
-            <div class="firstLabelWrap" *ngIf="configOptions.conclusionIncludeLabel">
-                <div contenteditable="true" class="labelEnter" id="editting"></div>
-                <div class="labelOptions">
-                    ...
+            <div class="topLabelWrap" [ngClass]="{'alignCenter': configOptions.conclusionSectionLabelAlign === 'conclusionSectionLabelCenter', 'alignRight': configOptions.conclusionSectionLabelAlign === 'conclusionSectionLabelRight'}" *ngIf="configOptions.conclusionIncludeLabel">
+                <div class="labelLabel">
+                    Conclusion Label
+                </div>
+                <div class="firstLabelWrap">
+                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                    <div class="labelOptions">
+                        ...
+                    </div>
                 </div>
             </div>
             <div class="contentLabel">

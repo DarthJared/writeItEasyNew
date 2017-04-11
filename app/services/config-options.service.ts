@@ -384,6 +384,25 @@ export class ConfigOptionService {
                         displayName: 'Section Label',
                         optionName: 'Include Section Label',
                         inputType: 'toggle'
+                    },
+                    {
+                        name: 'summarySectionLabelAlign',
+                        displayName: 'Section Label Align',
+                        inputType: 'radio',
+                        options: [
+                            {
+                                name: 'summarySectionLabelLeft',
+                                title: 'Left'
+                            },
+                            {
+                                name: 'summarySectionLabelCenter',
+                                title: 'Center'
+                            },
+                            {
+                                name: 'summarySectionLabelRight',
+                                title: 'Right'
+                            }
+                        ]
                     }
                 ]
             },
@@ -551,6 +570,25 @@ export class ConfigOptionService {
                         displayName: 'Section Label',
                         optionName: 'Include Section Label',
                         inputType: 'toggle'
+                    },
+                    {
+                        name: 'conclusionSectionLabelAlign',
+                        displayName: 'Section Label Align',
+                        inputType: 'radio',
+                        options: [
+                            {
+                                name: 'conclusionSectionLabelLeft',
+                                title: 'Left'
+                            },
+                            {
+                                name: 'conclusionSectionLabelCenter',
+                                title: 'Center'
+                            },
+                            {
+                                name: 'conclusionSectionLabelRight',
+                                title: 'Right'
+                            }
+                        ]
                     }
                 ]
             },
