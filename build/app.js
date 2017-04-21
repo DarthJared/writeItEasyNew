@@ -66338,6 +66338,11 @@ webpackJsonp([1,2],[
 	                                    name: 'headerLeftOtherText',
 	                                    title: 'Other Text',
 	                                    type: 'text'
+	                                },
+	                                {
+	                                    name: 'headerLeftEmpty',
+	                                    title: 'Empty',
+	                                    type: 'none'
 	                                }
 	                            ]
 	                        },
@@ -66360,6 +66365,11 @@ webpackJsonp([1,2],[
 	                                    name: 'headerRightOtherText',
 	                                    title: 'Other Text',
 	                                    type: 'text'
+	                                },
+	                                {
+	                                    name: 'headerRightEmpty',
+	                                    title: 'Empty',
+	                                    type: 'none'
 	                                }
 	                            ]
 	                        },
@@ -66412,6 +66422,11 @@ webpackJsonp([1,2],[
 	                                            name: 'headerFirstLeftOtherText',
 	                                            title: 'Other Text',
 	                                            type: 'text'
+	                                        },
+	                                        {
+	                                            name: 'headerFirstLeftEmpty',
+	                                            title: 'Empty',
+	                                            type: 'none'
 	                                        }
 	                                    ]
 	                                },
@@ -66438,6 +66453,11 @@ webpackJsonp([1,2],[
 	                                            name: 'headerFirstRightOtherText',
 	                                            title: 'Other Text',
 	                                            type: 'text'
+	                                        },
+	                                        {
+	                                            name: 'headerFirstRightEmpty',
+	                                            title: 'Empty',
+	                                            type: 'none'
 	                                        }
 	                                    ]
 	                                }

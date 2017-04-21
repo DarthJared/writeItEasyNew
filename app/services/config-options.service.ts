@@ -261,6 +261,11 @@ export class ConfigOptionService {
                                 name: 'headerLeftOtherText',
                                 title: 'Other Text',
                                 type: 'text'
+                            },
+                            {
+                                name: 'headerLeftEmpty',
+                                title: 'Empty',
+                                type: 'none'
                             }
                         ]
                     },
@@ -283,6 +288,11 @@ export class ConfigOptionService {
                                 name: 'headerRightOtherText',
                                 title: 'Other Text',
                                 type: 'text'
+                            },
+                            {
+                                name: 'headerRightEmpty',
+                                title: 'Empty',
+                                type: 'none'
                             }
                         ]
                     },
@@ -335,6 +345,11 @@ export class ConfigOptionService {
                                         name: 'headerFirstLeftOtherText',
                                         title: 'Other Text',
                                         type: 'text'
+                                    },
+                                    {
+                                        name: 'headerFirstLeftEmpty',
+                                        title: 'Empty',
+                                        type: 'none'
                                     }
                                 ]
                             },
@@ -361,6 +376,11 @@ export class ConfigOptionService {
                                         name: 'headerFirstRightOtherText',
                                         title: 'Other Text',
                                         type: 'text'
+                                    },
+                                    {
+                                        name: 'headerFirstRightEmpty',
+                                        title: 'Empty',
+                                        type: 'none'
                                     }
                                 ]
                             }
