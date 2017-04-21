@@ -1,4 +1,4 @@
-import { Component, OnChanges, Output, EventEmitter } from "@angular/core";
+import { Component, OnChanges, Output, EventEmitter, OnInit } from "@angular/core";
 import { ConfigOptionService } from "./../services/config-options.service";
 import { FontsService } from "./../services/fonts.service";
 
@@ -9,7 +9,7 @@ import { FontsService } from "./../services/fonts.service";
    providers: [ConfigOptionService, FontsService]
 })
 
-export class ConfigBar implements OnChanges {
+export class ConfigBar implements OnChanges, OnInit {
   @Output() configObj: EventEmitter<string> = new EventEmitter<string>();
   sections: any = [];
   subsections: any = [];
@@ -18,9 +18,13 @@ export class ConfigBar implements OnChanges {
   paperSettings: any = {};
 
   constructor(private configOptions: ConfigOptionService, private fontsService: FontsService) { 
-    this.paperSettings = this.configOptions.paperSettings;
+    this.paperSettings = this.configOptions.paperSettings;    
     // console.log("started");
   }  
+
+  ngOnInit() {
+    this.sendConfigObj();
+  }
 
   getOrderedInfo(info) {
     let ordered = [];

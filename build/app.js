@@ -65951,6 +65951,9 @@ webpackJsonp([1,2],[
 	        this.paperSettings = {};
 	        this.paperSettings = this.configOptions.paperSettings;
 	    }
+	    ConfigBar.prototype.ngOnInit = function () {
+	        this.sendConfigObj();
+	    };
 	    ConfigBar.prototype.getOrderedInfo = function (info) {
 	        var ordered = [];
 	        for (var i = 0; i < info.length; i++) {
@@ -66091,8 +66094,8 @@ webpackJsonp([1,2],[
 	            includeAbstractSummary: true,
 	            includeConclusion: true,
 	            includeReferencesWorksCited: true,
-	            titleInfoFont: '',
-	            titleInfoFontSize: '',
+	            titleInfoFont: 'Times New Roman',
+	            titleInfoFontSize: '12',
 	            titleInfoIncludeTitle: true,
 	            titleInfoIncludeName: true,
 	            titleInfoIncludeClass: false,
@@ -66107,8 +66110,8 @@ webpackJsonp([1,2],[
 	            titleInfoIncludeOtherTextIndex: 5,
 	            titleInfoAlign: 'titleInfoAlignCenter',
 	            titleInfoPos: 'titleInfoSeparatePage',
-	            headerFont: '',
-	            headerFontSize: '',
+	            headerFont: 'Times New Roman',
+	            headerFontSize: '12',
 	            headerLeft: 'headerLeftPaperTitle',
 	            headerLeftInput: 'My Paper',
 	            headerRight: 'headerRightPageNumber',
@@ -66116,22 +66119,32 @@ webpackJsonp([1,2],[
 	            headerDifferentFirstPage: true,
 	            headerUseRunningHeader: true,
 	            headerMoreDifferent: false,
-	            headerFirstLeft: '',
+	            headerFirstLeft: 'headerFirstLeftPaperTitle',
 	            headerFirstLeftInput: '',
-	            headerFirstRight: '',
+	            headerFirstRight: 'headerFirstRightPageNumber',
 	            headerFirstRightInput: '',
 	            summaryOwnPage: true,
 	            summaryIncludeSectionLabel: true,
-	            bodyBetweenSections: '',
-	            bodyIncludeSectionLabels: false,
-	            conclusionOwnPage: false,
-	            conclusionIncludeLabel: false,
-	            referencesFont: '',
-	            referencesFontSize: '',
-	            referencesOwnPage: false,
-	            referencesIncludeLabel: false,
-	            referencesLabelInput: '',
-	            referencesLabelAlign: ''
+	            summarySectionLabelAlign: 'summarySectionLabelCenter',
+	            bodyBetweenSections: 'bodyBlankLineBetweenSections',
+	            bodyIncludeSectionLabels: true,
+	            bodyIncludeSubsectionLabels: true,
+	            bodyIncludeSubsubsectionLabels: true,
+	            bodySectionLabelPos: 'bodySectionLabelOwnLine',
+	            bodySectionLabelAlign: 'bodySectionLabelCenter',
+	            bodySubsectionLabelPos: 'bodySubsectionLabelOwnLine',
+	            bodySubsectionLabelAlign: 'bodySubsectionLabelLeft',
+	            bodySubsubsectionLabelPos: 'bodySubsubsectionLabelInline',
+	            bodySubsubsectionLabelAlign: '',
+	            conclusionOwnPage: true,
+	            conclusionIncludeLabel: true,
+	            conclusionSectionLabelAlign: 'conclusionSectionLabelCenter',
+	            referencesFont: 'Times New Roman',
+	            referencesFontSize: '12',
+	            referencesOwnPage: true,
+	            referencesIncludeLabel: true,
+	            referencesLabelInput: 'References',
+	            referencesLabelAlign: 'referencesLabelAlignCenter'
 	        };
 	        this.options = {
 	            sections: [
@@ -66188,7 +66201,7 @@ webpackJsonp([1,2],[
 	                            options: [
 	                                {
 	                                    name: 'includeTitle',
-	                                    title: 'Include Title'
+	                                    title: 'Include Title Info'
 	                                },
 	                                {
 	                                    name: 'includeHeader',
