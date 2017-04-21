@@ -71,11 +71,29 @@ p {
     margin-top: 15px;
 }
 
-.labelEnter {
-    float: left; 
-    min-width: 200px; 
+.headerEnter {
     border: solid 1px rgba(0, 0, 0, 0.2); 
     border-radius: 2px;
+    width: 200px;
+}
+
+.headerLeft {
+    float: left;     
+}
+
+.headerRight {
+    float: right;
+}
+
+.labelEnter {
+    float: left; 
+    width: 200px; 
+    border: solid 1px rgba(0, 0, 0, 0.2); 
+    border-radius: 2px;
+}
+
+.headerLabelEnter {
+    float: left; 
 }
 
 .labelOptions {
@@ -205,6 +223,15 @@ p {
 }
 
 .topLabelWrap {
+    margin-top: 10px;
     padding-top: 10px;
     height: 55px;
+}
+
+.inputWrap {
+    margin-top: 20px; 
+}
+
+.inputWrapShort {
+    margin-top: 10px; 
 }
