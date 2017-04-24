@@ -372,9 +372,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="inputWrap" [ngClass]="{'inputWrap': !((section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)), 'inputWrapShort': (section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)}">
+                <div class="inputWrap" [ngClass]="{'inputWrap': !((section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)), 'inputWrapShort': (section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)}">                    
                     <div class="contentLabel">
                         S{{section.sectionLevel === 3 ? 'ubsub' : section.sectionLevel === 2 ? 'ub' : section.sectionLevel === 1 ? '' : ''}}ection
+                    </div>
+                    <div class="deleteSectionButton" (click)="deleteSection(section)">
+                        x
                     </div>
                     <div class="contentOptions" [style.margin-right]="section.sectionLevel === 1 ? '-66px' : section.sectionLevel === 2 ? '-80px' : section.sectionLevel === 3 ? '-100px' : null">
                         ...

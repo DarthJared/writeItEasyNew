@@ -66973,6 +66973,12 @@ webpackJsonp([1,2],[
 	        var starterObj = JSON.parse(JSON.stringify(this.sectionObj));
 	        this.contentObj.bodySections.push(starterObj);
 	    }
+	    ContentEnter.prototype.deleteSection = function (section) {
+	        var todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
+	        if (todelete) {
+	            console.log("Delete the section!");
+	        }
+	    };
 	    ContentEnter.prototype.addSection = function (msg) {
 	        var newSection = JSON.parse(JSON.stringify(this.sectionObj));
 	        newSection.sectionLevel = 1;

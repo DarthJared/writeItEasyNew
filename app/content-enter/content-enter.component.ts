@@ -15,6 +15,14 @@ export class ContentEnter {
 
   }  
 
+  deleteSection(section) {
+    let todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
+    if (todelete) {
+      // console.log("Delete the section!");
+      
+    }
+  }
+
   addSection(msg) {
     let newSection = JSON.parse(JSON.stringify(this.sectionObj));
     newSection.sectionLevel = 1;
