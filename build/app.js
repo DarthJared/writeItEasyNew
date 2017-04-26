@@ -66905,7 +66905,8 @@ webpackJsonp([1,2],[
 	            italicize: false,
 	            fontSize: 12,
 	            font: "Times New Roman",
-	            content: ""
+	            content: "",
+	            indexVal: 0
 	        };
 	        this.paragraphObj = {
 	            alignment: "left",
@@ -66926,7 +66927,8 @@ webpackJsonp([1,2],[
 	                underline: false,
 	                italicize: false
 	            },
-	            paragraphs: []
+	            paragraphs: [],
+	            indexVal: 0
 	        };
 	        this.referenceFieldObj = {
 	            name: "",
@@ -66971,26 +66973,42 @@ webpackJsonp([1,2],[
 	            references: []
 	        };
 	        var starterObj = JSON.parse(JSON.stringify(this.sectionObj));
+	        var lengthSect = this.contentObj.bodySections.length;
+	        if (lengthSect > 0)
+	            starterObj.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
 	        this.contentObj.bodySections.push(starterObj);
 	    }
 	    ContentEnter.prototype.deleteSection = function (section) {
 	        var todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
 	        if (todelete) {
-	            console.log("Delete the section!");
+	            for (var i = 0; i < this.contentObj.bodySections.length; i++) {
+	                if (this.contentObj.bodySections[i].indexVal === section.indexVal) {
+	                    this.contentObj.bodySections.splice(i, 1);
+	                }
+	            }
 	        }
 	    };
 	    ContentEnter.prototype.addSection = function (msg) {
 	        var newSection = JSON.parse(JSON.stringify(this.sectionObj));
+	        var lengthSect = this.contentObj.bodySections.length;
+	        if (lengthSect > 0)
+	            newSection.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
 	        newSection.sectionLevel = 1;
 	        this.contentObj.bodySections.push(newSection);
 	    };
 	    ContentEnter.prototype.addSubsection = function (msg) {
 	        var newSection = JSON.parse(JSON.stringify(this.sectionObj));
+	        var lengthSect = this.contentObj.bodySections.length;
+	        if (lengthSect > 0)
+	            newSection.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
 	        newSection.sectionLevel = 2;
 	        this.contentObj.bodySections.push(newSection);
 	    };
 	    ContentEnter.prototype.addSubsubsection = function (msg) {
 	        var newSection = JSON.parse(JSON.stringify(this.sectionObj));
+	        var lengthSect = this.contentObj.bodySections.length;
+	        if (lengthSect > 0)
+	            newSection.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
 	        newSection.sectionLevel = 3;
 	        this.contentObj.bodySections.push(newSection);
 	    };

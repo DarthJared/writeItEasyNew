@@ -10,33 +10,48 @@ import { WriteButton } from "../write-button/write-button.component";
 
 export class ContentEnter {
   constructor() { 
-    let starterObj = JSON.parse(JSON.stringify(this.sectionObj));    
+    let starterObj = JSON.parse(JSON.stringify(this.sectionObj));  
+    let lengthSect = this.contentObj.bodySections.length;  
+    if (lengthSect > 0)
+      starterObj.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
     this.contentObj.bodySections.push(starterObj);
-
   }  
 
   deleteSection(section) {
     let todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
     if (todelete) {
       // console.log("Delete the section!");
-      
+      for (let i = 0; i < this.contentObj.bodySections.length; i++) {
+        if (this.contentObj.bodySections[i].indexVal === section.indexVal) {
+          this.contentObj.bodySections.splice(i, 1);
+        }
+      }
     }
   }
 
   addSection(msg) {
     let newSection = JSON.parse(JSON.stringify(this.sectionObj));
+    let lengthSect = this.contentObj.bodySections.length;  
+    if (lengthSect > 0)
+      newSection.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
     newSection.sectionLevel = 1;
     this.contentObj.bodySections.push(newSection);
   }
 
   addSubsection(msg) {
     let newSection = JSON.parse(JSON.stringify(this.sectionObj));
+    let lengthSect = this.contentObj.bodySections.length;  
+    if (lengthSect > 0)
+      newSection.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
     newSection.sectionLevel = 2;
     this.contentObj.bodySections.push(newSection);
   }
 
   addSubsubsection(msg) {
     let newSection = JSON.parse(JSON.stringify(this.sectionObj));
+    let lengthSect = this.contentObj.bodySections.length;  
+    if (lengthSect > 0)
+      newSection.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
     newSection.sectionLevel = 3;
     this.contentObj.bodySections.push(newSection);
   }
@@ -62,7 +77,8 @@ export class ContentEnter {
     italicize: false,
     fontSize: 12,
     font: "Times New Roman",
-    content: ""    
+    content: "",  
+    indexVal: 0  
   };
   paragraphObj = {
     alignment: "left",
@@ -83,7 +99,8 @@ export class ContentEnter {
       underline: false,
       italicize: false
     },
-    paragraphs: []
+    paragraphs: [],
+    indexVal: 0
   };
   referenceFieldObj = {
     name: "",
