@@ -9,6 +9,7 @@ import { WriteButton } from "../write-button/write-button.component";
 })
 
 export class ContentEnter {
+  deletedSections = [];
   constructor() { 
     let starterObj = JSON.parse(JSON.stringify(this.sectionObj));  
     let lengthSect = this.contentObj.bodySections.length;  
@@ -17,12 +18,16 @@ export class ContentEnter {
     this.contentObj.bodySections.push(starterObj);
   }  
 
+  headerChanged(change) {
+    console.log(change.currentTarget.outerText);
+  } 
+
   deleteSection(section) {
     let todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
     if (todelete) {
-      // console.log("Delete the section!");
       for (let i = 0; i < this.contentObj.bodySections.length; i++) {
         if (this.contentObj.bodySections[i].indexVal === section.indexVal) {
+          this.deletedSections.push(this.contentObj.bodySections[i]);
           this.contentObj.bodySections.splice(i, 1);
         }
       }

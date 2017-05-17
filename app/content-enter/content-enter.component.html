@@ -5,15 +5,15 @@
             <ng-container *ngIf="configOptions.includeHeader">
                 <div>
                     <div class="titleLabelLabel">
-                        Header
+                        {{configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent ? "First Page " : ""}}Header
                     </div>
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
-                            <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
-                                
+                            <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true" (blur)="headerChanged($event)">
+                                {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader ? "Running head: " : ""}}
                             </div>
                             <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
-                                
+                                hello
                             </div>
                         </div>
                         <div class="labelOptions">
@@ -98,12 +98,12 @@
             <ng-container *ngIf="configOptions.includeHeader">
                 <div>
                     <div class="titleLabelLabel">
-                        Header
+                        {{configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? "First Page " : ""}}Header
                     </div>
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
                             <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
-                                
+                                {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? "Running head: " : ""}}
                             </div>
                             <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
                                 
@@ -267,18 +267,17 @@
             </ng-container>            
         </div>
         <!--Body Pages-->
-        <ng-container *ngIf="configOptions.bodyBetweenSections === 'bodyEachSectionOwnPage'">            
-            <!--TODO: Add page for each body section with possible title at beginning of first page-->        
+        <ng-container *ngIf="configOptions.bodyBetweenSections === 'bodyEachSectionOwnPage'">                 
             <div *ngFor="let section of contentObj.bodySections; let index = index;" class="paperBack">  
                 <ng-container *ngIf="configOptions.includeHeader">
                     <div>
                         <div class="titleLabelLabel">
-                            Header
+                            {{configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary ? "First Page " : ""}}Header
                         </div>
                         <div class="titleInfoTopWrap">
                             <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
                                 <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
-                                    
+                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary ? "Running head: " : ""}}
                                 </div>
                                 <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
                                     
@@ -396,12 +395,12 @@
             <ng-container *ngIf="configOptions.includeHeader">
                 <div>
                     <div class="titleLabelLabel">
-                        Header
+                        {{configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && !configOptions.includeTitle && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? "First Page " : ""}}Header
                     </div>
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
                             <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
-                                
+                                {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && !configOptions.includeTitle && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? "Running head: " : ""}}
                             </div>
                             <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
                                 

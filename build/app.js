@@ -66895,6 +66895,7 @@ webpackJsonp([1,2],[
 	var write_button_component_1 = __webpack_require__(726);
 	var ContentEnter = (function () {
 	    function ContentEnter() {
+	        this.deletedSections = [];
 	        this.titleFieldObj = {
 	            name: "",
 	            value: ""
@@ -66978,11 +66979,15 @@ webpackJsonp([1,2],[
 	            starterObj.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
 	        this.contentObj.bodySections.push(starterObj);
 	    }
+	    ContentEnter.prototype.headerChanged = function (change) {
+	        console.log(change.currentTarget.outerText);
+	    };
 	    ContentEnter.prototype.deleteSection = function (section) {
 	        var todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
 	        if (todelete) {
 	            for (var i = 0; i < this.contentObj.bodySections.length; i++) {
 	                if (this.contentObj.bodySections[i].indexVal === section.indexVal) {
+	                    this.deletedSections.push(this.contentObj.bodySections[i]);
 	                    this.contentObj.bodySections.splice(i, 1);
 	                }
 	            }
