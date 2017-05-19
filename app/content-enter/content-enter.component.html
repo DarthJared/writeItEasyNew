@@ -11,9 +11,10 @@
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
                             <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true" (blur)="headerChanged($event)">
                                 {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader ? "Running head: " : ""}}
+                                {{(configOptions.headerDifferentFirstPage && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (!configOptions.headerDifferentFirstPage && configOptions.headerLeft == 'headerLeftPageNumber') ? "Page number will be inserted here" : ""}}
                             </div>
                             <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
-                                hello
+                                {{(configOptions.headerDifferentFirstPage && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (!configOptions.headerDifferentFirstPage && configOptions.headerRight == 'headerRightPageNumber') ? "Page number will be inserted here" : ""}}
                             </div>
                         </div>
                         <div class="labelOptions">
