@@ -9,13 +9,27 @@
                     </div>
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
-                            <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true" (blur)="headerChanged($event)">
-                                {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader ? "Running head: " : ""}}
-                                {{(configOptions.headerDifferentFirstPage && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (!configOptions.headerDifferentFirstPage && configOptions.headerLeft == 'headerLeftPageNumber') ? "Page number will be inserted here" : ""}}
-                            </div>
-                            <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
-                                {{(configOptions.headerDifferentFirstPage && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (!configOptions.headerDifferentFirstPage && configOptions.headerRight == 'headerRightPageNumber') ? "Page number will be inserted here" : ""}}
-                            </div>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerLeft == 'headerLeftPageNumber')">
+                                <div class="headerEnter headerLeft" (blur)="headerChanged($event)">
+                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader ? "Running head: " : ""}}
+                                    Page number will be inserted here
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft != 'headerFirstLeftPageNumber' && configOptions.headerFirstLeft !== 'headerFirstLeftEmpty') || (!configOptions.headerMoreDifferent && configOptions.headerLeft != 'headerLeftPageNumber' && configOptions.headerLeft !== 'headerLeftEmpty')">
+                                <div class="headerEnter headerLeft" contenteditable="true" (blur)="headerChanged($event)">
+                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader ? "Running head: " : ""}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerRight == 'headerRightPageNumber')">
+                                <div class="headerEnter headerRight">
+                                    Page number will be inserted here
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight != 'headerFirstRightPageNumber' && configOptions.headerFirstRight !== 'headerFirstRightEmpty') || (!configOptions.headerMoreDifferent && configOptions.headerRight != 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty')">
+                                <div class="headerEnter headerRight" contenteditable="true">
+                                    
+                                </div>
+                            </ng-container>
                         </div>
                         <div class="labelOptions">
                             ...
@@ -103,12 +117,26 @@
                     </div>
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
-                            <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
-                                {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? "Running head: " : ""}}
-                            </div>
-                            <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
-                                
-                            </div>
+                            <ng-container *ngIf="((!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerLeft == 'headerLeftPageNumber')">
+                                <div class="headerEnter headerLeft">
+                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? "Running head: " : ""}}
+                                    Page number will be inserted here
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="(!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && ((configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerLeft == 'headerLeftPageNumber'))">
+                                <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
+                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? "Running head: " : ""}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerRight == 'headerRightPageNumber')">
+                                <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
+                                    Page number will be inserted here
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="!((configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerRight == 'headerRightPageNumber'))">
+                                <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
+                                </div>
+                            </ng-container>
                         </div>
                         <div class="labelOptions">
                             ...
