@@ -17,7 +17,7 @@
                             </ng-container>
                             <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft != 'headerFirstLeftPageNumber' && configOptions.headerFirstLeft !== 'headerFirstLeftEmpty') || (!configOptions.headerMoreDifferent && configOptions.headerLeft != 'headerLeftPageNumber' && configOptions.headerLeft !== 'headerLeftEmpty')">
                                 <div class="headerEnter headerLeft" contenteditable="true" (blur)="headerChanged($event)">
-                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader ? "Running head: " : ""}}
+                                    {{configOptions.headerDifferentFirstPage && configOptions.hesaderUseRunningHeader ? "Running head: " : ""}}
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerRight == 'headerRightPageNumber')">
@@ -117,24 +117,24 @@
                     </div>
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
-                            <ng-container *ngIf="((!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerLeft == 'headerLeftPageNumber')">
+                            <ng-container *ngIf="((!configOptions.includeTitle || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage')) && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || !configOptions.headerMoreDifferent) && configOptions.headerLeft == 'headerLeftPageNumber')">
                                 <div class="headerEnter headerLeft">
                                     {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? "Running head: " : ""}}
                                     Page number will be inserted here
                                 </div>
                             </ng-container>
-                            <ng-container *ngIf="(!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && ((configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerLeft == 'headerLeftPageNumber'))">
+                            <ng-container *ngIf="((!configOptions.includeTitle || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage')) && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft !== 'headerFirstLeftPageNumber' && configOptions.headerFirstLeft !== 'headerFirstLeftEmpty') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || !configOptions.headerMoreDifferent) && configOptions.headerLeft !== 'headerLeftPageNumber' && configOptions.headerLeft !== 'headerLeftEmpty')">
                                 <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
                                     {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? "Running head: " : ""}}
                                 </div>
                             </ng-container>
-                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerRight == 'headerRightPageNumber')">
+                            <ng-container *ngIf="((!configOptions.includeTitle || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage')) && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || !configOptions.headerMoreDifferent) && configOptions.headerRight == 'headerRightPageNumber')">
                                 <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
                                     Page number will be inserted here
                                 </div>
                             </ng-container>
-                            <ng-container *ngIf="!((configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerRight == 'headerRightPageNumber'))">
-                                <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
+                            <ng-container *ngIf="((!configOptions.includeTitle || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage')) && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight !== 'headerFirstRightPageNumber' && configOptions.headerFirstRight !== 'headerFirstRightEmpty') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || !configOptions.headerMoreDifferent) && configOptions.headerRight !== 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty')">
+                                <div class="headerEnter headerRight" contenteditable="true">
                                 </div>
                             </ng-container>
                         </div>
@@ -305,12 +305,27 @@
                         </div>
                         <div class="titleInfoTopWrap">
                             <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
-                                <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
-                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary ? "Running head: " : ""}}
-                                </div>
-                                <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
-                                    
-                                </div>
+                                <ng-container *ngIf="((!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary && index === 0 && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.includeAbstractSummary || index !== 0 || !configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent) && configOptions.headerLeft == 'headerLeftPageNumber')">
+                                    <div class="headerEnter headerLeft">
+                                        {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary ? "Running head: " : ""}}
+                                        Page number will be inserted here
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="((!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary && index === 0 && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft !== 'headerFirstLeftPageNumber' && configOptions.headerFirstLeft !== 'headerFirstLeftEmpty') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.includeAbstractSummary || index !== 0 || !configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent) && configOptions.headerLeft !== 'headerLeftPageNumber' && configOptions.headerLeft !== 'headerLeftEmpty')">
+                                    <div class="headerEnter headerLeft" contenteditable="true">
+                                        {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary ? "Running head: " : ""}}
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="((!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary && index === 0 && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.includeAbstractSummary ||index !== 0 || !configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent) && configOptions.headerRight == 'headerRightPageNumber')">
+                                    <div class="headerEnter headerRight">
+                                        Page number will be inserted here
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="((!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary && index === 0 && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight !== 'headerFirstRightPageNumber' && configOptions.headerFirstRight !== 'headerFirstRightEmpty') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.includeAbstractSummary || index !== 0 || !configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent) && configOptions.headerRight !== 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty')">
+                                    <div class="headerEnter headerRight" contenteditable="true">
+
+                                    </div>
+                                </ng-container>
                             </div>
                             <div class="labelOptions">
                                 ...
@@ -424,16 +439,31 @@
             <ng-container *ngIf="configOptions.includeHeader">
                 <div>
                     <div class="titleLabelLabel">
-                        {{configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && !configOptions.includeTitle && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? "First Page " : ""}}Header
+                        {{configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? "First Page " : ""}}Header
                     </div>
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
-                            <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
-                                {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && !configOptions.includeTitle && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? "Running head: " : ""}}
-                            </div>
-                            <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
-                                
-                            </div>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || ((!configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent || (configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.bodyBetweenSections == 'bodyEachSectionOwnPage' || configOptions.includeAbstractSummary) && configOptions.headerLeft == 'headerLeftPageNumber')">
+                                <div class="headerEnter headerLeft">
+                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && !configOptions.includeTitle && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? "Running head: " : ""}}
+                                    Page number will be inserted here
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary && configOptions.headerFirstLeft !== 'headerFirstLeftPageNumber' && configOptions.headerFirstLeft !== 'headerFirstLeftEmpty') || ((!configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent || (configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.bodyBetweenSections == 'bodyEachSectionOwnPage' || configOptions.includeAbstractSummary) && configOptions.headerLeft !== 'headerLeftPageNumber' && configOptions.headerLeft !== 'headerLeftEmpty')">
+                                <div class="headerEnter headerLeft" contenteditable="true">
+                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader && !configOptions.includeTitle && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? "Running head: " : ""}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || ((!configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent || (configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.bodyBetweenSections == 'bodyEachSectionOwnPage' || configOptions.includeAbstractSummary) && configOptions.headerRight == 'headerRightPageNumber')">
+                                <div class="headerEnter headerRight">
+                                    Page number will be inserted here
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary && configOptions.headerFirstRight !== 'headerFirstRightPageNumber' && configOptions.headerFirstRight !== 'headerFirstRightEmpty') || ((!configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent || (configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.bodyBetweenSections == 'bodyEachSectionOwnPage' || configOptions.includeAbstractSummary) && configOptions.headerRight !== 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty')">
+                                <div class="headerEnter headerRight" contenteditable="true">
+                                    
+                                </div>
+                            </ng-container>
                         </div>
                         <div class="labelOptions">
                             ...
