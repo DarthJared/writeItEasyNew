@@ -146,7 +146,7 @@ export class ConfigOptionService {
             { 
                 name: 'titleInfo',
                 title: 'Title Info',
-                hideUntil: 'Include Title',
+                hideUntil: 'includeTitle',
                 fields: [
                     {
                         name: 'titleInfoFont',
@@ -240,7 +240,7 @@ export class ConfigOptionService {
             { 
                 name: 'header',
                 title: 'Header',
-                hideUntil: 'Include Header',
+                hideUntil: 'includeHeader',
                 fields: [    
                     {
                         name: 'headerFont',
@@ -321,7 +321,7 @@ export class ConfigOptionService {
                                 displayName: 'Use "Running head:"',
                                 inputType: 'toggle',
                                 hideUntil: [
-                                    'firstPageDifferent'
+                                    'headerDifferentFirstPage'
                                 ]
                             },
                             {
@@ -329,7 +329,7 @@ export class ConfigOptionService {
                                 displayName: 'More Differences',
                                 inputType: 'toggle',
                                 hideUntil: [
-                                    'firstPageDifferent'
+                                    'headerDifferentFirstPage'
                                 ]
                             },
                             {
@@ -337,8 +337,8 @@ export class ConfigOptionService {
                                 displayName: 'First Page Left',
                                 inputType: 'radioInput',
                                 hideUntil: [
-                                    'firstPageDifferent',
-                                    'moreDifferent'
+                                    'headerDifferentFirstPage',
+                                    'headerMoreDifferent'
                                 ],
                                 options: [
                                     {
@@ -368,8 +368,8 @@ export class ConfigOptionService {
                                 displayName: 'First Page Right',
                                 inputType: 'radioInput',
                                 hideUntil: [
-                                    'firstPageDifferent',
-                                    'moreDifferent'
+                                    'headerDifferentFirstPage',
+                                    'headerMoreDifferent'
                                 ],
                                 options: [
                                     {
@@ -401,7 +401,7 @@ export class ConfigOptionService {
             {
                 name: 'summaryAbstract',
                 title: 'Summary / Abstract',
-                hideUntil: 'Include Abstract/Summary',
+                hideUntil: 'includeAbstractSummary',
                 fields: [
                     {
                         name: 'summaryOwnPage',
@@ -587,7 +587,7 @@ export class ConfigOptionService {
             {
                 name: 'conclusion',
                 title: 'Conclusion',
-                hideUntil: 'Include Conclusion',
+                hideUntil: 'includeConclusion',
                 fields: [
                     {
                         name: 'conclusionOwnPage',
@@ -625,7 +625,7 @@ export class ConfigOptionService {
             {
                 name: 'referencesWorksCited',
                 title: 'References / Works Cited',
-                hideUntil: 'Include References/Works Cited',
+                hideUntil: 'includeReferencesWorksCited',
                 fields: [
                     {
                         name: 'referencesFont',

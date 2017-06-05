@@ -55076,7 +55076,7 @@ webpackJsonp([1,2],[
 	                {
 	                    name: 'titleInfo',
 	                    title: 'Title Info',
-	                    hideUntil: 'Include Title',
+	                    hideUntil: 'includeTitle',
 	                    fields: [
 	                        {
 	                            name: 'titleInfoFont',
@@ -55170,7 +55170,7 @@ webpackJsonp([1,2],[
 	                {
 	                    name: 'header',
 	                    title: 'Header',
-	                    hideUntil: 'Include Header',
+	                    hideUntil: 'includeHeader',
 	                    fields: [
 	                        {
 	                            name: 'headerFont',
@@ -55331,7 +55331,7 @@ webpackJsonp([1,2],[
 	                {
 	                    name: 'summaryAbstract',
 	                    title: 'Summary / Abstract',
-	                    hideUntil: 'Include Abstract/Summary',
+	                    hideUntil: 'includeAbstractSummary',
 	                    fields: [
 	                        {
 	                            name: 'summaryOwnPage',
@@ -55517,7 +55517,7 @@ webpackJsonp([1,2],[
 	                {
 	                    name: 'conclusion',
 	                    title: 'Conclusion',
-	                    hideUntil: 'Include Conclusion',
+	                    hideUntil: 'includeConclusion',
 	                    fields: [
 	                        {
 	                            name: 'conclusionOwnPage',
@@ -55555,7 +55555,7 @@ webpackJsonp([1,2],[
 	                {
 	                    name: 'referencesWorksCited',
 	                    title: 'References / Works Cited',
-	                    hideUntil: 'Include References/Works Cited',
+	                    hideUntil: 'includeReferencesWorksCited',
 	                    fields: [
 	                        {
 	                            name: 'referencesFont',
