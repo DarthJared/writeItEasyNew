@@ -94,6 +94,14 @@ export class ConfigBar implements OnChanges, OnInit {
     }
   }
 
+  checkHides(hideUntil) {
+    for (let hider in hideUntil) {
+      if (!this.paperSettings[hideUntil[hider]])
+        return false;
+    }
+    return true;
+  }
+
   correctEnabled(toCheck) {
     let correct = true;
     for (let i = 0; i < toCheck.length; i++) {

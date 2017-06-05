@@ -106,30 +106,32 @@
                         </div>
                     </div>
                     <div class="newSection" *ngIf="field.inputType == 'newSection'">
-                        <!--add hideUntil here-->
+                        <!--TODO: Add hideUntil here-->
                         <div class="fieldTitle">{{field.displayName}}</div>
                         <hr>
                         <div class="fieldOptions">
                             <ng-container *ngFor="let newField of field.fields">
-                                <div class="fieldOptions" *ngIf="newField.inputType == 'toggle'">
-                                    <input class="option" type="checkbox" [checked]="paperSettings[newField.name]" (change)="paperSettings[newField.name] = !paperSettings[newField.name]; sendConfigObj();">{{newField.displayName}}
-                                </div>
-                                <div *ngIf="newField.inputType == 'radioInput'">
-                                    <div class="fieldTitle">{{newField.displayName}}</div>
-                                    <hr>
-                                    <div class="fieldOptions">
-                                        <table class="radioTable">
-                                            <tr *ngFor="let option of newField.options">
-                                                <td class="radioCell">
-                                                    <input type="radio" [name]="newField.name" [checked]="paperSettings[newField.name] === option.name" (change)="paperSettings[newField.name] = option.name; sendConfigObj();">{{option.title}}
-                                                </td>
-                                                <td>
-                                                    <input (change)="sendConfigObj()" class="textInputField" style="font-size: 12px !important; width: 170px !important;" type="text" *ngIf="option.type == 'text'" [(ngModel)]="paperSettings[newField.name + 'Input']" placeholder="Enter {{option.title}} here...">
-                                                </td>
-                                            </tr>
-                                        </table>
+                                <ng-container *ngIf="!newField.hideUntil || newField.hideUntil == 'none' || checkHides(newField.hideUntil)">
+                                    <div class="fieldOptions" *ngIf="newField.inputType == 'toggle'">
+                                        <input class="option" type="checkbox" [checked]="paperSettings[newField.name]" (change)="paperSettings[newField.name] = !paperSettings[newField.name]; sendConfigObj();">{{newField.displayName}}
                                     </div>
-                                </div>
+                                    <div *ngIf="newField.inputType == 'radioInput'">
+                                        <div class="fieldTitle">{{newField.displayName}}</div>
+                                        <hr>
+                                        <div class="fieldOptions">
+                                            <table class="radioTable">
+                                                <tr *ngFor="let option of newField.options">
+                                                    <td class="radioCell">
+                                                        <input type="radio" [name]="newField.name" [checked]="paperSettings[newField.name] === option.name" (change)="paperSettings[newField.name] = option.name; sendConfigObj();">{{option.title}}
+                                                    </td>
+                                                    <td>
+                                                        <input (change)="sendConfigObj()" class="textInputField" style="font-size: 12px !important; width: 170px !important;" type="text" *ngIf="option.type == 'text'" [(ngModel)]="paperSettings[newField.name + 'Input']" placeholder="Enter {{option.title}} here...">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </ng-container>
                             </ng-container>
                         </div>
                     </div>                

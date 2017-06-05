@@ -54869,6 +54869,13 @@ webpackJsonp([1,2],[
 	            }
 	        }
 	    };
+	    ConfigBar.prototype.checkHides = function (hideUntil) {
+	        for (var hider in hideUntil) {
+	            if (!this.paperSettings[hideUntil[hider]])
+	                return false;
+	        }
+	        return true;
+	    };
 	    ConfigBar.prototype.correctEnabled = function (toCheck) {
 	        var correct = true;
 	        for (var i = 0; i < toCheck.length; i++) {
@@ -55251,7 +55258,7 @@ webpackJsonp([1,2],[
 	                                    displayName: 'Use "Running head:"',
 	                                    inputType: 'toggle',
 	                                    hideUntil: [
-	                                        'firstPageDifferent'
+	                                        'headerDifferentFirstPage'
 	                                    ]
 	                                },
 	                                {
@@ -55259,7 +55266,7 @@ webpackJsonp([1,2],[
 	                                    displayName: 'More Differences',
 	                                    inputType: 'toggle',
 	                                    hideUntil: [
-	                                        'firstPageDifferent'
+	                                        'headerDifferentFirstPage'
 	                                    ]
 	                                },
 	                                {
@@ -55267,8 +55274,8 @@ webpackJsonp([1,2],[
 	                                    displayName: 'First Page Left',
 	                                    inputType: 'radioInput',
 	                                    hideUntil: [
-	                                        'firstPageDifferent',
-	                                        'moreDifferent'
+	                                        'headerDifferentFirstPage',
+	                                        'headerMoreDifferent'
 	                                    ],
 	                                    options: [
 	                                        {
@@ -55298,8 +55305,8 @@ webpackJsonp([1,2],[
 	                                    displayName: 'First Page Right',
 	                                    inputType: 'radioInput',
 	                                    hideUntil: [
-	                                        'firstPageDifferent',
-	                                        'moreDifferent'
+	                                        'headerDifferentFirstPage',
+	                                        'headerMoreDifferent'
 	                                    ],
 	                                    options: [
 	                                        {
