@@ -419,6 +419,7 @@ export class ConfigOptionService {
                         name: 'summarySectionLabelAlign',
                         displayName: 'Section Label Align',
                         inputType: 'radio',
+                        hideUntil: 'summaryIncludeSectionLabel',
                         options: [
                             {
                                 name: 'summarySectionLabelLeft',
@@ -484,6 +485,7 @@ export class ConfigOptionService {
                         name: 'bodySectionLabelPos',
                         displayName: 'Section Label Position',
                         inputType: 'radio',
+                        hideUntil: 'bodyIncludeSectionLabels',
                         options: [
                             {
                                 name: 'bodySectionLabelInline',
@@ -499,6 +501,7 @@ export class ConfigOptionService {
                         name: 'bodySubsectionLabelPos',
                         displayName: 'Subsection Label Position',
                         inputType: 'radio',
+                        hideUntil: 'bodyIncludeSubsectionLabels',
                         options: [
                             {
                                 name: 'bodySubsectionLabelInline',
@@ -514,6 +517,7 @@ export class ConfigOptionService {
                         name: 'bodySubsubsectionLabelPos',
                         displayName: 'Subsubsection Label Position',
                         inputType: 'radio',
+                        hideUntil: 'bodyIncludeSubsubsectionLabels',
                         options: [
                             {
                                 name: 'bodySubsubsectionLabelInline',
@@ -529,6 +533,7 @@ export class ConfigOptionService {
                         name: 'bodySectionLabelAlign',
                         displayName: 'Section Label Align',
                         inputType: 'radio',
+                        hideUntil: 'bodyIncludeSectionLabels',
                         options: [
                             {
                                 name: 'bodySectionLabelLeft',
@@ -548,6 +553,7 @@ export class ConfigOptionService {
                         name: 'bodySubsectionLabelAlign',
                         displayName: 'Subsection Label Align',
                         inputType: 'radio',
+                        hideUntil: 'bodyIncludeSubsectionLabels',
                         options: [
                             {
                                 name: 'bodySubsectionLabelLeft',
@@ -567,6 +573,7 @@ export class ConfigOptionService {
                         name: 'bodySubsubsectionLabelAlign',
                         displayName: 'Subsubsection Label Align',
                         inputType: 'radio',
+                        hideUntil: 'bodyIncludeSubsubsectionLabels',
                         options: [
                             {
                                 name: 'bodySubsubsectionLabelLeft',
@@ -605,6 +612,7 @@ export class ConfigOptionService {
                         name: 'conclusionSectionLabelAlign',
                         displayName: 'Section Label Align',
                         inputType: 'radio',
+                        hideUntil: 'conclusionIncludeLabel',
                         options: [
                             {
                                 name: 'conclusionSectionLabelLeft',
@@ -660,6 +668,7 @@ export class ConfigOptionService {
                         name: 'referencesLabelAlign',
                         displayName: 'Align References Section Label',
                         inputType: 'radio',
+                        hideUntil: 'referencesIncludeLabel',
                         options: [
                             {
                                 name: 'referencesLabelAlignLeft',

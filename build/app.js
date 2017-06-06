@@ -55356,6 +55356,7 @@ webpackJsonp([1,2],[
 	                            name: 'summarySectionLabelAlign',
 	                            displayName: 'Section Label Align',
 	                            inputType: 'radio',
+	                            hideUntil: 'summaryIncludeSectionLabel',
 	                            options: [
 	                                {
 	                                    name: 'summarySectionLabelLeft',
@@ -55421,6 +55422,7 @@ webpackJsonp([1,2],[
 	                            name: 'bodySectionLabelPos',
 	                            displayName: 'Section Label Position',
 	                            inputType: 'radio',
+	                            hideUntil: 'bodyIncludeSectionLabels',
 	                            options: [
 	                                {
 	                                    name: 'bodySectionLabelInline',
@@ -55436,6 +55438,7 @@ webpackJsonp([1,2],[
 	                            name: 'bodySubsectionLabelPos',
 	                            displayName: 'Subsection Label Position',
 	                            inputType: 'radio',
+	                            hideUntil: 'bodyIncludeSubsectionLabels',
 	                            options: [
 	                                {
 	                                    name: 'bodySubsectionLabelInline',
@@ -55451,6 +55454,7 @@ webpackJsonp([1,2],[
 	                            name: 'bodySubsubsectionLabelPos',
 	                            displayName: 'Subsubsection Label Position',
 	                            inputType: 'radio',
+	                            hideUntil: 'bodyIncludeSubsubsectionLabels',
 	                            options: [
 	                                {
 	                                    name: 'bodySubsubsectionLabelInline',
@@ -55466,6 +55470,7 @@ webpackJsonp([1,2],[
 	                            name: 'bodySectionLabelAlign',
 	                            displayName: 'Section Label Align',
 	                            inputType: 'radio',
+	                            hideUntil: 'bodyIncludeSectionLabels',
 	                            options: [
 	                                {
 	                                    name: 'bodySectionLabelLeft',
@@ -55485,6 +55490,7 @@ webpackJsonp([1,2],[
 	                            name: 'bodySubsectionLabelAlign',
 	                            displayName: 'Subsection Label Align',
 	                            inputType: 'radio',
+	                            hideUntil: 'bodyIncludeSubsectionLabels',
 	                            options: [
 	                                {
 	                                    name: 'bodySubsectionLabelLeft',
@@ -55504,6 +55510,7 @@ webpackJsonp([1,2],[
 	                            name: 'bodySubsubsectionLabelAlign',
 	                            displayName: 'Subsubsection Label Align',
 	                            inputType: 'radio',
+	                            hideUntil: 'bodyIncludeSubsubsectionLabels',
 	                            options: [
 	                                {
 	                                    name: 'bodySubsubsectionLabelLeft',
@@ -55542,6 +55549,7 @@ webpackJsonp([1,2],[
 	                            name: 'conclusionSectionLabelAlign',
 	                            displayName: 'Section Label Align',
 	                            inputType: 'radio',
+	                            hideUntil: 'conclusionIncludeLabel',
 	                            options: [
 	                                {
 	                                    name: 'conclusionSectionLabelLeft',
@@ -55597,6 +55605,7 @@ webpackJsonp([1,2],[
 	                            name: 'referencesLabelAlign',
 	                            displayName: 'Align References Section Label',
 	                            inputType: 'radio',
+	                            hideUntil: 'referencesIncludeLabel',
 	                            options: [
 	                                {
 	                                    name: 'referencesLabelAlignLeft',

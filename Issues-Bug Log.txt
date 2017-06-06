@@ -1,0 +1,15 @@
+WriteItEasy 2.0
+---------------
+
+To Be Implemented:
+-Add References Modal
+-Bind content of paper to model
+-Construct paper object to be sent to writer service based on settings selected
+-Get Bold Working
+-Get Italics working
+-Get Underline working
+-Get Font Family working
+-Get Font Size working
+
+Bugs:
+-Paper wont write
