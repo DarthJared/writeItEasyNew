@@ -63,7 +63,8 @@ export class ConfigOptionService {
         referencesOwnPage: true,
         referencesIncludeLabel: true,
         referencesLabelInput: 'References',
-        referencesLabelAlign: 'referencesLabelAlignCenter'
+        referencesLabelAlign: 'referencesLabelAlignCenter',
+        referencesHangingIndent: 1
     };
 
     options = {
@@ -683,6 +684,11 @@ export class ConfigOptionService {
                                 title: 'Right'
                             }
                         ]
+                    },
+                    {
+                        name: 'referencesHangingIndent',
+                        displayName: 'Reference Hanging Indent',
+                        inputType: 'indentCounter'
                     }
                 ]
             }

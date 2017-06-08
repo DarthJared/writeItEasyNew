@@ -55002,7 +55002,8 @@ webpackJsonp([1,2],[
 	            referencesOwnPage: true,
 	            referencesIncludeLabel: true,
 	            referencesLabelInput: 'References',
-	            referencesLabelAlign: 'referencesLabelAlignCenter'
+	            referencesLabelAlign: 'referencesLabelAlignCenter',
+	            referencesHangingIndent: 1
 	        };
 	        this.options = {
 	            sections: [
@@ -55621,6 +55622,11 @@ webpackJsonp([1,2],[
 	                                    title: 'Right'
 	                                }
 	                            ]
+	                        },
+	                        {
+	                            name: 'referencesHangingIndent',
+	                            displayName: 'Reference Hanging Indent',
+	                            inputType: 'indentCounter'
 	                        }
 	                    ]
 	                }
@@ -58247,10 +58253,22 @@ webpackJsonp([1,2],[
 	            this.paperObj.conclusion.onOwnPage = this.configOptions.conclusionOwnPage;
 	            if (this.configOptions.conclusionIncludeLabel) {
 	                this.paperObj.conclusion.includeLabel = true;
+	                if (this.configOptions.conclusionSectionLabelAlign == 'conclusionSectionLabelCenter')
+	                    this.paperObj.conclusion.label.alignment = 'center';
+	                else if (this.configOptions.conclusionSectionLabelAlign == 'conclusionSectionLabelLeft')
+	                    this.paperObj.conclusion.label.alignment = 'left';
+	                else if (this.configOptions.conclusionSectionLabelAlign == 'conclusionSectionLabelRight')
+	                    this.paperObj.conclusion.label.alignment = 'right';
 	            }
 	        }
 	        if (this.configOptions.includeReferencesWorksCited) {
 	            this.paperObj.references.onOwnPage = this.configOptions.referencesOwnPage;
+	            if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignCenter')
+	                this.paperObj.conclusion.label.alignment = 'center';
+	            else if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignleft')
+	                this.paperObj.conclusion.label.alignment = 'left';
+	            else if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignRight')
+	                this.paperObj.conclusion.label.alignment = 'right';
 	            this.paperObj.references.font = this.configOptions.referencesFont;
 	            this.paperObj.references.fontSize = this.configOptions.referencesFontSize;
 	            var spacing = 2;

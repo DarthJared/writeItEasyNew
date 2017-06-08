@@ -330,7 +330,12 @@ export class WriteButton {
         this.paperObj.conclusion.includeLabel = true;
         //insert label text
         //handle font, size, bold, underline, and italicize
-        //handle alignment and position
+        if (this.configOptions.conclusionSectionLabelAlign == 'conclusionSectionLabelCenter')
+          this.paperObj.conclusion.label.alignment = 'center';
+        else if (this.configOptions.conclusionSectionLabelAlign == 'conclusionSectionLabelLeft')
+          this.paperObj.conclusion.label.alignment = 'left';
+        else if (this.configOptions.conclusionSectionLabelAlign == 'conclusionSectionLabelRight')
+          this.paperObj.conclusion.label.alignment = 'right';
       }
       //handle paragraphs
     }
@@ -338,7 +343,12 @@ export class WriteButton {
     /*References*/
     if (this.configOptions.includeReferencesWorksCited) {
       this.paperObj.references.onOwnPage = this.configOptions.referencesOwnPage;
-      //handle alignment (left, center, right)
+      if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignCenter')
+        this.paperObj.conclusion.label.alignment = 'center';
+      else if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignleft')
+        this.paperObj.conclusion.label.alignment = 'left';
+      else if (this.configOptions.referencesLabelAlign == 'referencesLabelAlignRight')
+        this.paperObj.conclusion.label.alignment = 'right';
       //handle hanging indent
       this.paperObj.references.font = this.configOptions.referencesFont;
       this.paperObj.references.fontSize = this.configOptions.referencesFontSize;

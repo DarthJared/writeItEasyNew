@@ -135,6 +135,21 @@
                                 </ng-container>
                             </div>
                         </div> 
+                        <div class="radioGroup" *ngIf="field.inputType == 'indentCounter'">
+                            <div class="fieldTitle">{{field.displayName}}</div>
+                            <hr>
+                            <select class="fieldOptions" [(ngModel)]="paperSettings[field.name]" (change)="sendConfigObj();">
+                                <option value="0">
+                                   None
+                                </option>
+                                <option value="1">
+                                   1
+                                </option>
+                                <option  value="2">
+                                   2
+                                </option>
+                            </select>
+                        </div>
                     </ng-container>               
                 </div>
                 <div>
