@@ -3,7 +3,6 @@ var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var ipc = electron.ipcMain;
 
-
 app.on('ready', ()=>{
     var mainWindow = new BrowserWindow({
         width: 1280,

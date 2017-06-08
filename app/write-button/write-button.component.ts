@@ -178,6 +178,7 @@ export class WriteButton {
   }
 
   writeIt() {
+    require('events').EventEmitter.prototype._maxListeners = 100;
     this.optionsOpen = false;
     this.parseConfig();
     this.parseContent();

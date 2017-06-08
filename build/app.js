@@ -58117,6 +58117,7 @@ webpackJsonp([1,2],[
 	        this.subsubsectionAdded.emit('added');
 	    };
 	    WriteButton.prototype.writeIt = function () {
+	        __webpack_require__(280).EventEmitter.prototype._maxListeners = 100;
 	        this.optionsOpen = false;
 	        this.parseConfig();
 	        this.parseContent();
