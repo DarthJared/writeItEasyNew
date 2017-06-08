@@ -60,15 +60,16 @@ export class DocwriterService {
         var shell = require('electron').shell;
         var app = require('electron').remote; 
         var dialog = app.dialog;
+        let self = this;
 
         dialog.showSaveDialog({filters: [{ name: 'DocX files', extensions: ['docx'] }]}, function(filename) {
             //console.log(filename);
             var saveName = filename;
-            this.setCore();
-            this.setDocument(paperObj);
-            this.setRels(paperObj);
-            this.setContentTypes(paperObj);
-            this.setHeaders(paperObj.headers);
+            self.setCore();
+            self.setDocument(paperObj);
+            self.setRels(paperObj);
+            self.setContentTypes(paperObj);
+            self.setHeaders(paperObj.headers);
             if (!saveName || saveName.length < 1) {
                 alert("Document not saved.");
                 return;
@@ -90,27 +91,27 @@ export class DocwriterService {
             });
 
             archive.pipe(output);
-            archive.append(this.contentTypesContent, { name: '[Content_Types].xml' });
-            archive.append(this.wordDocumentContent, { name: 'word\\document.xml' });
-            archive.append(this.fontTableContent, { name: 'word\\fontTable.xml' });
-            archive.append(this.settingsContent, { name: 'word\\settings.xml' });
-            archive.append(this.stylesContent, { name: 'word\\styles.xml' });
-            archive.append(this.webSettingsContent, { name: 'word\\webSettings.xml' });
-            archive.append(this.wordRelsContent, { name: 'word\\_rels\\document.xml.rels' });
+            archive.append(self.contentTypesContent, { name: '[Content_Types].xml' });
+            archive.append(self.wordDocumentContent, { name: 'word\\document.xml' });
+            archive.append(self.fontTableContent, { name: 'word\\fontTable.xml' });
+            archive.append(self.settingsContent, { name: 'word\\settings.xml' });
+            archive.append(self.stylesContent, { name: 'word\\styles.xml' });
+            archive.append(self.webSettingsContent, { name: 'word\\webSettings.xml' });
+            archive.append(self.wordRelsContent, { name: 'word\\_rels\\document.xml.rels' });
             if (paperObj.headers.includeHeaders) {
-                archive.append(this.emptyHeaderContent, { name: 'word\\header1.xml' });
-                archive.append(this.header2Content, { name: 'word\\header2.xml' });
-                archive.append(this.header3Content, { name: 'word\\header3.xml' });
-                archive.append(this.emptyFooterContent, { name: 'word\\footer1.xml' });
-                archive.append(this.emptyFooterContent, { name: 'word\\footer2.xml' });
-                archive.append(this.emptyFooterContent, { name: 'word\\footer3.xml' });
-                archive.append(this.footNotesContent, { name: 'word\\footnotes.xml' });
-                archive.append(this.endNotesContent, { name: 'word\\endnotes.xml' });
+                archive.append(self.emptyHeaderContent, { name: 'word\\header1.xml' });
+                archive.append(self.header2Content, { name: 'word\\header2.xml' });
+                archive.append(self.header3Content, { name: 'word\\header3.xml' });
+                archive.append(self.emptyFooterContent, { name: 'word\\footer1.xml' });
+                archive.append(self.emptyFooterContent, { name: 'word\\footer2.xml' });
+                archive.append(self.emptyFooterContent, { name: 'word\\footer3.xml' });
+                archive.append(self.footNotesContent, { name: 'word\\footnotes.xml' });
+                archive.append(self.endNotesContent, { name: 'word\\endnotes.xml' });
             }
-            archive.append(this.wordThemeContent, { name: 'word\\theme\\theme1.xml' });
-            archive.append(this.relsContent, { name: '_rels\\.rels' });
-            archive.append(this.appContent, { name: 'docProps\\app.xml' });
-            archive.append(this.coreContent, { name: 'docProps\\core.xml' });
+            archive.append(self.wordThemeContent, { name: 'word\\theme\\theme1.xml' });
+            archive.append(self.relsContent, { name: '_rels\\.rels' });
+            archive.append(self.appContent, { name: 'docProps\\app.xml' });
+            archive.append(self.coreContent, { name: 'docProps\\core.xml' });
             archive.finalize();
 
             fs.renameSync('lucky.zip', saveName);

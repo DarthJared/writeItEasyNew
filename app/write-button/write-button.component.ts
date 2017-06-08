@@ -308,7 +308,12 @@ export class WriteButton {
         this.paperObj.summaryAbstract.includeLabel = true;
         //insert label text
         //handle font, size, bold, underline, and italicize
-        //handle alignment and position
+        if (this.configOptions.summarySectionLabelAlign == 'summarySectionLabelCenter')
+          this.paperObj.summaryAbstract.label.alignment = 'center';
+        else if (this.configOptions.summarySectionLabelAlign == 'summarySectionLabelLeft')
+          this.paperObj.summaryAbstract.label.alignment = 'left';
+        else if (this.configOptions.summarySectionLabelAlign == 'summarySectionLabelRight')
+          this.paperObj.summaryAbstract.label.alignment = 'right';
       }
     }
     //handle paragraphs
