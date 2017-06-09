@@ -55898,6 +55898,9 @@ webpackJsonp([1,2],[
 	        if (property === value3)
 	            return result3;
 	    };
+	    ContentEnter.prototype.parseSummary = function (summaryContent) {
+	        console.log(summaryContent);
+	    };
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', Object)

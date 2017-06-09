@@ -10,6 +10,7 @@ To Be Implemented:
 -Get Underline working
 -Get Font Family working
 -Get Font Size working
+-Possible Section Reordering
 
 Bugs:
--Paper wont write
+-First Label Wrap doesn't work

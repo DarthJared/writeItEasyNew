@@ -238,8 +238,8 @@
                     <div class="contentOptions" style="margin-right: -131px;">
                         ...
                     </div>
-                    <div class="contentEnterWrap">
-                        <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                    <div class="contentEnterWrap">                        
+                        <div #sum contenteditable="true" (blur)="parseSummary(sum.innerHTML)" class="contentEnter" id="editting"></div>		
                     </div>
                 </div>
             </ng-container>
@@ -267,7 +267,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">
-                        <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                        <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
                     </div>
                 </ng-container>
                 <!--Conclusion-->
@@ -290,7 +290,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">
-                        <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                        <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
                     </div>
                 </ng-container>
             </ng-container>            
@@ -429,7 +429,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">
-                        <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                        <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
                     </div>
                 </div>
             </div>
@@ -494,7 +494,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">
-                        <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                        <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
                     </div>
                 </div>
             </ng-container>
@@ -517,7 +517,7 @@
                     ...
                 </div>
                 <div class="contentEnterWrap">
-                    <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                    <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
                 </div>
             </ng-container>
         </div>
@@ -562,7 +562,7 @@
                     ...
                 </div>
                 <div class="contentEnterWrap">
-                    <p contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</p>		
+                    <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
                 </div>
             </div>
         </div>

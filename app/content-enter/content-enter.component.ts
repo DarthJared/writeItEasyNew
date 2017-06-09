@@ -72,6 +72,10 @@ export class ContentEnter {
       return result3;
   }
 
+  parseSummary(summaryContent) {
+    console.log(summaryContent);
+  }
+
   titleFieldObj = {
     name: "",
     value: ""

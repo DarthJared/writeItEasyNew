@@ -139,7 +139,7 @@ p {
 }
 
 .firstLabelWrap {
-    margin-top: 45px;
+    margin-top: 44px;
 }
 
 .labelWrap {
@@ -147,7 +147,7 @@ p {
 }
 
 .contentEnterWrap {
-    padding-top: 11px; 
+    padding-top: 27px; 
     width: calc(100% - 22px);
 }
 
