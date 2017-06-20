@@ -73,7 +73,29 @@ export class ContentEnter {
   }
 
   parseSummary(summaryContent) {
-    console.log(summaryContent);
+    let paragraphs = this.parseParagraphs(summaryContent);
+    this.contentObj.summaryParagraphs = paragraphs;
+    console.log(this.contentObj);
+  }
+
+  parseConclusion(conclusionContent) {
+    let paragraphs = this.parseParagraphs(conclusionContent);
+    this.contentObj.conclusionParagraphs = paragraphs;
+    console.log(this.contentObj);
+  }
+
+  parseParagraphs(paragraphs) {
+    let toReturn = [];
+    let paragraphsSplit = paragraphs.split("<div>");    
+    for(let i = 0; i < paragraphsSplit.length; i++) {
+      let paragraph = paragraphsSplit[i].replace("</div>", "");
+      let newParagraphObj = JSON.parse(JSON.stringify(this.paragraphObj));
+      let newFormatObj = JSON.parse(JSON.stringify(this.formatSectionObj));
+      newFormatObj.content = paragraph;
+      newParagraphObj.formatSections.push(newFormatObj);
+      toReturn.push(newParagraphObj);      
+    }
+    return toReturn;
   }
 
   titleFieldObj = {

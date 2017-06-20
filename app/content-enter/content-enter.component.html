@@ -290,7 +290,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">
-                        <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
+                        <div #conc contenteditable="true" (blur)="parseConclusion(conc.innerHTML)" class="contentEnter" id="editting">H<em>el</em>lo</div>		
                     </div>
                 </ng-container>
             </ng-container>            
@@ -517,7 +517,7 @@
                     ...
                 </div>
                 <div class="contentEnterWrap">
-                    <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
+                    <div #conc contenteditable="true" (blur)="parseConclusion(conc.innerHTML)" class="contentEnter" id="editting"></div>		
                 </div>
             </ng-container>
         </div>
@@ -562,7 +562,7 @@
                     ...
                 </div>
                 <div class="contentEnterWrap">
-                    <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
+                    <div #conc contenteditable="true" (blur)="parseConclusion(conc.innerHTML)" class="contentEnter" id="editting"></div>		
                 </div>
             </div>
         </div>

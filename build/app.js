@@ -55899,7 +55899,27 @@ webpackJsonp([1,2],[
 	            return result3;
 	    };
 	    ContentEnter.prototype.parseSummary = function (summaryContent) {
-	        console.log(summaryContent);
+	        var paragraphs = this.parseParagraphs(summaryContent);
+	        this.contentObj.summaryParagraphs = paragraphs;
+	        console.log(this.contentObj);
+	    };
+	    ContentEnter.prototype.parseConclusion = function (conclusionContent) {
+	        var paragraphs = this.parseParagraphs(conclusionContent);
+	        this.contentObj.conclusionParagraphs = paragraphs;
+	        console.log(this.contentObj);
+	    };
+	    ContentEnter.prototype.parseParagraphs = function (paragraphs) {
+	        var toReturn = [];
+	        var paragraphsSplit = paragraphs.split("<div>");
+	        for (var i = 0; i < paragraphsSplit.length; i++) {
+	            var paragraph = paragraphsSplit[i].replace("</div>", "");
+	            var newParagraphObj = JSON.parse(JSON.stringify(this.paragraphObj));
+	            var newFormatObj = JSON.parse(JSON.stringify(this.formatSectionObj));
+	            newFormatObj.content = paragraph;
+	            newParagraphObj.formatSections.push(newFormatObj);
+	            toReturn.push(newParagraphObj);
+	        }
+	        return toReturn;
 	    };
 	    __decorate([
 	        core_1.Input(), 
