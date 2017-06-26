@@ -44,7 +44,7 @@
                             Class
                         </div>
                         <div class="titleInfoWrap">
-                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div contenteditable="true" #classEnter class="labelEnter" id="editting" (blur)="updateTitleInfo('Class', classEnter.innerHTML)" [innerHTML]="getTitleField('Class')"></div>
                             <div class="labelOptions">
                                 ...
                             </div>
@@ -239,7 +239,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">                        
-                        <div #sum contenteditable="true" (blur)="parseSummary(sum.innerHTML)" class="contentEnter" id="editting" [innerHtml]="'Hello'"></div>		
+                        <div #sum contenteditable="true" (blur)="parseSummary(sum.innerHTML)" class="contentEnter" id="editting" [innerHtml]="getSummary()"></div>		
                     </div>
                 </div>
             </ng-container>

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnChanges } from "@angular/core";
 import { WriteButton } from "../write-button/write-button.component";
 
 @Component({
@@ -8,8 +8,14 @@ import { WriteButton } from "../write-button/write-button.component";
    directives: [ WriteButton ]
 })
 
-export class ContentEnter {
+export class ContentEnter implements OnChanges {
+  @Input() configOptions;
   deletedSections = [];
+  
+  ngOnChanges() {
+    
+  }
+
   constructor() { 
     let starterObj = JSON.parse(JSON.stringify(this.sectionObj));  
     let lengthSect = this.contentObj.bodySections.length;  
@@ -21,6 +27,33 @@ export class ContentEnter {
   headerChanged(change) {
     console.log(change.currentTarget.outerText);
   } 
+
+  updateTitleInfo(name, content) {
+    let titleInfoToAdd = JSON.parse(JSON.stringify(this.titleFieldObj));
+    titleInfoToAdd.name = name;
+    let formatSectionToAdd = JSON.parse(JSON.stringify(this.formatSectionObj));
+    formatSectionToAdd.content = content;
+    titleInfoToAdd.formatSections.push(formatSectionToAdd);
+    let indexToAdd = 0;
+    for (let index in this.contentObj.titleFields) {
+      let titleObj = this.contentObj.titleFields[index];
+      if (titleObj.name == name) {
+        indexToAdd = titleObj.index;
+        delete this.contentObj.titleFields[index];
+      }
+    }
+    titleInfoToAdd.index = indexToAdd;
+    this.contentObj.titleFields.push(titleInfoToAdd);
+  }
+
+  getTitleField(name) {
+    for (let index in this.contentObj.titleFields) { 
+      let titleObj = this.contentObj.titleFields[index];
+      if (titleObj.name == name) {
+        return this.contentify([titleObj]);
+      }
+    }    
+  }
 
   deleteSection(section) {
     let todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
@@ -60,8 +93,6 @@ export class ContentEnter {
     newSection.sectionLevel = 3;
     this.contentObj.bodySections.push(newSection);
   }
-
-  @Input() configOptions;
   
   getOffset(property: string, value1: string, result1: string, value2: string, result2: string, value3: string, result3: string) {
     if (property === value1)
@@ -76,6 +107,10 @@ export class ContentEnter {
     let paragraphs = this.parseParagraphs(summaryContent);
     this.contentObj.summaryParagraphs = paragraphs;
     console.log(this.contentObj);
+  }
+
+  getSummary() {
+    return this.contentify(this.contentObj.summaryParagraphs);
   }
 
   parseConclusion(conclusionContent) {
@@ -137,7 +172,8 @@ export class ContentEnter {
 
   titleFieldObj = {
     name: "",
-    value: ""
+    formatSections: [],
+    index: 0
   };
   formatSectionObj = {
     bold: false,
@@ -153,7 +189,7 @@ export class ContentEnter {
     spacing: 2,
     topIndent: 1,
     bottomIndent: 0,
-    formatSections:[]
+    formatSections: []
   };
   sectionObj = {
     sectionLevel: 1,

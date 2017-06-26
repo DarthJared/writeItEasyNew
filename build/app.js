@@ -55771,7 +55771,8 @@ webpackJsonp([1,2],[
 	        this.deletedSections = [];
 	        this.titleFieldObj = {
 	            name: "",
-	            value: ""
+	            formatSections: [],
+	            index: 0
 	        };
 	        this.formatSectionObj = {
 	            bold: false,
@@ -55852,8 +55853,35 @@ webpackJsonp([1,2],[
 	            starterObj.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
 	        this.contentObj.bodySections.push(starterObj);
 	    }
+	    ContentEnter.prototype.ngOnChanges = function () {
+	    };
 	    ContentEnter.prototype.headerChanged = function (change) {
 	        console.log(change.currentTarget.outerText);
+	    };
+	    ContentEnter.prototype.updateTitleInfo = function (name, content) {
+	        var titleInfoToAdd = JSON.parse(JSON.stringify(this.titleFieldObj));
+	        titleInfoToAdd.name = name;
+	        var formatSectionToAdd = JSON.parse(JSON.stringify(this.formatSectionObj));
+	        formatSectionToAdd.content = content;
+	        titleInfoToAdd.formatSections.push(formatSectionToAdd);
+	        var indexToAdd = 0;
+	        for (var index in this.contentObj.titleFields) {
+	            var titleObj = this.contentObj.titleFields[index];
+	            if (titleObj.name == name) {
+	                indexToAdd = titleObj.index;
+	                delete this.contentObj.titleFields[index];
+	            }
+	        }
+	        titleInfoToAdd.index = indexToAdd;
+	        this.contentObj.titleFields.push(titleInfoToAdd);
+	    };
+	    ContentEnter.prototype.getTitleField = function (name) {
+	        for (var index in this.contentObj.titleFields) {
+	            var titleObj = this.contentObj.titleFields[index];
+	            if (titleObj.name == name) {
+	                return this.contentify([titleObj]);
+	            }
+	        }
 	    };
 	    ContentEnter.prototype.deleteSection = function (section) {
 	        var todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
@@ -55902,6 +55930,9 @@ webpackJsonp([1,2],[
 	        var paragraphs = this.parseParagraphs(summaryContent);
 	        this.contentObj.summaryParagraphs = paragraphs;
 	        console.log(this.contentObj);
+	    };
+	    ContentEnter.prototype.getSummary = function () {
+	        return this.contentify(this.contentObj.summaryParagraphs);
 	    };
 	    ContentEnter.prototype.parseConclusion = function (conclusionContent) {
 	        var paragraphs = this.parseParagraphs(conclusionContent);
