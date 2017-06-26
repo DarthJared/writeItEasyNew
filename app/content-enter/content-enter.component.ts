@@ -84,6 +84,43 @@ export class ContentEnter {
     console.log(this.contentObj);
   }
 
+  getConclusion() {
+    return this.contentify(this.contentObj.conclusionParagraphs);
+  }
+
+  contentify(toParse) {
+    let content = "";
+    for (let i = 0; i < toParse.length; i++) {
+      let paragraphContent = "<div>";
+      let paragraph = toParse[i];
+      for (let j = 0; j < paragraph.formatSections.length; j++) {
+        let formatContent = "";
+        let formatSection = paragraph.formatSections[j];
+        if (formatSection.bold)
+          formatContent += "<strong>";
+        if (formatSection.underline)
+          formatContent += "<u>";
+        if (formatSection.italicize)
+          formatContent += "<em>";
+        formatContent += `<span style="font-family: '${formatSection.font}'; font-size: '${formatSection.fontSize}'">
+                      ${formatSection.content}
+                    </span>`;
+        if (formatSection.italicize)
+          formatContent += "</em>";
+        if (formatSection.underline)
+          formatContent += "</u>";
+        if (formatSection.bold)
+          formatContent += "</strong>";
+        paragraphContent += formatContent;
+      }
+      if (paragraphContent == "<div>")
+        paragraphContent += "<br>";
+      paragraphContent += "</div>";
+      content += paragraphContent;
+    }
+    return content;
+  }
+
   parseParagraphs(paragraphs) {
     let toReturn = [];
     let paragraphsSplit = paragraphs.split("<div>");    

@@ -55908,6 +55908,39 @@ webpackJsonp([1,2],[
 	        this.contentObj.conclusionParagraphs = paragraphs;
 	        console.log(this.contentObj);
 	    };
+	    ContentEnter.prototype.getConclusion = function () {
+	        return this.contentify(this.contentObj.conclusionParagraphs);
+	    };
+	    ContentEnter.prototype.contentify = function (toParse) {
+	        var content = "";
+	        for (var i = 0; i < toParse.length; i++) {
+	            var paragraphContent = "<div>";
+	            var paragraph = toParse[i];
+	            for (var j = 0; j < paragraph.formatSections.length; j++) {
+	                var formatContent = "";
+	                var formatSection = paragraph.formatSections[j];
+	                if (formatSection.bold)
+	                    formatContent += "<strong>";
+	                if (formatSection.underline)
+	                    formatContent += "<u>";
+	                if (formatSection.italicize)
+	                    formatContent += "<em>";
+	                formatContent += "<span style=\"font-family: '" + formatSection.font + "'; font-size: '" + formatSection.fontSize + "'\">\n                      " + formatSection.content + "\n                    </span>";
+	                if (formatSection.italicize)
+	                    formatContent += "</em>";
+	                if (formatSection.underline)
+	                    formatContent += "</u>";
+	                if (formatSection.bold)
+	                    formatContent += "</strong>";
+	                paragraphContent += formatContent;
+	            }
+	            if (paragraphContent == "<div>")
+	                paragraphContent += "<br>";
+	            paragraphContent += "</div>";
+	            content += paragraphContent;
+	        }
+	        return content;
+	    };
 	    ContentEnter.prototype.parseParagraphs = function (paragraphs) {
 	        var toReturn = [];
 	        var paragraphsSplit = paragraphs.split("<div>");
