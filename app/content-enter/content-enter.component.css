@@ -30,7 +30,8 @@ p {
 }
 
 .labelEnter {
-    overflow-y: scroll;
+    height: 21px;
+    overflow: auto;
 }
 
 ::-webkit-scrollbar {

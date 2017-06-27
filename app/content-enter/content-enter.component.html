@@ -10,8 +10,7 @@
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
                             <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstLeft == 'headerFirstLeftPageNumber') || (!configOptions.headerMoreDifferent && configOptions.headerLeft == 'headerLeftPageNumber')">
-                                <div class="headerEnter headerLeft" (blur)="headerChanged($event)">
-                                    {{configOptions.headerDifferentFirstPage && configOptions.headerUseRunningHeader ? "Running head: " : ""}}
+                                <div class="headerEnter headerLeft" #left (blur)="headerChanged('firstLeft', 'pageNumber')">
                                     Page number will be inserted here
                                 </div>
                             </ng-container>
@@ -129,7 +128,7 @@
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="((!configOptions.includeTitle || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage')) && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight == 'headerFirstRightPageNumber') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || !configOptions.headerMoreDifferent) && configOptions.headerRight == 'headerRightPageNumber')">
-                                <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
+                                <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight">
                                     Page number will be inserted here
                                 </div>
                             </ng-container>

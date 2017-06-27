@@ -24,8 +24,27 @@ export class ContentEnter implements OnChanges {
     this.contentObj.bodySections.push(starterObj);
   }  
 
-  headerChanged(change) {
-    console.log(change.currentTarget.outerText);
+  updateHeaderInfo(selection, content) {
+    // console.log(change.currentTarget.outerText);
+
+    switch(selection) {
+      case 'firstLeft':
+
+        break;
+      case 'firstRight':
+
+        break;
+      case 'left':
+
+        break;
+      case 'right':
+
+        break;
+      
+    }
+    if (content == 'pageNumber') {
+
+    }
   } 
 
   updateTitleInfo(name, content) {
@@ -225,8 +244,15 @@ export class ContentEnter implements OnChanges {
     inText: "",
     quotations: []
   };
+  headerObj = {
+    applyTo: "firstPage",
+    leftType: "text",
+    rightType: "pageNumber",
+    formatSections: []
+  };
   contentObj = {
     titleFields: [],
+    headers: [],
     summaryLabel: {
       labelText: "",
       font: "Times New Roman",
