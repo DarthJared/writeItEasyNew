@@ -44,7 +44,7 @@
                             Class
                         </div>
                         <div class="titleInfoWrap">
-                            <div contenteditable="true" #classEnter class="labelEnter" id="editting" (blur)="updateTitleInfo('Class', classEnter.innerHTML)" [innerHTML]="getTitleField('Class')"></div>
+                            <div contenteditable="true" class="labelEnter" id="editting" #classEnter (blur)="updateTitleInfo('Class', classEnter.innerHTML)" [innerHTML]="getTitleField('Class')"></div>
                             <div class="labelOptions">
                                 ...
                             </div>
@@ -55,7 +55,7 @@
                             Name
                         </div>
                         <div class="titleInfoWrap">
-                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div contenteditable="true" class="labelEnter" id="editting" #nameEnter (blur)="updateTitleInfo('Name', nameEnter.innerHTML)" [innerHTML]="getTitleField('Name')"></div>
                             <div class="labelOptions">
                                 ...
                             </div>
@@ -66,7 +66,7 @@
                             Other
                         </div>
                         <div class="titleInfoWrap">
-                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div contenteditable="true" class="labelEnter" id="editting" #otherEnter (blur)="updateTitleInfo('Other', otherEnter.innerHTML)" [innerHTML]="getTitleField('Other')"></div>
                             <div class="labelOptions">
                                 ...
                             </div>
@@ -77,7 +77,7 @@
                             Professor
                         </div>
                         <div class="titleInfoWrap">
-                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div contenteditable="true" class="labelEnter" id="editting" #profEnter (blur)="updateTitleInfo('Professor', profEnter.innerHTML)" [innerHTML]="getTitleField('Professor')"></div>
                             <div class="labelOptions">
                                 ...
                             </div>
@@ -88,7 +88,7 @@
                             School
                         </div>
                         <div class="titleInfoWrap">
-                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div contenteditable="true" class="labelEnter" id="editting" #schoolEnter (blur)="updateTitleInfo('School', schoolEnter.innerHTML)" [innerHTML]="getTitleField('School')"></div>
                             <div class="labelOptions">
                                 ...
                             </div>
@@ -99,7 +99,7 @@
                             Title
                         </div>
                         <div class="titleInfoWrap">
-                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div contenteditable="true" class="labelEnter" id="editting" #titleEnter (blur)="updateTitleInfo('Title', titleEnter.innerHTML)" [innerHTML]="getTitleField('Title')"></div>
                             <div class="labelOptions">
                                 ...
                             </div>
@@ -152,7 +152,7 @@
                                 Class
                             </div>
                             <div class="titleInfoTopWrap">
-                                <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                <div contenteditable="true" class="labelEnter" id="editting" #classEnter (blur)="updateTitleInfo('Class', classEnter.innerHTML)" [innerHTML]="getTitleField('Class')"></div>
                                 <div class="labelOptions">
                                     ...
                                 </div>
@@ -163,7 +163,7 @@
                                 Name
                             </div>
                             <div class="titleInfoTopWrap">
-                                <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                <div contenteditable="true" class="labelEnter" id="editting" #nameEnter (blur)="updateTitleInfo('Name', nameEnter.innerHTML)" [innerHTML]="getTitleField('Name')"></div>
                                 <div class="labelOptions">
                                     ...
                                 </div>
@@ -174,7 +174,7 @@
                                 Other
                             </div>
                             <div class="titleInfoTopWrap">
-                                <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                <div contenteditable="true" class="labelEnter" id="editting" #otherEnter (blur)="updateTitleInfo('Other', otherEnter.innerHTML)" [innerHTML]="getTitleField('Other')"></div>
                                 <div class="labelOptions">
                                     ...
                                 </div>
@@ -185,7 +185,7 @@
                                 Professor
                             </div>
                             <div class="titleInfoTopWrap">
-                                <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                <div contenteditable="true" class="labelEnter" id="editting" #profEnter (blur)="updateTitleInfo('Professor', profEnter.innerHTML)" [innerHTML]="getTitleField('Professor')"></div>
                                 <div class="labelOptions">
                                     ...
                                 </div>
@@ -196,7 +196,7 @@
                                 School
                             </div>
                             <div class="titleInfoTopWrap">
-                                <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                <div contenteditable="true" class="labelEnter" id="editting" #schoolEnter (blur)="updateTitleInfo('School', schoolEnter.innerHTML)" [innerHTML]="getTitleField('School')"></div>
                                 <div class="labelOptions">
                                     ...
                                 </div>
@@ -207,7 +207,7 @@
                                 Title
                             </div>
                             <div class="titleInfoTopWrap">
-                                <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                <div contenteditable="true" class="labelEnter" id="editting" #titleEnter (blur)="updateTitleInfo('Title', titleEnter.innerHTML)" [innerHTML]="getTitleField('Title')"></div>
                                 <div class="labelOptions">
                                     ...
                                 </div>
@@ -342,7 +342,7 @@
                                     Class
                                 </div>
                                 <div class="titleInfoTopWrap">
-                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div contenteditable="true" class="labelEnter" id="editting" #classEnter (blur)="updateTitleInfo('Class', classEnter.innerHTML)" [innerHTML]="getTitleField('Class')"></div>
                                     <div class="labelOptions">
                                         ...
                                     </div>
@@ -353,7 +353,7 @@
                                     Name
                                 </div>
                                 <div class="titleInfoTopWrap">
-                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div contenteditable="true" class="labelEnter" id="editting" #nameEnter (blur)="updateTitleInfo('Name', nameEnter.innerHTML)" [innerHTML]="getTitleField('Name')"></div>
                                     <div class="labelOptions">
                                         ...
                                     </div>
@@ -364,7 +364,7 @@
                                     Other
                                 </div>
                                 <div class="titleInfoTopWrap">
-                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div contenteditable="true" class="labelEnter" id="editting" #otherEnter (blur)="updateTitleInfo('Other', otherEnter.innerHTML)" [innerHTML]="getTitleField('Other')"></div>
                                     <div class="labelOptions">
                                         ...
                                     </div>
@@ -375,7 +375,7 @@
                                     Professor
                                 </div>
                                 <div class="titleInfoTopWrap">
-                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div contenteditable="true" class="labelEnter" id="editting" #profEnter (blur)="updateTitleInfo('Professor', profEnter.innerHTML)" [innerHTML]="getTitleField('Professor')"></div>
                                     <div class="labelOptions">
                                         ...
                                     </div>
@@ -386,7 +386,7 @@
                                     School
                                 </div>
                                 <div class="titleInfoTopWrap">
-                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div contenteditable="true" class="labelEnter" id="editting" #schoolEnter (blur)="updateTitleInfo('School', schoolEnter.innerHTML)" [innerHTML]="getTitleField('School')"></div>
                                     <div class="labelOptions">
                                         ...
                                     </div>
@@ -397,7 +397,7 @@
                                     Title
                                 </div>
                                 <div class="titleInfoTopWrap">
-                                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                                    <div contenteditable="true" class="labelEnter" id="editting" #titleEnter (blur)="updateTitleInfo('Title', titleEnter.innerHTML)" [innerHTML]="getTitleField('Title')"></div>
                                     <div class="labelOptions">
                                         ...
                                     </div>
