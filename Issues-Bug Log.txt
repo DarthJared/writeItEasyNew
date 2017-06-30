@@ -11,6 +11,7 @@ To Be Implemented:
 -Get Font Family working
 -Get Font Size working
 -Possible Section Reordering
+-Add warnings about changing running head
 
 Bugs:
 -First Label Wrap doesn't work

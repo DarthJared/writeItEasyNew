@@ -55824,8 +55824,16 @@ webpackJsonp([1,2],[
 	            inText: "",
 	            quotations: []
 	        };
+	        this.headerObj = {
+	            applyTo: "firstPage",
+	            leftType: "text",
+	            rightType: "pageNumber",
+	            formatSectionsLeft: [],
+	            formatSectionsRight: []
+	        };
 	        this.contentObj = {
 	            titleFields: [],
+	            headers: [],
 	            summaryLabel: {
 	                labelText: "",
 	                font: "Times New Roman",
@@ -55855,8 +55863,60 @@ webpackJsonp([1,2],[
 	    }
 	    ContentEnter.prototype.ngOnChanges = function () {
 	    };
-	    ContentEnter.prototype.headerChanged = function (change) {
-	        console.log(change.currentTarget.outerText);
+	    ContentEnter.prototype.updateHeaderInfo = function (selection, content) {
+	        var lookFor = '';
+	        var side = '';
+	        var lowSide = '';
+	        switch (selection) {
+	            case 'firstLeft':
+	                lookFor = 'firstPage';
+	                side = 'Left';
+	                lowSide = 'left';
+	                break;
+	            case 'firstRight':
+	                lookFor = 'firstPage';
+	                side = 'Right';
+	                lowSide = 'right';
+	                break;
+	            case 'left':
+	                lookFor = 'default';
+	                side = 'Left';
+	                lowSide = 'left';
+	                break;
+	            case 'right':
+	                lookFor = 'default';
+	                side = 'Right';
+	                lowSide = 'right';
+	                break;
+	        }
+	        var newHeader;
+	        for (var index in this.contentObj.headers) {
+	            var header = this.contentObj.headers[index];
+	            if (header.applyTo == lookFor) {
+	                newHeader = header;
+	                delete this.contentObj.headers[index];
+	            }
+	        }
+	        if (!newHeader) {
+	            newHeader = JSON.parse(JSON.stringify(this.headerObj));
+	            newHeader.applyTo = lookFor;
+	        }
+	        newHeader[lowSide + 'Type'] = 'text';
+	        newHeader['formatSections' + side] = [];
+	        var newFormatSection = JSON.parse(JSON.stringify(this.formatSectionObj));
+	        newFormatSection.content = content;
+	        newHeader['formatSections' + side].push(newFormatSection);
+	        this.contentObj.headers.push(newHeader);
+	    };
+	    ContentEnter.prototype.getHeaderInfo = function (applyTo, side) {
+	        var toGetContent;
+	        for (var _i = 0, _a = this.contentObj.headers; _i < _a.length; _i++) {
+	            var header = _a[_i];
+	            if (header && header.applyTo == applyTo) {
+	                toGetContent = header['formatSections' + side];
+	            }
+	        }
+	        return toGetContent && toGetContent.length > 0 ? this.contentify([{ formatSections: toGetContent }], true) : '';
 	    };
 	    ContentEnter.prototype.updateTitleInfo = function (name, content) {
 	        var titleInfoToAdd = JSON.parse(JSON.stringify(this.titleFieldObj));
@@ -55942,10 +56002,10 @@ webpackJsonp([1,2],[
 	    ContentEnter.prototype.getConclusion = function () {
 	        return this.contentify(this.contentObj.conclusionParagraphs);
 	    };
-	    ContentEnter.prototype.contentify = function (toParse) {
+	    ContentEnter.prototype.contentify = function (toParse, noDiv) {
 	        var content = "";
 	        for (var i = 0; i < toParse.length; i++) {
-	            var paragraphContent = "<div>";
+	            var paragraphContent = noDiv ? "" : "<div>";
 	            var paragraph = toParse[i];
 	            for (var j = 0; j < paragraph.formatSections.length; j++) {
 	                var formatContent = "";
@@ -55967,7 +56027,7 @@ webpackJsonp([1,2],[
 	            }
 	            if (paragraphContent == "<div>")
 	                paragraphContent += "<br>";
-	            paragraphContent += "</div>";
+	            paragraphContent += noDiv ? "" : "</div>";
 	            content += paragraphContent;
 	        }
 	        return content;

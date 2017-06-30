@@ -26,26 +26,63 @@ export class ContentEnter implements OnChanges {
 
   updateHeaderInfo(selection, content) {
     // console.log(change.currentTarget.outerText);
-
+    // = JSON.parse(JSON.stringify(this.headerObj));
+    let lookFor = '';
+    let side = '';
+    let lowSide = '';
     switch(selection) {
       case 'firstLeft':
-
+        lookFor = 'firstPage';
+        side = 'Left';
+        lowSide = 'left';
         break;
       case 'firstRight':
-
+        lookFor = 'firstPage';
+        side = 'Right';
+        lowSide = 'right'
         break;
       case 'left':
-
+        lookFor = 'default';
+        side = 'Left';
+        lowSide = 'left';
         break;
       case 'right':
-
-        break;
-      
+        lookFor = 'default';
+        side = 'Right';
+        lowSide = 'right';
+        break;      
     }
-    if (content == 'pageNumber') {
-
+    let newHeader;
+    for (let index in this.contentObj.headers) {
+      let header = this.contentObj.headers[index];
+      if (header.applyTo == lookFor) {
+        newHeader = header;
+        delete this.contentObj.headers[index];
+      }
     }
-  } 
+    if (!newHeader) {
+      newHeader = JSON.parse(JSON.stringify(this.headerObj));
+      newHeader.applyTo = lookFor;
+    }
+    newHeader[lowSide + 'Type'] = 'text';
+    
+    newHeader['formatSections' + side] = [];
+    let newFormatSection = JSON.parse(JSON.stringify(this.formatSectionObj));
+    newFormatSection.content = content;
+    newHeader['formatSections' + side].push(newFormatSection);
+    this.contentObj.headers.push(newHeader);
+  }
+
+  getHeaderInfo(applyTo, side) {
+    let toGetContent;
+    for (let header of this.contentObj.headers) {
+      // let header = this.contentObj.headers[index];
+      if (header && header.applyTo == applyTo) {
+        toGetContent = header['formatSections' + side];
+      }
+    }
+    return toGetContent && toGetContent.length > 0 ? this.contentify([{ formatSections: toGetContent }], true) : '';
+  }
 
   updateTitleInfo(name, content) {
     let titleInfoToAdd = JSON.parse(JSON.stringify(this.titleFieldObj));
@@ -142,10 +179,10 @@ export class ContentEnter implements OnChanges {
     return this.contentify(this.contentObj.conclusionParagraphs);
   }
 
-  contentify(toParse) {
+  contentify(toParse, noDiv?) {
     let content = "";
     for (let i = 0; i < toParse.length; i++) {
-      let paragraphContent = "<div>";
+      let paragraphContent = noDiv ? "" : "<div>";
       let paragraph = toParse[i];
       for (let j = 0; j < paragraph.formatSections.length; j++) {
         let formatContent = "";
@@ -169,7 +206,7 @@ export class ContentEnter implements OnChanges {
       }
       if (paragraphContent == "<div>")
         paragraphContent += "<br>";
-      paragraphContent += "</div>";
+      paragraphContent += noDiv ? "" : "</div>";
       content += paragraphContent;
     }
     return content;
@@ -248,7 +285,8 @@ export class ContentEnter implements OnChanges {
     applyTo: "firstPage",
     leftType: "text",
     rightType: "pageNumber",
-    formatSections: []
+    formatSectionsLeft: [],
+    formatSectionsRight: []
   };
   contentObj = {
     titleFields: [],
