@@ -15,3 +15,4 @@ To Be Implemented:
 
 Bugs:
 -First Label Wrap doesn't work
+-Fix "x" buttons for section position

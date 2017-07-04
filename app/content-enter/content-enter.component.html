@@ -27,7 +27,7 @@
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight != 'headerFirstRightPageNumber' && configOptions.headerFirstRight !== 'headerFirstRightEmpty') || (!configOptions.headerMoreDifferent && configOptions.headerRight != 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty')">
-                                <div class="headerEnter headerRight" contenteditable="true">
+                                <div class="headerEnter headerRight" contenteditable="true" #right (blur)="updateHeaderInfo(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent ? 'firstRight' : 'right', right.innerHTML)" [innerHTML]="getHeaderInfo(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent ? 'firstPage' : 'default', 'Right')">
                                     
                                 </div>
                             </ng-container>
@@ -137,7 +137,7 @@
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="((!configOptions.includeTitle || (configOptions.includeTitle && configOptions.titleInfoPos !== 'titleInfoSeparatePage')) && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight !== 'headerFirstRightPageNumber' && configOptions.headerFirstRight !== 'headerFirstRightEmpty') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || !configOptions.headerMoreDifferent) && configOptions.headerRight !== 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty')">
-                                <div class="headerEnter headerRight" contenteditable="true">
+                                <div class="headerEnter headerRight" contenteditable="true" #right (blur)="updateHeaderInfo(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? 'firstRight' : 'right', right.innerHTML)" [innerHTML]="getHeaderInfo(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') ? 'firstPage' : 'default', 'Right')">
                                 </div>
                             </ng-container>
                         </div>
@@ -328,7 +328,7 @@
                                     </div>
                                 </ng-container>
                                 <ng-container *ngIf="((!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary && index === 0 && configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && configOptions.headerFirstRight !== 'headerFirstRightPageNumber' && configOptions.headerFirstRight !== 'headerFirstRightEmpty') || (((configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.includeAbstractSummary || index !== 0 || !configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent) && configOptions.headerRight !== 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty')">
-                                    <div class="headerEnter headerRight" contenteditable="true">
+                                    <div class="headerEnter headerRight" contenteditable="true" #right (blur)="updateHeaderInfo(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary ? 'firstRight' : 'right', left.innerHTML)" [innerHTML]="getHeaderInfo(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && !configOptions.includeAbstractSummary ? 'firstPage' : 'default', 'Right')">
 
                                     </div>
                                 </ng-container>
@@ -468,7 +468,7 @@
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && (!configOptions.includeTitle || configOptions.titleInfoPos !== 'titleInfoSeparatePage') && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary && configOptions.headerFirstRight !== 'headerFirstRightPageNumber' && configOptions.headerFirstRight !== 'headerFirstRightEmpty') || ((!configOptions.headerDifferentFirstPage || !configOptions.headerMoreDifferent || (configOptions.includeTitle && configOptions.titleInfoPos == 'titleInfoSeparatePage') || configOptions.bodyBetweenSections == 'bodyEachSectionOwnPage' || configOptions.includeAbstractSummary) && configOptions.headerRight !== 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty')">
-                                <div class="headerEnter headerRight" contenteditable="true">
+                                <div class="headerEnter headerRight" contenteditable="true" #right (blur)="updateHeaderInfo(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && !configOptions.includeTitle && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? 'firstRight' : 'right', right.innerHTML)" [innerHTML]="getHeaderInfo(configOptions.headerDifferentFirstPage && configOptions.headerMoreDifferent && !configOptions.includeTitle && configOptions.bodyBetweenSections !== 'bodyEachSectionOwnPage' && !configOptions.includeAbstractSummary ? 'firstPage' : 'default', 'Right')">
                                     
                                 </div>
                             </ng-container>
@@ -539,12 +539,26 @@
                     </div>
                     <div class="titleInfoTopWrap">
                         <div class="headerLabelEnter" id="editting" style="width: calc(100% - 24px);">
-                            <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true">
+                            <ng-container *ngIf="configOptions.headerLeft == 'headerLeftPageNumber'">
+                                <div class="headerEnter headerLeft">
+                                    Page number will be inserted here
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="configOptions.headerLeft != 'headerLeftPageNumber' && configOptions.headerLeft !== 'headerLeftEmpty'">
+                                <div *ngIf="configOptions.headerLeft !== 'headerLeftEmpty'" class="headerEnter headerLeft" contenteditable="true"  #left (blur)="updateHeaderInfo('left', left.innerHTML)" [innerHTML]="getHeaderInfo('default', 'Left')">
                                 
-                            </div>
-                            <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true">
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="configOptions.headerRight == 'headerRightPageNumber'">
+                                <div class="headerEnter headerRight">
+                                    Page number will be inserted here
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="configOptions.headerRight != 'headerRightPageNumber' && configOptions.headerRight !== 'headerRightEmpty'">
+                                <div *ngIf="configOptions.headerRight !== 'headerRightEmpty'" class="headerEnter headerRight" contenteditable="true" #right (blur)="updateHeaderInfo('right', right.innerHTML)" [innerHTML]="getHeaderInfo('default', 'right')">
                                 
-                            </div>
+                                </div>
+                            </ng-container>
                         </div>
                         <div class="labelOptions">
                             ...
