@@ -84,6 +84,33 @@ export class ContentEnter implements OnChanges {
     return toGetContent && toGetContent.length > 0 ? this.contentify([{ formatSections: toGetContent }], true) : '';
   }
 
+  setLabel(section, content) {
+    let newFormat = JSON.parse(JSON.stringify(this.formatSectionObj));
+    newFormat.content = content;
+    switch(section) {
+      case 'summary': 
+        this.contentObj.summaryLabel.formatSections = [ newFormat ];
+        break;
+      case 'conclusion':
+        this.contentObj.conclusionLabel.formatSections = [ newFormat ];
+        break;
+      
+    }
+  }
+
+  getLabel(section) {
+    let toReturn = "";
+    switch(section) {
+      case 'summary':
+        toReturn = this.contentObj.summaryLabel.formatSections && this.contentObj.summaryLabel.formatSections.length > 0 ? this.contentify([{ formatSections: this.contentObj.summaryLabel.formatSections }], true) : '';
+        break;
+      case 'conclusion':
+        toReturn = this.contentObj.conclusionLabel.formatSections && this.contentObj.conclusionLabel.formatSections.length > 0 ? this.contentify([{ formatSections: this.contentObj.conclusionLabel.formatSections }], true) : '';
+        break;
+    }
+    return toReturn;
+  }
+
   updateTitleInfo(name, content) {
     let titleInfoToAdd = JSON.parse(JSON.stringify(this.titleFieldObj));
     titleInfoToAdd.name = name;
@@ -292,7 +319,7 @@ export class ContentEnter implements OnChanges {
     titleFields: [],
     headers: [],
     summaryLabel: {
-      labelText: "",
+      formatSections: [],
       font: "Times New Roman",
       fontSize: 12,
       bold: true,
@@ -302,7 +329,7 @@ export class ContentEnter implements OnChanges {
     summaryParagraphs: [],
     bodySections: [],
     conclusionLabel: {
-      labelText: "",
+      formatSections: [],
       font: "Times New Roman",
       fontSize: 12,
       bold: true,

@@ -55835,7 +55835,7 @@ webpackJsonp([1,2],[
 	            titleFields: [],
 	            headers: [],
 	            summaryLabel: {
-	                labelText: "",
+	                formatSections: [],
 	                font: "Times New Roman",
 	                fontSize: 12,
 	                bold: true,
@@ -55845,7 +55845,7 @@ webpackJsonp([1,2],[
 	            summaryParagraphs: [],
 	            bodySections: [],
 	            conclusionLabel: {
-	                labelText: "",
+	                formatSections: [],
 	                font: "Times New Roman",
 	                fontSize: 12,
 	                bold: true,
@@ -55917,6 +55917,30 @@ webpackJsonp([1,2],[
 	            }
 	        }
 	        return toGetContent && toGetContent.length > 0 ? this.contentify([{ formatSections: toGetContent }], true) : '';
+	    };
+	    ContentEnter.prototype.setLabel = function (section, content) {
+	        var newFormat = JSON.parse(JSON.stringify(this.formatSectionObj));
+	        newFormat.content = content;
+	        switch (section) {
+	            case 'summary':
+	                this.contentObj.summaryLabel.formatSections = [newFormat];
+	                break;
+	            case 'conclusion':
+	                this.contentObj.conclusionLabel.formatSections = [newFormat];
+	                break;
+	        }
+	    };
+	    ContentEnter.prototype.getLabel = function (section) {
+	        var toReturn = "";
+	        switch (section) {
+	            case 'summary':
+	                toReturn = this.contentObj.summaryLabel.formatSections && this.contentObj.summaryLabel.formatSections.length > 0 ? this.contentify([{ formatSections: this.contentObj.summaryLabel.formatSections }], true) : '';
+	                break;
+	            case 'conclusion':
+	                toReturn = this.contentObj.conclusionLabel.formatSections && this.contentObj.conclusionLabel.formatSections.length > 0 ? this.contentify([{ formatSections: this.contentObj.conclusionLabel.formatSections }], true) : '';
+	                break;
+	        }
+	        return toReturn;
 	    };
 	    ContentEnter.prototype.updateTitleInfo = function (name, content) {
 	        var titleInfoToAdd = JSON.parse(JSON.stringify(this.titleFieldObj));

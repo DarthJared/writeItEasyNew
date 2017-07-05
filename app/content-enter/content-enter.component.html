@@ -228,7 +228,7 @@
                         Abstract / Summary Label
                     </div>
                     <div class="firstLabelWrap">
-                        <div contenteditable="true" class="labelEnter" id="editting"></div>
+                        <div contenteditable="true" class="labelEnter" id="editting" #sumLabel (blur)="setLabel('summary', sumLabel.innerHTML)" [innerHTML]="getLabel('summary')"></div>
                         <div class="labelOptions">
                             ...
                         </div>
@@ -280,7 +280,7 @@
                             Conclusion Label
                         </div>
                         <div class="firstLabelWrap">
-                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div contenteditable="true" class="labelEnter" id="editting" #concLabel (blur)="setLabel('conclusion', concLabel.innerHTML)" [innerHTML]="getLabel('conclusion')"></div>
                             <div class="labelOptions">
                                 ...
                             </div>
@@ -512,7 +512,7 @@
                         Conclusion Label
                     </div>
                     <div class="firstLabelWrap">
-                        <div contenteditable="true" class="labelEnter" id="editting"></div>
+                        <div contenteditable="true" class="labelEnter" id="editting" #concLabel (blur)="setLabel('conclusion', concLabel.innerHTML)" [innerHTML]="getLabel('conclusion')"></div>
                         <div class="labelOptions">
                             ...
                         </div>
@@ -571,7 +571,7 @@
                     Conclusion Label
                 </div>
                 <div class="firstLabelWrap">
-                    <div contenteditable="true" class="labelEnter" id="editting"></div>
+                    <div contenteditable="true" class="labelEnter" id="editting" #concLabel (blur)="setLabel('conclusion', concLabel.innerHTML)" [innerHTML]="getLabel('conclusion')"></div>
                     <div class="labelOptions">
                         ...
                     </div>

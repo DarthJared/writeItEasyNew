@@ -95,6 +95,8 @@ p {
 
 .headerRight {
     float: right;
+    text-align: right;
+    padding-right: 1px;
 }
 
 .labelEnter {
