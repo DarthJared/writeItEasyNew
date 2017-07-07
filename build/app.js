@@ -56041,6 +56041,25 @@ webpackJsonp([1,2],[
 	        if (property === value3)
 	            return result3;
 	    };
+	    ContentEnter.prototype.parseSectionContent = function (section, sectionContent) {
+	        for (var i = 0; i < this.contentObj.bodySections.length; i++) {
+	            var checkSection = this.contentObj.bodySections[i];
+	            if (checkSection.indexVal == section.indexVal) {
+	                var modifySection = JSON.parse(JSON.stringify(checkSection));
+	                this.deleteSection(section, false);
+	                modifySection.paragraphs = this.parseParagraphs(sectionContent);
+	                this.contentObj.bodySections.push(modifySection);
+	            }
+	        }
+	    };
+	    ContentEnter.prototype.getSectionContent = function (section) {
+	        for (var i = 0; i < this.contentObj.bodySections.length; i++) {
+	            var checkSection = this.contentObj.bodySections[i];
+	            if (checkSection.indexVal == section.indexVal) {
+	                return this.contentify(checkSection.paragraphs);
+	            }
+	        }
+	    };
 	    ContentEnter.prototype.parseSummary = function (summaryContent) {
 	        var paragraphs = this.parseParagraphs(summaryContent);
 	        this.contentObj.summaryParagraphs = paragraphs;

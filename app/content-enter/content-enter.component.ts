@@ -217,6 +217,27 @@ export class ContentEnter implements OnChanges {
       return result3;
   }
 
+  parseSectionContent(section, sectionContent) {
+    for (let i = 0; i < this.contentObj.bodySections.length; i++) {
+      let checkSection = this.contentObj.bodySections[i];
+      if (checkSection.indexVal == section.indexVal) {
+        let modifySection = JSON.parse(JSON.stringify(checkSection));
+        this.deleteSection(section, false);
+        modifySection.paragraphs = this.parseParagraphs(sectionContent);
+        this.contentObj.bodySections.push(modifySection);
+      }
+    }
+  }
+
+  getSectionContent(section) {
+    for (let i = 0; i < this.contentObj.bodySections.length; i++) {
+      let checkSection = this.contentObj.bodySections[i];
+      if (checkSection.indexVal == section.indexVal) {
+        return this.contentify(checkSection.paragraphs);
+      }
+    }
+  }
+
   parseSummary(summaryContent) {
     let paragraphs = this.parseParagraphs(summaryContent);
     this.contentObj.summaryParagraphs = paragraphs;

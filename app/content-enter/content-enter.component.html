@@ -270,7 +270,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">
-                        <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
+                        <div contenteditable="true" class="contentEnter" id="editting" #sectionContent (blur)="parseSectionContent(section, sectionContent.innerHTML)" [innerHTML]="getSectionContent(section)"></div>		
                     </div>
                 </ng-container>
                 <!--Conclusion-->
@@ -435,7 +435,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">
-                        <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
+                        <div contenteditable="true" class="contentEnter" id="editting" #sectionContent (blur)="parseSectionContent(section, sectionContent.innerHTML)" [innerHTML]="getSectionContent(section)"></div>		
                     </div>
                 </div>
             </div>
@@ -502,7 +502,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">
-                        <div contenteditable="true" class="contentEnter" id="editting">H<em>el</em>lo</div>		
+                        <div contenteditable="true" class="contentEnter" id="editting" #sectionContent (blur)="parseSectionContent(section, sectionContent.innerHTML)" [innerHTML]="getSectionContent(section)"></div>		
                     </div>
                 </div>
             </ng-container>
