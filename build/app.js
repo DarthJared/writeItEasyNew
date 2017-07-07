@@ -55795,7 +55795,7 @@ webpackJsonp([1,2],[
 	            onOwnPage: false,
 	            includeLabel: true,
 	            label: {
-	                labelText: "",
+	                formatSections: [],
 	                font: "Times New Roman",
 	                fontSize: 12,
 	                bold: true,
@@ -55942,6 +55942,36 @@ webpackJsonp([1,2],[
 	        }
 	        return toReturn;
 	    };
+	    ContentEnter.prototype.setSectionLabel = function (section, labelContent) {
+	        var setSectionObj;
+	        if (this.contentObj.bodySections) {
+	            for (var i = 0; i < this.contentObj.bodySections.length; i++) {
+	                var retrievedSection = this.contentObj.bodySections[i];
+	                if (retrievedSection.indexVal == section.indexVal) {
+	                    setSectionObj = JSON.parse(JSON.stringify(retrievedSection));
+	                    this.deleteSection(section, false);
+	                }
+	            }
+	        }
+	        if (!setSectionObj) {
+	            setSectionObj = JSON.parse(JSON.stringify(this.sectionObj));
+	        }
+	        var newFormatSection = JSON.parse(JSON.stringify(this.formatSectionObj));
+	        newFormatSection.content = labelContent;
+	        setSectionObj.label.formatSections = [newFormatSection];
+	        this.contentObj.bodySections.push(setSectionObj);
+	    };
+	    ContentEnter.prototype.getSectionLabel = function (section) {
+	        if (this.contentObj.bodySections) {
+	            for (var i = 0; i < this.contentObj.bodySections.length; i++) {
+	                var retrievedSection = this.contentObj.bodySections[i];
+	                if (retrievedSection.indexVal == section.indexVal) {
+	                    return this.contentify([{ formatSections: retrievedSection.label.formatSections }]);
+	                }
+	            }
+	        }
+	        return '';
+	    };
 	    ContentEnter.prototype.updateTitleInfo = function (name, content) {
 	        var titleInfoToAdd = JSON.parse(JSON.stringify(this.titleFieldObj));
 	        titleInfoToAdd.name = name;
@@ -55967,8 +55997,9 @@ webpackJsonp([1,2],[
 	            }
 	        }
 	    };
-	    ContentEnter.prototype.deleteSection = function (section) {
-	        var todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
+	    ContentEnter.prototype.deleteSection = function (section, confirmDelete) {
+	        if (confirmDelete === void 0) { confirmDelete = true; }
+	        var todelete = confirmDelete ? confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.") : true;
 	        if (todelete) {
 	            for (var i = 0; i < this.contentObj.bodySections.length; i++) {
 	                if (this.contentObj.bodySections[i].indexVal === section.indexVal) {

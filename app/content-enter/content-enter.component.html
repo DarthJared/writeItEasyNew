@@ -257,7 +257,7 @@
                             x
                         </div>
                         <div class="firstLabelWrap" *ngIf="(section.sectionLevel === 1 && configOptions.bodyIncludeSectionLabels) || (section.sectionLevel === 2 && configOptions.bodyIncludeSubsectionLabels) || (section.sectionLevel === 3 && configOptions.bodyIncludeSubsubsectionLabels)">
-                            <div contenteditable="true" class="labelEnter" id="editting"></div>
+                            <div contenteditable="true" class="labelEnter" id="editting" #sectionLabelContent (blur)="setSectionLabel(section, sectionLabelContent.innerHTML)" [innerHTML]="getSectionLabel(section)"></div>
                             <div class="labelOptions">
                                 ...
                             </div>

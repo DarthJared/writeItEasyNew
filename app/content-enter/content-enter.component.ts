@@ -93,8 +93,7 @@ export class ContentEnter implements OnChanges {
         break;
       case 'conclusion':
         this.contentObj.conclusionLabel.formatSections = [ newFormat ];
-        break;
-      
+        break;      
     }
   }
 
@@ -109,6 +108,38 @@ export class ContentEnter implements OnChanges {
         break;
     }
     return toReturn;
+  }
+
+  setSectionLabel(section, labelContent) {
+    let setSectionObj;
+    if (this.contentObj.bodySections) {
+      for (let i = 0; i < this.contentObj.bodySections.length; i++) {
+        let retrievedSection = this.contentObj.bodySections[i];
+        if (retrievedSection.indexVal == section.indexVal) {
+          setSectionObj = JSON.parse(JSON.stringify(retrievedSection));
+          this.deleteSection(section, false);
+        }
+      }
+    }
+    if (!setSectionObj) {
+      setSectionObj = JSON.parse(JSON.stringify(this.sectionObj));
+    }
+    let newFormatSection = JSON.parse(JSON.stringify(this.formatSectionObj));
+    newFormatSection.content = labelContent;//this.contentify([labelContent], true);    
+    setSectionObj.label.formatSections = [newFormatSection];
+    this.contentObj.bodySections.push(setSectionObj);
+  }
+
+  getSectionLabel(section) {
+    if (this.contentObj.bodySections) {
+      for (let i = 0; i < this.contentObj.bodySections.length; i++) {
+        let retrievedSection = this.contentObj.bodySections[i];
+        if (retrievedSection.indexVal == section.indexVal) {
+          return this.contentify([{ formatSections: retrievedSection.label.formatSections }]);
+        }
+      }
+    }
+    return '';
   }
 
   updateTitleInfo(name, content) {
@@ -138,8 +169,8 @@ export class ContentEnter implements OnChanges {
     }    
   }
 
-  deleteSection(section) {
-    let todelete = confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.");
+  deleteSection(section, confirmDelete = true) {
+    let todelete = confirmDelete ? confirm("Are you sure you want to delete this section?  If you proceed, the contents will be lost and it cannot be undone.") : true;
     if (todelete) {
       for (let i = 0; i < this.contentObj.bodySections.length; i++) {
         if (this.contentObj.bodySections[i].indexVal === section.indexVal) {
@@ -279,7 +310,7 @@ export class ContentEnter implements OnChanges {
     onOwnPage: false,
     includeLabel: true,
     label: {			
-      labelText: "",
+      formatSections: [],
       font: "Times New Roman",
       fontSize: 12,
       bold: true,
