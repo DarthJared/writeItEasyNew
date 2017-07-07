@@ -418,7 +418,7 @@
                         S{{section.sectionLevel === 3 ? 'ubsubs' : section.sectionLevel === 2 ? 'ubs' : section.sectionLevel === 1 ? '' : ''}}ection Label
                     </div>
                     <div class="firstLabelWrap">
-                        <div contenteditable="true" class="labelEnter" id="editting"></div>
+                        <div contenteditable="true" class="labelEnter" id="editting" #sectionLabelContent (blur)="setSectionLabel(section, sectionLabelContent.innerHTML)" [innerHTML]="getSectionLabel(section)"></div>
                         <div class="labelOptions">
                             ...
                         </div>
@@ -485,7 +485,7 @@
                         S{{section.sectionLevel === 3 ? 'ubsubs' : section.sectionLevel === 2 ? 'ubs' : section.sectionLevel === 1 ? '' : ''}}ection Label
                     </div>
                     <div class="firstLabelWrap">
-                        <div contenteditable="true" class="labelEnter" id="editting"></div>
+                        <div contenteditable="true" class="labelEnter" id="editting" #sectionLabelContent (blur)="setSectionLabel(section, sectionLabelContent.innerHTML)" [innerHTML]="getSectionLabel(section)"></div>
                         <div class="labelOptions">
                             ...
                         </div>
