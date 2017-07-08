@@ -55720,15 +55720,26 @@ webpackJsonp([1,2],[
 	        this.bold = false;
 	        this.italic = false;
 	        this.underline = false;
+	        this.boldEvent = new core_1.EventEmitter();
+	        this.italicsEvent = new core_1.EventEmitter();
+	        this.underlineEvent = new core_1.EventEmitter();
+	        this.fontChangeEvent = new core_1.EventEmitter();
+	        this.fontSizeChangeEvent = new core_1.EventEmitter();
+	        this.indentEvent = new core_1.EventEmitter();
+	        this.reverseIndentEvent = new core_1.EventEmitter();
+	        this.addReferenceEvent = new core_1.EventEmitter();
 	    }
 	    FormatBar.prototype.setBold = function () {
 	        this.bold = !this.bold;
+	        this.boldEvent.emit('bolded');
 	    };
 	    FormatBar.prototype.setItalic = function () {
 	        this.italic = !this.italic;
+	        this.italicsEvent.emit('italics');
 	    };
 	    FormatBar.prototype.setUnderline = function () {
 	        this.underline = !this.underline;
+	        this.underlineEvent.emit('underlined');
 	    };
 	    FormatBar.prototype.isBold = function () {
 	    };
@@ -55736,6 +55747,53 @@ webpackJsonp([1,2],[
 	    };
 	    FormatBar.prototype.isUnderlined = function () {
 	    };
+	    FormatBar.prototype.fontChanged = function (newFont) {
+	        this.fontChangeEvent.emit(newFont);
+	    };
+	    FormatBar.prototype.fontSizeChanged = function (newSize) {
+	        this.fontSizeChangeEvent.emit(newSize);
+	    };
+	    FormatBar.prototype.indent = function () {
+	        this.indentEvent.emit('indented');
+	    };
+	    FormatBar.prototype.reverseIndent = function () {
+	        this.reverseIndentEvent.emit('reverseIndent');
+	    };
+	    FormatBar.prototype.insertReference = function () {
+	        this.addReferenceEvent.emit('newReference');
+	    };
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], FormatBar.prototype, "boldEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], FormatBar.prototype, "italicsEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], FormatBar.prototype, "underlineEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], FormatBar.prototype, "fontChangeEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], FormatBar.prototype, "fontSizeChangeEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], FormatBar.prototype, "indentEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], FormatBar.prototype, "reverseIndentEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], FormatBar.prototype, "addReferenceEvent", void 0);
 	    FormatBar = __decorate([
 	        core_1.Component({
 	            selector: 'format-bar',
@@ -55862,6 +55920,30 @@ webpackJsonp([1,2],[
 	        this.contentObj.bodySections.push(starterObj);
 	    }
 	    ContentEnter.prototype.ngOnChanges = function () {
+	    };
+	    ContentEnter.prototype.bold = function () {
+	        console.log("bold it");
+	    };
+	    ContentEnter.prototype.italic = function () {
+	        console.log("italicize it");
+	    };
+	    ContentEnter.prototype.underline = function () {
+	        console.log("underline it");
+	    };
+	    ContentEnter.prototype.fontChange = function (fontName) {
+	        console.log("change font: " + fontName);
+	    };
+	    ContentEnter.prototype.fontSizeChange = function (fontSize) {
+	        console.log("change size: " + fontSize);
+	    };
+	    ContentEnter.prototype.indent = function () {
+	        console.log("move in");
+	    };
+	    ContentEnter.prototype.reverseIndent = function () {
+	        console.log("move out");
+	    };
+	    ContentEnter.prototype.insertReference = function (data) {
+	        console.log("add reference");
 	    };
 	    ContentEnter.prototype.updateHeaderInfo = function (selection, content) {
 	        var lookFor = '';
@@ -56052,6 +56134,26 @@ webpackJsonp([1,2],[
 	            }
 	        }
 	    };
+	    ContentEnter.prototype.setSelection = function (divContent, last) {
+	        this.lastSel = last;
+	        var sel;
+	        var preCaretRange;
+	        var selLength = 0;
+	        var caretOffset = 0;
+	        if (typeof window.getSelection != "undefined") {
+	            sel = window.getSelection();
+	            if (sel.rangeCount > 0) {
+	                var range = window.getSelection().getRangeAt(0);
+	                preCaretRange = range.cloneRange();
+	                selLength = preCaretRange.toString().length;
+	                preCaretRange.setStart(range.startContainer, 0);
+	                preCaretRange.setEnd(range.endContainer, range.endOffset);
+	                caretOffset = preCaretRange.toString().length;
+	            }
+	        }
+	        this.selEnd = caretOffset;
+	        this.selRange = selLength;
+	    };
 	    ContentEnter.prototype.getSectionContent = function (section) {
 	        for (var i = 0; i < this.contentObj.bodySections.length; i++) {
 	            var checkSection = this.contentObj.bodySections[i];
@@ -56063,7 +56165,6 @@ webpackJsonp([1,2],[
 	    ContentEnter.prototype.parseSummary = function (summaryContent) {
 	        var paragraphs = this.parseParagraphs(summaryContent);
 	        this.contentObj.summaryParagraphs = paragraphs;
-	        console.log(this.contentObj);
 	    };
 	    ContentEnter.prototype.getSummary = function () {
 	        return this.contentify(this.contentObj.summaryParagraphs);
@@ -56090,7 +56191,7 @@ webpackJsonp([1,2],[
 	                    formatContent += "<u>";
 	                if (formatSection.italicize)
 	                    formatContent += "<em>";
-	                formatContent += "<span style=\"font-family: '" + formatSection.font + "'; font-size: '" + formatSection.fontSize + "'\">\n                      " + formatSection.content + "\n                    </span>";
+	                formatContent += "<span style=\"font-family: '" + formatSection.font + "'; font-size: '" + formatSection.fontSize + "'\">" + formatSection.content + "</span>";
 	                if (formatSection.italicize)
 	                    formatContent += "</em>";
 	                if (formatSection.underline)

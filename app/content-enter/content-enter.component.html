@@ -242,7 +242,7 @@
                         ...
                     </div>
                     <div class="contentEnterWrap">                        
-                        <div #sum contenteditable="true" (blur)="parseSummary(sum.innerHTML)" class="contentEnter" id="editting" [innerHtml]="getSummary()"></div>		
+                        <div #sum contenteditable="true" (blur)="setSelection(sum, 'summary'); parseSummary(sum.innerHTML);" class="contentEnter" id="editting" [innerHtml]="getSummary()"></div>		
                     </div>
                 </div>
             </ng-container>

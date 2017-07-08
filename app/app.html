@@ -1,4 +1,4 @@
 <config-bar (configObj)="updateConfig($event)"></config-bar>
-<format-bar></format-bar>
+<format-bar (boldEvent)="content.bold()" (italicsEvent)="content.italic()" (underlineEvent)="content.underline()" (fontChangeEvent)="content.fontChange($event)" (fontSizeChangeEvent)="content.fontSizeChange($event)" (indentEvent)="content.indent()" (reverseIndentEvent)="content.reverseIndent()" (addReferenceEvent)="content.insertReference()"></format-bar>
 <content-enter #content [configOptions]="configOptions"></content-enter>
 <write-button [configOptions]="configOptions" (sectionAdded)="content.addSection($event)" (subsectionAdded)="content.addSubsection($event)" (subsubsectionAdded)="content.addSubsubsection($event)"></write-button>

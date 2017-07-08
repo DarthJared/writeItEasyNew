@@ -11,6 +11,9 @@ import { WriteButton } from "../write-button/write-button.component";
 export class ContentEnter implements OnChanges {
   @Input() configOptions;
   deletedSections = [];
+  selEnd;
+  selRange;
+  lastSel;
   
   ngOnChanges() {
     
@@ -23,6 +26,38 @@ export class ContentEnter implements OnChanges {
       starterObj.indexVal = this.contentObj.bodySections[lengthSect - 1].indexVal + 1;
     this.contentObj.bodySections.push(starterObj);
   }  
+
+  bold() {
+    console.log("bold it");
+  }
+
+  italic() {
+    console.log("italicize it");
+  }
+
+  underline() {
+    console.log("underline it");
+  }
+
+  fontChange(fontName) {
+    console.log("change font: " + fontName);
+  }
+
+  fontSizeChange(fontSize) {
+    console.log("change size: " + fontSize);
+  }
+
+  indent() {
+    console.log("move in");
+  }
+
+  reverseIndent() {
+    console.log("move out");
+  }
+
+  insertReference(data) {
+    console.log("add reference");
+  }
 
   updateHeaderInfo(selection, content) {
     // console.log(change.currentTarget.outerText);
@@ -229,6 +264,37 @@ export class ContentEnter implements OnChanges {
     }
   }
 
+  setSelection(divContent, last) {
+    // console.log(divContent);
+    this.lastSel = last;
+    var sel;
+    var preCaretRange;
+    var selLength = 0;
+    var caretOffset = 0;
+    if (typeof window.getSelection != "undefined"){
+      sel = window.getSelection();
+      if (sel.rangeCount > 0) {
+        var range = window.getSelection().getRangeAt(0);
+        preCaretRange = range.cloneRange();
+        selLength = preCaretRange.toString().length;
+        // preCaretRange.selectNodeContents(divContent);
+        preCaretRange.setStart(range.startContainer, 0);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+        caretOffset = preCaretRange.toString().length;
+      }
+    }
+    // else if ((sel == doc.selection) && sel.type != "Control") {
+    //   var textRange = sel.createRange();
+    //   var preCaretTextRange = doc.body.createTextRange();
+    //   preCaretTextRange.moveToElementText(element);
+    //   preCaretTextRange.setEndPoint("EndToEnd", textRange);
+    //   caretOffset = preCaretTextRange.text.length;
+    // }
+    // console.log(`${caretOffset},${selLength}`);
+    this.selEnd = caretOffset;
+    this.selRange = selLength;
+  }
+
   getSectionContent(section) {
     for (let i = 0; i < this.contentObj.bodySections.length; i++) {
       let checkSection = this.contentObj.bodySections[i];
@@ -241,7 +307,7 @@ export class ContentEnter implements OnChanges {
   parseSummary(summaryContent) {
     let paragraphs = this.parseParagraphs(summaryContent);
     this.contentObj.summaryParagraphs = paragraphs;
-    console.log(this.contentObj);
+    // console.log(this.contentObj);
   }
 
   getSummary() {
@@ -272,9 +338,7 @@ export class ContentEnter implements OnChanges {
           formatContent += "<u>";
         if (formatSection.italicize)
           formatContent += "<em>";
-        formatContent += `<span style="font-family: '${formatSection.font}'; font-size: '${formatSection.fontSize}'">
-                      ${formatSection.content}
-                    </span>`;
+        formatContent += `<span style="font-family: '${formatSection.font}'; font-size: '${formatSection.fontSize}'">${formatSection.content}</span>`;
         if (formatSection.italicize)
           formatContent += "</em>";
         if (formatSection.underline)
