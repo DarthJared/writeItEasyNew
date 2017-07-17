@@ -14,6 +14,9 @@ export class ContentEnter implements OnChanges {
   selEnd;
   selRange;
   lastSel;
+  setBold = false;
+  setItalic = false;
+  setUnderline = false;
   
   ngOnChanges() {
     
@@ -28,14 +31,17 @@ export class ContentEnter implements OnChanges {
   }  
 
   bold() {
+    this.setBold = true;
     console.log("bold it");
   }
 
   italic() {
+    this.setItalic = true;
     console.log("italicize it");
   }
 
   underline() {
+    this.setUnderline = true;
     console.log("underline it");
   }
 
@@ -299,7 +305,7 @@ export class ContentEnter implements OnChanges {
     for (let i = 0; i < this.contentObj.bodySections.length; i++) {
       let checkSection = this.contentObj.bodySections[i];
       if (checkSection.indexVal == section.indexVal) {
-        return this.contentify(checkSection.paragraphs);
+        return this.contentify(checkSection.paragraphs, '');
       }
     }
   }
@@ -311,7 +317,10 @@ export class ContentEnter implements OnChanges {
   }
 
   getSummary() {
-    return this.contentify(this.contentObj.summaryParagraphs);
+    if ((this.setBold || this.setItalic || this.setUnderline) && this.lastSel == 'summary') {
+      this.setFormat('summaryParagraphs');
+    }
+    return this.contentify(this.contentObj.summaryParagraphs, 'summary');
   }
 
   parseConclusion(conclusionContent) {
@@ -321,16 +330,134 @@ export class ContentEnter implements OnChanges {
   }
 
   getConclusion() {
-    return this.contentify(this.contentObj.conclusionParagraphs);
+    if ((this.setBold || this.setItalic || this.setUnderline) && this.lastSel == 'conclusion') {
+      this.setFormat('conclusionParagraphs');
+    }
+    return this.contentify(this.contentObj.conclusionParagraphs, 'conclusion');
+  }
+
+  setFormat(sectionName) {
+    let formatCount = 0;
+    let formatSectionsToAdd = [];
+    let rangeEnd = false;
+    for (let i = 0; i < this.contentObj[sectionName].formatSections.length; i++) {
+      let formatCountStart = formatCount;
+      formatCount += this.contentObj[sectionName].formatSections[i].content.length;
+      if (formatCount < this.selEnd - this.selRange) {       
+        if (!rangeEnd) {
+          let startPoint;
+          let endPoint;
+          let sectionLength = this.contentObj[sectionName].formatSections[i].content.length;
+          if (this.selEnd <= formatCount) {
+            rangeEnd = true;
+          }
+
+          if (this.selEnd >= formatCount) {
+            endPoint = sectionLength;
+          }          
+          else {
+            endPoint = this.selEnd - formatCountStart;
+          }
+          if (formatCountStart <= this.selEnd - this.selRange) {
+            startPoint = 0;
+          }
+          else {
+            startPoint = this.selEnd - this.selRange - formatCountStart;
+          }
+
+          let newFormatSection = JSON.parse(JSON.stringify(this.contentObj[sectionName].formatSections[i]));
+          if (startPoint == 0 && endPoint == sectionLength) {
+            newFormatSection = this.getNewFormat(newFormatSection);
+            formatSectionsToAdd.push(newFormatSection);
+          }
+          else if (endPoint == sectionLength) {
+            let unformatted = JSON.parse(JSON.stringify(newFormatSection));            
+            unformatted.content = newFormatSection.content.substring(startPoint, endPoint);
+            newFormatSection.content = newFormatSection.content.substring(endPoint, newFormatSection.content.length);
+            newFormatSection = this.getNewFormat(newFormatSection);
+            formatSectionsToAdd.push(unformatted);
+            formatSectionsToAdd.push(newFormatSection);
+          }
+          else if (startPoint == 0) {
+            let unformatted = JSON.parse(JSON.stringify(newFormatSection));            
+            unformatted.content = newFormatSection.content.substring(endPoint, newFormatSection.content.length);
+            newFormatSection.content = newFormatSection.content.substring(0, endPoint);
+            newFormatSection = this.getNewFormat(newFormatSection);
+            formatSectionsToAdd.push(newFormatSection);
+            formatSectionsToAdd.push(unformatted);
+          }
+          else  {
+            let unformattedBegin = JSON.parse(JSON.stringify(newFormatSection)); 
+            let unformattedEnd = JSON.parse(JSON.stringify(newFormatSection));            
+            unformattedBegin.content = newFormatSection.content.substring(endPoint, newFormatSection.content.length);
+            unformattedEnd.content = newFormatSection.content.substring(0, startPoint);
+            newFormatSection.content = newFormatSection.content.substring(startPoint, endPoint);
+            newFormatSection = this.getNewFormat(newFormatSection);
+            formatSectionsToAdd.push(unformattedBegin);
+            formatSectionsToAdd.push(newFormatSection);
+            formatSectionsToAdd.push(unformattedEnd);
+          }
+        }
+        else {
+          let newFormatSection = JSON.parse(JSON.stringify(this.contentObj[sectionName].formatSections[i]));
+          formatSectionsToAdd.push(newFormatSection);
+        }        
+      }
+      else {
+        formatSectionsToAdd.push(this.contentObj[sectionName].formatSections[i]);
+      }
+    }
+    this.contentObj[sectionName].formatSections = formatSectionsToAdd;
+  }
+
+  getNewFormat(formatSection) {
+    if (this.setBold) {
+      formatSection.bold = true;
+    }
+    if (this.setUnderline) {
+      formatSection.underline = true;
+    }
+    if (this.setItalic) {
+      formatSection.italic = true;
+    }
+    this.setBold = false;
+    this.setUnderline = false;
+    this.setItalic = false;
+    return formatSection;
   }
 
   contentify(toParse, noDiv?) {
+    // if (section == this.lastSel && (this.setBold || this.setItalic || this.setUnderline)) {
+    //   let toAffect = '';
+    //   switch(section) {
+    //     case 'summary':
+    //       toAffect = 'summaryParagraphs';
+    //       break;
+    //     case 'conclusion':
+    //       toAffect = 'conclusionParagraphs';
+    //       break;
+    //   }
+    //   //Go through all paragraphs and format sections in contentobj
+    //   let toChange = JSON.parse(JSON.stringify(this.contentObj[toAffect]));
+    //   this.contentObj[toAffect] = [];
+    //   let countKeeper = 0;
+    //   for (let i = 0; i < toChange.length; i++) {
+    //     for (let j = 0; j < toChange[i].formatSections.length; j++) {
+    //       let sectionChange = toChange[i].formatSections[j];
+    //       countKeeper += sectionChange.content.length;
+
+    //     }
+        
+    //   }
+
+
+    // }
     let content = "";
     for (let i = 0; i < toParse.length; i++) {
       let paragraphContent = noDiv ? "" : "<div>";
       let paragraph = toParse[i];
       for (let j = 0; j < paragraph.formatSections.length; j++) {
-        let formatContent = "";
+        let formatContent = '<span class="formatSection">';
         let formatSection = paragraph.formatSections[j];
         if (formatSection.bold)
           formatContent += "<strong>";
@@ -345,6 +472,7 @@ export class ContentEnter implements OnChanges {
           formatContent += "</u>";
         if (formatSection.bold)
           formatContent += "</strong>";
+        formatContent += "</span>"
         paragraphContent += formatContent;
       }
       if (paragraphContent == "<div>")
@@ -352,8 +480,81 @@ export class ContentEnter implements OnChanges {
       paragraphContent += noDiv ? "" : "</div>";
       content += paragraphContent;
     }
+      
+    
+
+
+
+        // this.contentObj
+        // for (let i = 0; i < paragraphs.length; i++) {
+
+        // }
+
+
+
+        // let sections = content.split('<span class="formatSection">');
+        // let startingPoint = 0;
+        // let continueChecking = true;
+        // for (let i = 0; i < sections.length; i++) {
+        //   let filtered = sections[i]
+        //     .replace('<strong>', '')
+        //     .replace('</strong>', '')
+        //     .replace('<u>', '')
+        //     .replace('</u>', '')
+        //     .replace('<em>', '')
+        //     .replace('</em>', '')
+        //     .replace('<br>', '')
+        //     .replace('<div>', '')
+        //     .replace('</div>', '')
+        //     .replace(/<span .*>/g, '')
+        //     //TODO: check regex
+        //     .replace('</span>', '');
+        //   startingPoint += filtered.length;
+        //   if (startingPoint > this.selEnd - this.selRange) {
+        //     this.setSectionFormat(section, )
+        //   }
+        // }
+      // }
+    // }
+    // let filtered = content
+    //   .replace('<strong>', '')
+    //   .replace('</strong>', '')
+    //   .replace('<u>', '')
+    //   .replace('</u>', '')
+    //   .replace('<em>', '')
+    //   .replace('</em>', '')
+    //   .replace('<br>', '')
+    //   .replace('<div>', '')
+    //   .replace('</div>', '')
+    //   .replace(/<span .*>/g, '')
+    //   //TODO: check regex
+    //   .replace('</span>', '');
+    // if (this.setBold) {
+    //   this.setBold = false;
+
+    // }
+
+
+
     return content;
   }
+
+  // setSectionFormat(section, sectionIndex, changed, value) {
+  //   let toChange = '';
+  //   switch (section) {
+  //     case 'summary':
+  //       // toChange = 'summaryParagraphs';
+  //       this.contentObj.summaryParagraphs[].formatSections[sectionIndex][changed] = value;
+  //       break;
+  //     case 'conclusion':
+  //       toChange = 'conclusionParagraphs';
+  //       break;
+  //     case 'body':
+
+  //       break;
+  //   }
+  //   this.contentObj[toChange].formatSections[sectionIndex][changed] = value;
+  // }
 
   parseParagraphs(paragraphs) {
     let toReturn = [];
